@@ -1,0 +1,13 @@
+{
+  "name": "guardian-indicators",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Published custom-indicator registry for the Guardian trading app (served via jsDelivr).",
+  "scripts": {
+    "gen-keypair": "node scripts/gen-keypair.mjs",
+    "sign": "node scripts/sign.mjs",
+    "build-catalog": "node scripts/build-catalog.mjs",
+    "verify": "node scripts/verify.mjs"
+  }
+}

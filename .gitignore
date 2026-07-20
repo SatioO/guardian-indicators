@@ -1,0 +1,5 @@
+# Signing key — NEVER commit. Lives locally / in CI secrets only.
+signing-key.private.pem
+*.private.pem
+*.key
+node_modules/

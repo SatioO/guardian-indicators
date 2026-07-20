@@ -1,0 +1,13 @@
+[
+  {
+    "id": "pub.satioo.sma-envelope",
+    "name": "SMA Envelope",
+    "creator": "satioo",
+    "summary": "Simple moving-average basis with percentage envelope bands.",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 1
+  }
+]

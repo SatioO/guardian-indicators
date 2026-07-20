@@ -1,0 +1,44 @@
+name: sign-and-catalog
+
+# On merge to main: sign any newly-added (unsigned) package with the registry key,
+# rebuild catalog.json, and commit the results back. The human merge is the
+# moderation gate; this Action is the integrity (signature) step.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sign-and-catalog
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sign unsigned packages
+        env:
+          REGISTRY_SIGNING_KEY: ${{ secrets.REGISTRY_SIGNING_KEY }}
+        run: node scripts/sign.mjs
+
+      - name: Rebuild catalog
+        run: node scripts/build-catalog.mjs
+
+      - name: Commit signatures + catalog
+        run: |
+          git config user.name "guardian-registry-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "ci: sign packages + rebuild catalog [skip ci]"
+            git push
+          fi
