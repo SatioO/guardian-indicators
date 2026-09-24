@@ -25,6 +25,9 @@ for (const id of dirs(PKG_ROOT)) {
     latestVersion: latest,
     versions,
     apiVersion: m.apiVersion,
+    // G Script packages (apiVersion 2) are pinned to a language version too;
+    // the app refuses a v2 row without it, so the catalog must carry it.
+    ...(m.gScriptVersion === undefined ? {} : { gScriptVersion: m.gScriptVersion }),
   });
 }
 entries.sort((a, b) => a.id.localeCompare(b.id));
