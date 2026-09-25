@@ -1,5 +1,70 @@
 [
   {
+    "id": "pub.guardian.accumulation-distribution",
+    "name": "Accumulation/Distribution",
+    "creator": "guardian",
+    "summary": "A running total of volume weighted by where each bar closes in its range, with a signal line and cross alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane"
+  },
+  {
+    "id": "pub.guardian.chaikin-money-flow",
+    "name": "Chaikin Money Flow",
+    "creator": "guardian",
+    "summary": "Buying against selling pressure over the last 20 bars, as columns above or below zero with guide lines",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane"
+  },
+  {
+    "id": "pub.guardian.connors-rsi",
+    "name": "Connors RSI",
+    "creator": "guardian",
+    "summary": "A short-term overbought and oversold gauge averaging price RSI, streak RSI and the rank of the day's change",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane"
+  },
+  {
+    "id": "pub.guardian.elder-force-index",
+    "name": "Elder Force Index",
+    "creator": "guardian",
+    "summary": "The force behind each move, price change times volume, smoothed and coloured by whether bulls or bears lead",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane"
+  },
+  {
+    "id": "pub.guardian.historical-volatility",
+    "name": "Historical Volatility",
+    "creator": "guardian",
+    "summary": "How much a stock's daily closes swing, annualised as a percent, with its rank against the past year",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane"
+  },
+  {
     "id": "pub.satioo.sma-envelope",
     "name": "SMA Envelope",
     "creator": "satioo",
@@ -8,6 +73,7 @@
     "versions": [
       "1.0.0"
     ],
-    "apiVersion": 1
+    "apiVersion": 1,
+    "placement": "price"
   }
 ]
