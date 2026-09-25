@@ -3,11 +3,16 @@ name: sign-and-catalog
 # On merge to main: build every new indicator version from indicators/ with
 # the pinned toolchain, sign every unsigned package with the registry key,
 # rebuild catalog.json, verify every signature, commit the results and purge
-# the CDN copy of the catalog so the app sees new versions right away.
+# the CDN copy of the catalog — and confirm the CDN serves it — so the app sees
+# new versions right away.
 # The human merge is the moderation gate; this Action is the integrity step.
 on:
   push:
     branches: [main]
+  # Re-run by hand (Actions → sign-and-catalog → Run workflow), e.g. to refresh
+  # the CDN catalog. Idempotent: unchanged indicators rebuild to nothing new,
+  # signed packages stay as they are.
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -56,8 +61,10 @@ jobs:
             git push
           fi
 
-      - name: Refresh the CDN catalog
-        run: curl -fsS "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/catalog.json" || echo "purge failed; jsDelivr refreshes within its cache window"
+      # Purge, then confirm jsDelivr serves the catalog just committed; a single
+      # purge right after the push can race the CDN re-caching the old commit.
+      - name: Refresh the CDN catalog (verified)
+        run: node scripts/refresh-cdn.mjs
 
       - name: Publish report
         if: always()

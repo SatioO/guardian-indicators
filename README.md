@@ -37,7 +37,7 @@ versions. "It built here" and "it installs in the app" cannot drift.
 |---|---|---|
 | **Write** | Author | Add `indicators/<name>/` (copy an existing one). Run `npm test` and `npm run check`. |
 | **Review** | PR + CI | `check` runs the indicator's tests, builds it exactly as the app installs it, enforces the version rules and the PR guard, and shows *What merging publishes* (each version, its change level and why) in the run summary. The Registry operator (CODEOWNERS) reviews. |
-| **Publish** | Merge + CI | `sign-and-catalog` builds each new version into `packages/`, signs it, rebuilds `catalog.json`, verifies every signature, commits, and refreshes the CDN catalog. It is in every trader's Library within minutes. |
+| **Publish** | Merge + CI | `sign-and-catalog` builds each new version into `packages/`, signs it, rebuilds `catalog.json`, verifies every signature, commits, and refreshes the CDN catalog — purging until jsDelivr serves the new catalog, or failing the run. It is in every trader's Library within minutes. (Actions → sign-and-catalog → Run workflow re-runs it by hand.) |
 | **Install** | Trader | **Add to chart** downloads, verifies (signature + revocation), dry-runs, stores and adds it in one action. Every later start is instant — installed indicators load before first paint and work offline. |
 | **Update** | Author → trader | A new version in `manifest.json` + a Release notes entry. The app shows *Update available* with the change level and the notes, and **always asks** — nothing updates silently. |
 | **Roll back** | Trader | Published versions are immutable and stay installable; reinstalling an earlier version is the rollback. |
