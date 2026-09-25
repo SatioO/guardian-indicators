@@ -38,6 +38,18 @@ describe('checkPrChanges: what a PR may change', () => {
     expect(check([{ status: 'M', path: 'catalog.json' }])[0]).toMatch(/catalog/);
   });
 
+  it('lets a key rotation drop old signatures so CI re-signs with the new key', () => {
+    const rotation = [
+      { status: 'M', path: 'signing-key.public.txt' },
+      { status: 'D', path: 'packages/pub.satioo.sma-envelope/1.0.0/package.sig' },
+    ];
+    expect(check(rotation)).toEqual([]);
+    // Without the new public key it is just an edit to a Published version.
+    expect(check(rotation.slice(1))).toHaveLength(1);
+    // A rotation still may not add or edit a signature by hand.
+    expect(check([rotation[0], { status: 'M', path: 'packages/pub.satioo.sma-envelope/1.0.0/package.sig' }])).toHaveLength(1);
+  });
+
   it('refuses a prebuilt package for an indicator whose source lives here: CI builds those', () => {
     expect(check([{ status: 'A', path: 'packages/pub.guardian.connors-rsi/1.1.0/bundle.js' }])[0]).toMatch(/built by CI/);
   });
