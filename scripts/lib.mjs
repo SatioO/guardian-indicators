@@ -49,6 +49,9 @@ export function compareSemver(a, b) {
  */
 export function checkPrChanges(changes, repo) {
   const errors = [];
+  // A key rotation replaces the public key; its old signatures may then be
+  // deleted (never edited) so CI re-signs those packages with the new key.
+  const rotatingKey = changes.some(({ path }) => path === 'signing-key.public.txt');
   for (const { status, path } of changes) {
     if (path === 'catalog.json') {
       errors.push('catalog.json: CI rebuilds the catalog on merge — leave it out of the PR.');
@@ -57,6 +60,7 @@ export function checkPrChanges(changes, repo) {
     // Only package files (packages/<id>/<version>/<file>) are guarded.
     if (!/^packages\/[^/]+\/[^/]+\/[^/]+$/.test(path)) continue;
     if (path.endsWith('.sig')) {
+      if (rotatingKey && status === 'D') continue;
       errors.push(`${path}: CI signs packages on merge — never add or edit a signature.`);
       continue;
     }

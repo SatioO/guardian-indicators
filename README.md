@@ -113,6 +113,20 @@ This writes `signing-key.private.pem` (git-ignored — **keep secret**) and prin
 key. Set it as the app's `VITE_REGISTRY_PUBKEY`, and add the private key as the Actions
 secret **`REGISTRY_SIGNING_KEY`**.
 
+## Rotating the signing key
+
+When the private key is lost or must change (before the app pins `trust/` root keys):
+
+1. On your own machine, in a clone of this repo: `node scripts/gen-keypair.mjs`. It writes
+   `signing-key.private.pem` (git-ignored) and `signing-key.public.txt`.
+2. Put the whole `.pem` in the Actions secret `REGISTRY_SIGNING_KEY`, then delete the local
+   file (CI is the only signer).
+3. Open a PR that commits the new `signing-key.public.txt` and **deletes** every
+   `package.sig`. The PR guard allows deleting signatures only in a PR that changes the
+   public key; on merge CI re-signs every package with the new key and verifies them all.
+4. Set the app's `VITE_REGISTRY_PUBKEY` to the new public key. Installed copies signed with
+   the old key no longer verify; reinstalling fixes them.
+
 ## Local checks
 
 ```bash
