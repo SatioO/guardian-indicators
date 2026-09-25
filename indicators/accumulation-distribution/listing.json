@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Accumulation/Distribution Line",
+    "summary": "A running total of volume weighted by where each bar closes in its range, with a signal line and cross alerts",
+    "description": "## What it shows\nA line in its own pane that keeps a running total of volume, weighted by where each bar closed within its high-to-low range. A close at the high adds the bar's whole volume, a close in the middle adds nothing, and a close at the low subtracts all of it; a bar with no range adds nothing. An amber **Signal** line, an exponential average of the line over **Signal length** bars (21 by default), smooths it. The line is green while it is at or above the signal and red while it is below; it is blue until the signal has enough bars. Values print in K, L and Cr.\n\n## How to read it\n- A rising line means bars keep closing in the upper part of their range on good volume, which many traders read as accumulation.\n- A falling line while price holds up can warn that the closes are weakening beneath the surface.\n- Unlike On Balance Volume it ignores gaps between bars and looks only at the close within each bar.\n- Unlike Chaikin Money Flow it never resets: it accumulates every bar's contribution since the start of the chart's history rather than only a rolling window.\n- Alerts are available for **A/D crossed above signal** and **A/D crossed below signal**.\n\n## Limits\n- A stock that gaps up and closes near the low of the day counts as distribution even though it rose.\n- The running total depends on where the loaded history starts, so compare shapes, not values, between charts.\n- A bar with no range, such as a day locked at a circuit limit, adds nothing however much traded.",
+    "categories": [
+      "volume",
+      "trend"
+    ],
+    "tags": [
+      "accumulation",
+      "distribution",
+      "ad-line",
+      "money-flow",
+      "signal-line",
+      "cumulative-volume"
+    ]
+  }
+}

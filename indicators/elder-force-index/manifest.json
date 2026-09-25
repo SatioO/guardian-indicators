@@ -1,0 +1,8 @@
+{
+  "type": "local.elder-force-index",
+  "name": "Elder Force Index",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

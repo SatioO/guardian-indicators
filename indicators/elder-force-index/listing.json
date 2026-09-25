@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Elder Force Index (EFI)",
+    "summary": "The force behind each move, price change times volume, smoothed and coloured by whether bulls or bears lead",
+    "description": "## What it shows\nA line in its own pane. Each bar's force is the change in the close from the bar before, times the bar's volume: a big move on heavy volume has a lot of force, a big move on thin volume little. The line is an exponential average of that force over **Length** bars (13 by default). It is green while above zero, when bulls are in control, and red while below, when bears are, with a dashed zero line. The raw one-bar force appears in the Data Window as **Force (1 bar)**. Values print in K, L and Cr.\n\n## How to read it\n- A line above zero in a rising market confirms that buyers are pushing price up on volume.\n- A dip below zero that turns back up inside an uptrend is a pullback many swing traders look to buy.\n- A new price high with a lower force high shows the push weakening.\n- Alerts are available for **EFI crossed above zero** and **EFI crossed below zero**.\n\n## Limits\n- The values depend on the stock's price and volume, so they cannot be compared between stocks.\n- A short **Length** such as 2 turns it into a fast timing tool that crosses zero often.\n- Nothing is drawn until **Length** bars after the first are loaded.",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "efi",
+      "force-index",
+      "elder",
+      "bulls-bears",
+      "pullback",
+      "zero-cross"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+name: check
+
+# Every PR: run each indicator's tests with the pinned G Script toolchain,
+# build every indicator exactly as the app will install it (without writing),
+# enforce the version rules and the PR guard, and show the publish report.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+
+      - name: Indicator tests
+        run: npm test
+
+      - name: Build + version rules (no writes)
+        run: npx gscript-toolchain publish --report publish-report.md
+
+      - name: PR guard (immutable versions, CI-only signatures/catalog)
+        run: node scripts/check-pr.mjs
+
+      - name: Publish report
+        if: always()
+        run: |
+          if [ -f publish-report.md ]; then
+            { echo "## What merging publishes"; echo; cat publish-report.md; } >> "$GITHUB_STEP_SUMMARY"
+          fi

@@ -1,24 +1,24 @@
-<!-- Publishing an indicator? Add ONLY packages/pub.<creator>.<name>/<version>/manifest.json + bundle.js.
-     Do NOT add package.sig or edit catalog.json — CI generates both on merge. -->
+<!-- Guardian indicators: change indicators/<name>/ only — CI builds, signs and catalogs.
+     Prebuilt (SDK v1) packages: add packages/pub.<creator>.<name>/<version>/{manifest.json,bundle.js} only.
+     Never add package.sig or edit catalog.json. -->
 
 ## Indicator
 
-- **id:** `pub.<creator>.<name>`
-- **version:** `x.y.z`
-- **what it does:** <one line>
+- **id:** `pub.<author>.<name>`
+- **version:** `x.y.z` (change level: patch / minor / major)
+- **what changed:** <one line>
 
 ## Author checklist
 
-- [ ] Package is under `packages/pub.<creator>.<name>/<version>/` with `manifest.json` + `bundle.js` only.
-- [ ] `manifest.type` equals the folder id and is `pub.<creator>.<name>`; `version` matches the folder; `apiVersion` is set.
-- [ ] `manifest` includes `name`, `creator`, `description`.
-- [ ] `bundle.js` is the resolution-sandboxed build (assigns `globalThis.compute`); no network/DOM/import of anything outside the SDK.
-- [ ] This version is NEW (published versions are immutable — never edit an existing version's files).
-- [ ] I have the right to publish this code (not a copy of someone else's paid/closed script).
+- [ ] `version` in `manifest.json` is bumped at least as much as the change (CI enforces it and names the smallest valid version).
+- [ ] `RELEASE-NOTES.md` has a `## x.y.z` entry written for traders (what they'll notice; a Breaking change says what to redo).
+- [ ] Tests cover the change against a reference computation; `npm test` passes.
+- [ ] `npm run check` shows what merging publishes, and it is what I intend.
+- [ ] I have the right to publish this code.
 
-## Moderator checklist
+## Reviewer checklist
 
-- [ ] `id`/`version`/folder agree; `creator` matches the author (not impersonating).
-- [ ] Name/description are accurate and non-deceptive (no fake "official"/"institutional" claims).
-- [ ] Sanity-checked the drawn output on fixture data (not obviously misleading signals).
-- [ ] On merge, CI will sign + rebuild the catalog.
+- [ ] The *What merging publishes* summary on the `check` run matches the intent (versions, change level, reasons).
+- [ ] Name, summary and release notes are accurate and non-deceptive.
+- [ ] The drawn output is sane on the test fixtures (not an obviously misleading signal).
+- [ ] A `toolchain/` change is a real app build (`npx gscript-toolchain info`) and was deliberate.

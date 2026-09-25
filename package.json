@@ -3,11 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Published custom-indicator registry for the Guardian trading app (served via jsDelivr).",
+  "description": "Published indicator Registry for the Guardian trading app (served via jsDelivr).",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
+    "test": "vitest run",
+    "check": "gscript-toolchain publish --report publish-report.md && node scripts/check-pr.mjs",
+    "publish:write": "gscript-toolchain publish --write",
+    "toolchain:info": "gscript-toolchain info",
     "gen-keypair": "node scripts/gen-keypair.mjs",
     "sign": "node scripts/sign.mjs",
     "build-catalog": "node scripts/build-catalog.mjs",
     "verify": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "guardian-gscript-toolchain": "file:toolchain",
+    "vitest": "5.0.2"
   }
 }
