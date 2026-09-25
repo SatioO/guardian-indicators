@@ -3,3 +3,4 @@ signing-key.private.pem
 *.private.pem
 *.key
 node_modules/
+publish-report.md

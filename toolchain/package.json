@@ -1,0 +1,20 @@
+{
+  "name": "guardian-gscript-toolchain",
+  "version": "0.0.1",
+  "description": "The Guardian app's G Script toolchain for the indicator Registry: build, test and version-check indicators.",
+  "type": "module",
+  "main": "gscript-toolchain.mjs",
+  "bin": {
+    "gscript-toolchain": "gscript-toolchain.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "esbuild": "0.25.5",
+    "typescript": "5.8.3",
+    "quickjs-emscripten-core": "0.32.0",
+    "@jitl/quickjs-ng-wasmfile-release-sync": "0.32.0"
+  },
+  "toolchain": "gscript-toolchain@0.0.1+b2473a3593f2"
+}

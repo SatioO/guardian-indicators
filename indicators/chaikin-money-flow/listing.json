@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Chaikin Money Flow (CMF)",
+    "summary": "Buying against selling pressure over the last 20 bars, as columns above or below zero with guide lines",
+    "description": "## What it shows\nColumns in their own pane, between −1 and +1. Each bar's volume is weighted by where it closed in its range: all of it counts as buying at the high and as selling at the low. The study adds up that weighted volume over **Length** bars (20 by default) and divides it by the total volume of those bars. A bar with no range adds no flow, though its volume still counts. Columns use the **Positive flow** colour above zero and the **Negative flow** colour below it, and turn bright once they pass the dotted guide lines at plus or minus **Guide level** (0.2 by default).\n\n## How to read it\n- A reading above zero means the stock has mostly closed in the upper part of its ranges on the volume that mattered; below zero, the lower part.\n- Bright columns beyond the guides show pressure strong enough that many traders take note; faded columns near zero are indecision.\n- A breakout with CMF firmly positive has volume behind it; one with CMF below zero deserves suspicion.\n- Alerts are available for **CMF crossed above zero** and **CMF crossed below zero**.\n\n## Limits\n- It looks only at closes within each bar, so a gap up that closes near the low reads as selling.\n- Near zero it flips sign often; the guides are there to filter that noise.\n- Nothing is drawn until **Length** bars are loaded, or while no volume traded in the window.",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "cmf",
+      "chaikin",
+      "money-flow",
+      "buying-pressure",
+      "selling-pressure",
+      "accumulation"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "A short-term overbought and oversold gauge averaging price RSI, streak RSI and the rank of the day's change",
+    "description": "## What it shows\nA line in its own pane, from 0 to 100, that averages three readings. The first is RSI of the close over **RSI length** bars (3 by default). The second is RSI over **Up/down length** bars (2 by default) of the streak: how many closes in a row have been up (+1, +2, …) or down (−1, −2, …), reset to 0 by an unchanged close. The third is the percent of the last **ROC length** one-bar changes (100 by default) that were at or below today's change. Dashed lines mark the **Upper band** (90 by default) and the **Lower band** (10 by default) with the space between them shaded and a dotted line at 50; the line turns the **Above the upper band** or **Below the lower band** colour outside them and the **CRSI line** colour (accent blue, #38bdf8 by default) in between. Each of the three parts and the streak itself appear in the Data Window.\n\n## How to read it\n- It is built for short-term pullbacks: a reading below the lower band marks a sharp, stretched drop, one above the upper band a sharp, stretched rise.\n- Many traders take those extremes only in the direction of the larger trend — for example a dip below 10 while price holds above a long average.\n- Check the Data Window to see which part is driving an extreme: a long streak, a big one-day move, or both.\n- Alerts are available for **Crossed above upper band** and **Crossed below lower band**.\n\n## Limits\n- It reacts within a bar or two, so it is noisy and suited to short holding periods.\n- The percent rank needs a full window of past changes, so nothing is drawn until **ROC length** + 1 bars are loaded (101 by default).\n- The first bar has no previous close and counts as a down close in the streak, as in the reference study; its effect has faded long before the line is drawn.",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "connors-rsi",
+      "crsi",
+      "rsi",
+      "streak",
+      "percent-rank",
+      "mean-reversion",
+      "pullback"
+    ]
+  }
+}

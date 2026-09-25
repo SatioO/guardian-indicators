@@ -1,8 +1,10 @@
 name: sign-and-catalog
 
-# On merge to main: sign any newly-added (unsigned) package with the registry key,
-# rebuild catalog.json, and commit the results back. The human merge is the
-# moderation gate; this Action is the integrity (signature) step.
+# On merge to main: build every new indicator version from indicators/ with
+# the pinned toolchain, sign every unsigned package with the registry key,
+# rebuild catalog.json, verify every signature, commit the results and purge
+# the CDN copy of the catalog so the app sees new versions right away.
+# The human merge is the moderation gate; this Action is the integrity step.
 on:
   push:
     branches: [main]
@@ -21,7 +23,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+
+      - name: Indicator tests
+        run: npm test
+
+      - name: Build new versions
+        run: npx gscript-toolchain publish --write --report publish-report.md
 
       - name: Sign unsigned packages
         env:
@@ -31,14 +41,27 @@ jobs:
       - name: Rebuild catalog
         run: node scripts/build-catalog.mjs
 
-      - name: Commit signatures + catalog
+      - name: Verify every signature
+        run: node scripts/verify.mjs
+
+      - name: Commit packages, signatures + catalog
         run: |
           git config user.name "guardian-registry-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add packages catalog.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "ci: sign packages + rebuild catalog [skip ci]"
+            git commit -m "ci: publish packages, sign, rebuild catalog [skip ci]"
             git push
+          fi
+
+      - name: Refresh the CDN catalog
+        run: curl -fsS "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/catalog.json" || echo "purge failed; jsDelivr refreshes within its cache window"
+
+      - name: Publish report
+        if: always()
+        run: |
+          if [ -f publish-report.md ]; then
+            { echo "## Published"; echo; cat publish-report.md; } >> "$GITHUB_STEP_SUMMARY"
           fi

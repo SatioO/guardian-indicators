@@ -1,0 +1,8 @@
+{
+  "type": "local.chaikin-money-flow",
+  "name": "Chaikin Money Flow",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

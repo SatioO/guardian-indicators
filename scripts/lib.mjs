@@ -37,3 +37,37 @@ export function compareSemver(a, b) {
   }
   return 0;
 }
+
+/**
+ * What a PR may change (`git diff --name-status base...head` rows). CI makes
+ * signatures, the catalog and the packages of indicators whose source lives in
+ * indicators/; Published versions never change. Returns one message per
+ * violation (empty = allowed).
+ *
+ * @param {{ status: string, path: string }[]} changes
+ * @param {{ sourceIds: Set<string>, existingPackageFiles: Set<string> }} repo
+ */
+export function checkPrChanges(changes, repo) {
+  const errors = [];
+  for (const { status, path } of changes) {
+    if (path === 'catalog.json') {
+      errors.push('catalog.json: CI rebuilds the catalog on merge — leave it out of the PR.');
+      continue;
+    }
+    // Only package files (packages/<id>/<version>/<file>) are guarded.
+    if (!/^packages\/[^/]+\/[^/]+\/[^/]+$/.test(path)) continue;
+    if (path.endsWith('.sig')) {
+      errors.push(`${path}: CI signs packages on merge — never add or edit a signature.`);
+      continue;
+    }
+    const [, id] = path.split('/');
+    if (repo.sourceIds.has(id)) {
+      errors.push(`${path}: ${id} is built by CI from indicators/ — change its source and version instead.`);
+      continue;
+    }
+    if (status !== 'A' || repo.existingPackageFiles.has(path)) {
+      errors.push(`${path}: Published versions are immutable — publish a new version instead of changing this one.`);
+    }
+  }
+  return errors;
+}

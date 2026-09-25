@@ -1,0 +1,8 @@
+# The Registry operator reviews everything that decides what gets built,
+# signed and served: indicator source, the pinned toolchain, CI and scripts.
+/indicators/  @SatioO
+/toolchain/   @SatioO
+/scripts/     @SatioO
+/.github/     @SatioO
+/package.json @SatioO
+/package-lock.json @SatioO

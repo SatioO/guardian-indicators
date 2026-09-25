@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "summary": "How much a stock's daily closes swing, annualised as a percent, with its rank against the past year",
+    "description": "## What it shows\nA line in its own pane: the standard deviation of the last **Length** close-to-close log returns (10 by default), annualised by the square root of **Days per year** and shown as a percent. **Days per year** is 252 by default, the Indian trading year; the reference platform uses 365 calendar days, so set 365 to match its numbers. The line turns violet while today's reading ranks at or below **Low rank at or below** (10 by default) among the last **Rank lookback (bars)** readings (252 by default), and amber at or above **High rank at or above** (90 by default). The rank itself, from 0 (the calmest of the year) to 100, appears in the Data Window as **HV rank**.\n\n## How to read it\n- An HV of 30 means the daily swings, if they kept up for a year, would add up to about 30% either way.\n- Violet marks volatility near its low for the year: the coiled, quiet stretch that often comes before a big move.\n- Amber marks volatility near its high for the year, typical after a shock or during a fast trend.\n- Alerts are available for **Volatility at a yearly low** and **Volatility at a yearly high**, the bar HV first drops into the low rank or rises into the high rank.\n\n## Limits\n- It annualises every bar as one trading day. On a weekly chart set **Days per year** to 52, and on a monthly chart to 12.\n- It uses closes only, so an intraday range that closes flat does not register.\n- Nothing is drawn until **Length** returns exist, and the rank needs **Rank lookback (bars)** more readings.",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "hv",
+      "historical-volatility",
+      "standard-deviation",
+      "hv-rank",
+      "volatility-contraction",
+      "options"
+    ]
+  }
+}
