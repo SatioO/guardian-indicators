@@ -58,6 +58,9 @@ versions. "It built here" and "it installs in the app" cannot drift.
 
 ## Writing an indicator
 
+The full guide — folder layout, listing rules, test-first workflow, G Script v2 tips and the
+design standard — is [AUTHORING.md](AUTHORING.md).
+
 ```bash
 npm ci
 cp -r indicators/connors-rsi indicators/my-indicator   # then edit
