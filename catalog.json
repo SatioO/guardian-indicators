@@ -23,7 +23,8 @@
       "money-flow",
       "signal-line",
       "cumulative-volume"
-    ]
+    ],
+    "listing": "indicators/accumulation-distribution/listing.json"
   },
   {
     "id": "pub.guardian.adr-percent",
@@ -48,7 +49,8 @@
       "range-contraction",
       "tight-days",
       "position-sizing"
-    ]
+    ],
+    "listing": "indicators/adr-percent/listing.json"
   },
   {
     "id": "pub.guardian.adx-dmi",
@@ -74,7 +76,8 @@
       "trend-strength",
       "directional-movement",
       "crossover"
-    ]
+    ],
+    "listing": "indicators/adx-dmi/listing.json"
   },
   {
     "id": "pub.guardian.aroon",
@@ -98,7 +101,8 @@
       "new-lows",
       "crossover",
       "oscillator"
-    ]
+    ],
+    "listing": "indicators/aroon/listing.json"
   },
   {
     "id": "pub.guardian.atr-percent",
@@ -123,7 +127,8 @@
       "volatility-expansion",
       "position-sizing",
       "stop-loss"
-    ]
+    ],
+    "listing": "indicators/atr-percent/listing.json"
   },
   {
     "id": "pub.guardian.awesome-oscillator",
@@ -147,7 +152,8 @@
       "histogram",
       "zero-line",
       "median-price"
-    ]
+    ],
+    "listing": "indicators/awesome-oscillator/listing.json"
   },
   {
     "id": "pub.guardian.bollinger-bandwidth",
@@ -171,7 +177,8 @@
       "volatility-contraction",
       "breakout",
       "bbw"
-    ]
+    ],
+    "listing": "indicators/bollinger-bandwidth/listing.json"
   },
   {
     "id": "pub.guardian.bollinger-percent-b",
@@ -197,7 +204,8 @@
       "oversold",
       "breakout",
       "mean-reversion"
-    ]
+    ],
+    "listing": "indicators/bollinger-percent-b/listing.json"
   },
   {
     "id": "pub.guardian.cci",
@@ -222,7 +230,8 @@
       "overbought",
       "oversold",
       "mean-deviation"
-    ]
+    ],
+    "listing": "indicators/cci/listing.json"
   },
   {
     "id": "pub.guardian.chaikin-money-flow",
@@ -248,7 +257,8 @@
       "buying-pressure",
       "selling-pressure",
       "accumulation"
-    ]
+    ],
+    "listing": "indicators/chaikin-money-flow/listing.json"
   },
   {
     "id": "pub.guardian.chandelier-exit",
@@ -273,7 +283,8 @@
       "stop-loss",
       "trend-following",
       "signals"
-    ]
+    ],
+    "listing": "indicators/chandelier-exit/listing.json"
   },
   {
     "id": "pub.guardian.choppiness-index",
@@ -298,7 +309,8 @@
       "range-bound",
       "market-regime",
       "consolidation"
-    ]
+    ],
+    "listing": "indicators/choppiness-index/listing.json"
   },
   {
     "id": "pub.guardian.connors-rsi",
@@ -323,7 +335,8 @@
       "percent-rank",
       "mean-reversion",
       "pullback"
-    ]
+    ],
+    "listing": "indicators/connors-rsi/listing.json"
   },
   {
     "id": "pub.guardian.donchian-channels",
@@ -348,7 +361,8 @@
       "highs-lows",
       "turtle",
       "range"
-    ]
+    ],
+    "listing": "indicators/donchian-channels/listing.json"
   },
   {
     "id": "pub.guardian.elder-force-index",
@@ -374,7 +388,8 @@
       "bulls-bears",
       "pullback",
       "zero-cross"
-    ]
+    ],
+    "listing": "indicators/elder-force-index/listing.json"
   },
   {
     "id": "pub.guardian.elder-impulse",
@@ -399,7 +414,8 @@
       "ema",
       "bar-color",
       "trend-filter"
-    ]
+    ],
+    "listing": "indicators/elder-impulse/listing.json"
   },
   {
     "id": "pub.guardian.ema",
@@ -423,7 +439,8 @@
       "exponential",
       "trend-following",
       "overlay"
-    ]
+    ],
+    "listing": "indicators/ema/listing.json"
   },
   {
     "id": "pub.guardian.envelope",
@@ -448,7 +465,8 @@
       "mean-reversion",
       "overextension",
       "percent-bands"
-    ]
+    ],
+    "listing": "indicators/envelope/listing.json"
   },
   {
     "id": "pub.guardian.fifty-two-week-range",
@@ -473,7 +491,8 @@
       "breakout",
       "swing",
       "new-highs"
-    ]
+    ],
+    "listing": "indicators/fifty-two-week-range/listing.json"
   },
   {
     "id": "pub.guardian.heikin-ashi",
@@ -497,7 +516,8 @@
       "trend-following",
       "smoothing",
       "reversal"
-    ]
+    ],
+    "listing": "indicators/heikin-ashi/listing.json"
   },
   {
     "id": "pub.guardian.historical-volatility",
@@ -521,7 +541,8 @@
       "hv-rank",
       "volatility-contraction",
       "options"
-    ]
+    ],
+    "listing": "indicators/historical-volatility/listing.json"
   },
   {
     "id": "pub.guardian.ichimoku-cloud",
@@ -546,7 +567,8 @@
       "tenkan-kijun",
       "support-resistance",
       "trend-following"
-    ]
+    ],
+    "listing": "indicators/ichimoku-cloud/listing.json"
   },
   {
     "id": "pub.guardian.kaufman-ama",
@@ -571,7 +593,8 @@
       "efficiency-ratio",
       "trend-following",
       "kaufman"
-    ]
+    ],
+    "listing": "indicators/kaufman-ama/listing.json"
   },
   {
     "id": "pub.guardian.keltner-channels",
@@ -597,7 +620,8 @@
       "breakout",
       "volatility",
       "ema"
-    ]
+    ],
+    "listing": "indicators/keltner-channels/listing.json"
   },
   {
     "id": "pub.guardian.klinger-oscillator",
@@ -623,7 +647,8 @@
       "signal-line",
       "histogram",
       "divergence"
-    ]
+    ],
+    "listing": "indicators/klinger-oscillator/listing.json"
   },
   {
     "id": "pub.guardian.linear-regression-channel",
@@ -648,7 +673,8 @@
       "pearson-r",
       "trend-line",
       "mean-reversion"
-    ]
+    ],
+    "listing": "indicators/linear-regression-channel/listing.json"
   },
   {
     "id": "pub.guardian.ma-cross",
@@ -673,7 +699,8 @@
       "sma",
       "ema",
       "signals"
-    ]
+    ],
+    "listing": "indicators/ma-cross/listing.json"
   },
   {
     "id": "pub.guardian.ma-extension",
@@ -699,7 +726,8 @@
       "overextended",
       "atr",
       "swing"
-    ]
+    ],
+    "listing": "indicators/ma-extension/listing.json"
   },
   {
     "id": "pub.guardian.ma-ribbon",
@@ -724,7 +752,8 @@
       "ema",
       "200-dma",
       "trend-following"
-    ]
+    ],
+    "listing": "indicators/ma-ribbon/listing.json"
   },
   {
     "id": "pub.guardian.market-structure",
@@ -751,7 +780,8 @@
       "price-action",
       "pivots",
       "trend-structure"
-    ]
+    ],
+    "listing": "indicators/market-structure/listing.json"
   },
   {
     "id": "pub.guardian.money-flow-index",
@@ -777,7 +807,8 @@
       "oversold",
       "oscillator",
       "divergence"
-    ]
+    ],
+    "listing": "indicators/money-flow-index/listing.json"
   },
   {
     "id": "pub.guardian.moving-average",
@@ -803,7 +834,8 @@
       "dema",
       "tema",
       "trend-following"
-    ]
+    ],
+    "listing": "indicators/moving-average/listing.json"
   },
   {
     "id": "pub.guardian.mtf-moving-average",
@@ -829,7 +861,8 @@
       "sma",
       "stage-analysis",
       "swing"
-    ]
+    ],
+    "listing": "indicators/mtf-moving-average/listing.json"
   },
   {
     "id": "pub.guardian.obv",
@@ -855,7 +888,8 @@
       "divergence",
       "signal-line",
       "confirmation"
-    ]
+    ],
+    "listing": "indicators/obv/listing.json"
   },
   {
     "id": "pub.guardian.parabolic-sar",
@@ -880,7 +914,8 @@
       "wilder",
       "trend-following",
       "flip"
-    ]
+    ],
+    "listing": "indicators/parabolic-sar/listing.json"
   },
   {
     "id": "pub.guardian.pivot-points",
@@ -907,7 +942,8 @@
       "woodie",
       "intraday",
       "weekly-pivots"
-    ]
+    ],
+    "listing": "indicators/pivot-points/listing.json"
   },
   {
     "id": "pub.guardian.previous-high-low",
@@ -935,7 +971,8 @@
       "support-resistance",
       "breakout",
       "intraday"
-    ]
+    ],
+    "listing": "indicators/previous-high-low/listing.json"
   },
   {
     "id": "pub.guardian.rate-of-change",
@@ -959,7 +996,8 @@
       "momentum",
       "oscillator",
       "zero-line"
-    ]
+    ],
+    "listing": "indicators/rate-of-change/listing.json"
   },
   {
     "id": "pub.guardian.relative-strength",
@@ -984,7 +1022,8 @@
       "outperformance",
       "leadership",
       "relative-performance"
-    ]
+    ],
+    "listing": "indicators/relative-strength/listing.json"
   },
   {
     "id": "pub.guardian.relative-volume",
@@ -1009,7 +1048,8 @@
       "breakout",
       "accumulation",
       "distribution"
-    ]
+    ],
+    "listing": "indicators/relative-volume/listing.json"
   },
   {
     "id": "pub.guardian.rsi-divergence",
@@ -1034,7 +1074,8 @@
       "momentum",
       "hidden-divergence",
       "alerts"
-    ]
+    ],
+    "listing": "indicators/rsi-divergence/listing.json"
   },
   {
     "id": "pub.guardian.squeeze-momentum",
@@ -1059,7 +1100,8 @@
       "momentum",
       "breakout",
       "volatility-contraction"
-    ]
+    ],
+    "listing": "indicators/squeeze-momentum/listing.json"
   },
   {
     "id": "pub.guardian.stochastic-rsi",
@@ -1083,7 +1125,8 @@
       "overbought",
       "oversold",
       "crossover"
-    ]
+    ],
+    "listing": "indicators/stochastic-rsi/listing.json"
   },
   {
     "id": "pub.guardian.supertrend",
@@ -1108,7 +1151,8 @@
       "signals",
       "stop-loss",
       "flip"
-    ]
+    ],
+    "listing": "indicators/supertrend/listing.json"
   },
   {
     "id": "pub.guardian.swing-dashboard",
@@ -1136,7 +1180,8 @@
       "relative-strength",
       "screening",
       "swing"
-    ]
+    ],
+    "listing": "indicators/swing-dashboard/listing.json"
   },
   {
     "id": "pub.guardian.trend-template",
@@ -1163,7 +1208,8 @@
       "moving-averages",
       "relative-strength",
       "swing"
-    ]
+    ],
+    "listing": "indicators/trend-template/listing.json"
   },
   {
     "id": "pub.guardian.trix",
@@ -1189,7 +1235,8 @@
       "momentum",
       "signal-line",
       "zero-line"
-    ]
+    ],
+    "listing": "indicators/trix/listing.json"
   },
   {
     "id": "pub.guardian.true-strength-index",
@@ -1213,7 +1260,8 @@
       "signal-line",
       "double-smoothed",
       "zero-line"
-    ]
+    ],
+    "listing": "indicators/true-strength-index/listing.json"
   },
   {
     "id": "pub.guardian.up-down-volume",
@@ -1239,7 +1287,8 @@
       "distribution",
       "canslim",
       "institutional"
-    ]
+    ],
+    "listing": "indicators/up-down-volume/listing.json"
   },
   {
     "id": "pub.guardian.vortex",
@@ -1262,7 +1311,8 @@
       "crossover",
       "true-range",
       "trend-strength"
-    ]
+    ],
+    "listing": "indicators/vortex/listing.json"
   },
   {
     "id": "pub.guardian.vwap",
@@ -1287,7 +1337,8 @@
       "intraday",
       "session",
       "benchmark"
-    ]
+    ],
+    "listing": "indicators/vwap/listing.json"
   },
   {
     "id": "pub.guardian.williams-r",
@@ -1312,7 +1363,8 @@
       "oversold",
       "oscillator",
       "mean-reversion"
-    ]
+    ],
+    "listing": "indicators/williams-r/listing.json"
   },
   {
     "id": "pub.satioo.sma-envelope",
