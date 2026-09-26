@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "summary": "Double-smoothed price momentum on a −100 to +100 scale, with a signal line and zero-line crosses",
+    "description": "## What it shows\nTwo lines in their own pane. **TSI**, drawn in the **TSI line** colour, takes each bar's change in close, smooths it with an exponential average over **Long length** bars (25 by default) and again over **Short length** bars (13 by default), and divides by the same double smoothing of the change's absolute size, times 100. It reads +100 when every recent bar closed higher and −100 when every one closed lower. The **Signal** line, drawn in the **Signal line** colour, is an exponential average of TSI over **Signal length** bars (13 by default). A dashed zero line runs through the middle, and the gap between TSI and its signal appears in the Data Window as **TSI minus signal**.\n\n## How to read it\n- Above zero, the smoothed momentum is up; below zero, it is down.\n- TSI crossing its signal line is the quicker turn; crossing zero is the slower, more confirmed one.\n- Readings near the extremes show a one-sided move; many traders watch for TSI turning back from them while price is still pushing on.\n- Alerts are available for **Crossed above signal**, **Crossed below signal**, **Crossed above zero** and **Crossed below zero**.\n\n## Limits\n- Double smoothing makes it steady but slow; it turns after price does.\n- The exponential averages need a long history to settle: TSI starts after **Long length** + **Short length** − 1 bars (37 with the defaults) and the signal after **Signal length** − 1 more.",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "tsi",
+      "true-strength",
+      "momentum",
+      "signal-line",
+      "double-smoothed",
+      "zero-line"
+    ]
+  }
+}

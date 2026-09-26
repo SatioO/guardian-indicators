@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "A stock's price against its index, as a line that rises while the stock outperforms, with new-high markers",
+    "description": "## What it shows\nA line in its own pane: the stock's close divided by the **Benchmark**'s close (NIFTY 50 by default), rebased to 100 on the first bar both have data. A dashed baseline marks that 100 level; above it the stock has outperformed the benchmark since then, below it the stock has lagged. A grey **RS average** over **Average length** bars (50 by default) smooths it. A small dot marks every bar where the line is at its highest of the last **New-high lookback (bars)** (252 by default, about a year of daily bars), in the **RS new high** colour; a larger dot in the same colour marks the new highs that come while the price itself is not at a new high. The line's own spread above or below its average appears in the Data Window as **RS spread**. Turn off **Show performance table** to hide the table showing how much the stock has outperformed or lagged the benchmark over the last 1, 3, 6 and 12 months; recolour the line itself with **RS line**.\n\n## How to read it\n- A rising line means the stock is doing better than its index, whether the market is going up or down.\n- A new RS high before a new price high often shows a stock quietly leading; many traders watch these names.\n- A line below its average shows the leadership fading.\n- Alerts are available for **RS new high** and **RS new high before price**.\n\n## Limits\n- It compares the chart's own bars against the benchmark's bars on the same timeframe.\n- Nothing is drawn until the benchmark's data arrives; a symbol with no data draws nothing.\n- The table counts bars: 1 month is 21 bars, so it reads true months on a daily chart only, and a period with fewer bars than it needs shows an em dash instead of a number.",
+    "categories": [
+      "momentum",
+      "trend"
+    ],
+    "tags": [
+      "rs-line",
+      "benchmark",
+      "index",
+      "outperformance",
+      "leadership",
+      "relative-performance"
+    ]
+  }
+}

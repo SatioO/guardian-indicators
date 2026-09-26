@@ -1,0 +1,8 @@
+{
+  "type": "local.relative-strength",
+  "name": "Relative Strength",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

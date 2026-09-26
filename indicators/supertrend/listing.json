@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "An ATR-based trailing line that sits below price in an up trend and above it in a down trend, with flip signals",
+    "description": "## What it shows\nA trailing line on the price chart built from the midpoint of each bar plus or minus **Factor** (3 by default) times the average true range over **ATR length** bars (10 by default). The lower band only rises while price holds above it and the upper band only falls while price holds below it, so the line ratchets with the trend. It is drawn in the **Up trend** colour (green, #26a69a by default) and sits under price in an up trend, and in the **Down trend** colour (red, #ef5350 by default) over price in a down trend, and the space between price and the line is shaded in that colour when **Shade the trend** is on. A **Buy** or **Sell** label marks the bar the trend flips when **Show buy/sell signals** is on. The Data Window carries the direction (−1 up, +1 down) and **Stop distance %**, the gap between close and the line as a percent of close.\n\n## How to read it\n- The line is a trailing stop: many trend followers stay with the trade while price holds on the right side of it.\n- A flip label marks the close that crossed the line; it confirms only once that bar closes.\n- A larger **Factor** gives the trend more room and flips less often; a smaller one reacts faster.\n- Use **Stop distance %** to size a stop in the same percent terms the position sizing uses.\n- Alerts are available for **Trend turned up**, **Trend turned down** and **Trend changed**.\n\n## Limits\n- In a sideways market it flips back and forth.\n- It follows price, so it turns only after a move has started.\n- Nothing is drawn until **ATR length** bars are loaded.",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "atr",
+      "trailing-stop",
+      "trend-following",
+      "signals",
+      "stop-loss",
+      "flip"
+    ]
+  }
+}

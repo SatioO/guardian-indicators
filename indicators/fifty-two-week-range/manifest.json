@@ -1,0 +1,8 @@
+{
+  "type": "local.fifty-two-week-range",
+  "name": "52-Week Range",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

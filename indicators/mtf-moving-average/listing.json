@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Higher Timeframe Moving Average",
+    "summary": "A weekly or monthly moving average drawn on a daily or intraday chart, stepping only when the higher period has closed",
+    "description": "## What it shows\nA step line on the price chart: a moving average worked out on a higher timeframe's own closes and drawn on this chart. **Timeframe** chooses *Daily*, *Weekly* (the default) or *Monthly*, **Type** chooses *EMA* (the default) or *SMA*, and **Length** sets how many of those bars it averages (10 by default, so a 10-week EMA). The line moves only when a higher-timeframe bar has closed, so every value it shows was already known on that bar. Switch on **Second average** for another line, by default the 30-week SMA (**Second timeframe**, **Second type** and **Second length**). With **Label the averages** on, each line is tagged at the latest bar, such as `W EMA 10`. The Data Window shows **Close vs MA (%)**, the close's distance from the first average.\n\n## How to read it\n- Many swing traders hold a stock while it closes above its 10-week average and treat a weekly close below it as a warning.\n- The 30-week average is a common dividing line between a stage 2 uptrend and a stage 4 downtrend.\n- A daily chart with the weekly average on it shows both the entry detail and the bigger trend at once.\n- Alerts are available for **Crossed above higher-timeframe MA** and **Crossed below higher-timeframe MA**, judged on the chart's closes.\n\n## Limits\n- During a week that has not closed the line shows last week's value, so it trails a live weekly average by up to one bar.\n- On a chart slower than the chosen timeframe the line shows the value at each chart bar's close.\n- Nothing is drawn until the higher-timeframe data arrives and **Length** of its bars are loaded.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "multi-timeframe",
+      "weekly",
+      "ema",
+      "sma",
+      "stage-analysis",
+      "swing"
+    ]
+  }
+}

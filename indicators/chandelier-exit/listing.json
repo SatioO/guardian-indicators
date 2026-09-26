@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "A trailing stop hung a few ATRs below the highest close in an up trend and above the lowest close in a down trend",
+    "description": "## What it shows\nA stepped stop line on the price chart. While long, the **Long stop** sits **ATR multiplier** (3 by default) times the average true range below the highest close of the last **ATR period** bars (22 by default); while short, the **Short stop** sits the same distance above the lowest close. Turn off **Use close price for extremums** to hang the stops from the highest high and lowest low instead. Each stop only moves in the trade's favour while price stays on its side, and only the active stop is drawn, green under price or red over it, with the space to price shaded when **Shade the zone** is on. A **Buy** or **Sell** label marks the bar the close crosses the opposite stop when **Show buy/sell labels** is on. The direction (+1 long, −1 short) appears in the Data Window.\n\n## How to read it\n- Use the line as a trailing exit: many trend followers hold while the close stays on the right side of it.\n- A flip label marks the close that crossed the stop; it confirms once that bar closes.\n- A larger **ATR multiplier** gives the trade more room and flips less often; a smaller one exits sooner.\n- Alerts are available for **Chandelier turned long**, **Chandelier turned short** and **Chandelier direction changed**.\n\n## Limits\n- In a sideways market it flips back and forth.\n- It trails price, so it gives back part of every move before it exits.\n- Nothing is drawn until **ATR period** bars are loaded.",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "chandelier-exit",
+      "trailing-stop",
+      "atr",
+      "stop-loss",
+      "trend-following",
+      "signals"
+    ]
+  }
+}

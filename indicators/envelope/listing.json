@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "A moving average with bands a fixed percent above and below it, showing when price is stretched from its mean",
+    "description": "## What it shows\nThree lines on the price chart. The **Basis** is the average of **Source** (the close by default) over **Length** bars (20 by default) — simple unless **Exponential** is on. The **Upper band** sits **Percent** (10 by default) above the basis and the **Lower band** the same percent below it, and the envelope between them is filled while **Fill the envelope** is on. The Data Window shows **Distance from basis %**, how far the close is above or below the basis.\n\n## How to read it\n- The bands mark how far price usually strays from its average; set **Percent** so most bars stay inside for the stock you watch.\n- A close outside the envelope shows price stretched from its mean — often a pause or pullback in a range, or strength in a breakout.\n- In a strong trend price can ride one band for a long time.\n- Alerts are available for **Close above upper band** and **Close below lower band**.\n\n## Limits\n- The band width is a fixed percent, so it does not widen or narrow with volatility; volatility bands such as Keltner Channels do.\n- A good **Percent** differs from stock to stock and from timeframe to timeframe.\n- Nothing is drawn until **Length** bars are loaded.",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "envelope",
+      "bands",
+      "moving-average",
+      "mean-reversion",
+      "overextension",
+      "percent-bands"
+    ]
+  }
+}

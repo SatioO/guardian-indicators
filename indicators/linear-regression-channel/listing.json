@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "The straight line that best fits recent prices, with a channel two deviations either side and Pearson's R for how straight it is",
+    "description": "## What it shows\nThree lines over the last **Length** bars (100 by default) on the price chart. The blue base line is the straight line that fits the **Source** (close by default) best by least squares. The red upper line and green lower line sit **Upper deviation** and **Lower deviation** (2 by default) times the standard deviation of prices around that line, measured with the sample formula. The halves of the channel are lightly shaded when **Shade the channel** is on, and the lines continue to the right while **Extend lines right** is on (the default) and to the left with **Extend lines left**. A label under the channel shows Pearson's R when **Show Pearson's R** is on, and the same number is always in the Data Window even with that label off. The channel's values at each bar in the window appear in the Data Window as **Channel upper**, **Channel base** and **Channel lower**.\n\n## How to read it\n- The slope of the base line is the direction and pace of the trend over the window.\n- Pearson's R runs from -1 to 1 and carries the trend's direction: near 1 prices hug a rising straight line, near -1 a falling one, and near 0 there is no straight trend to speak of.\n- Prices near the upper line are stretched above the trend and prices near the lower line stretched below it; many traders watch for a return towards the base line.\n- Alerts are available for **Close above channel** and **Close below channel**, judged against the channel as it stood on that bar.\n\n## Limits\n- The channel is refitted on every new bar, so its lines move as new prices arrive.\n- A straight line suits a steady trend; in a turning market the fit lags the turn.\n- Nothing is drawn until **Length** bars are loaded.",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "linear-regression",
+      "channel",
+      "standard-deviation",
+      "pearson-r",
+      "trend-line",
+      "mean-reversion"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "A fast and a slow moving average with the space between them shaded, and golden-cross and death-cross labels",
+    "description": "## What it shows\nTwo averages of the close on the price chart: a fast one over **Fast length** bars (9 by default), drawn in the **Fast MA** colour, and a slow one over **Slow length** bars (21 by default), drawn in the **Slow MA** colour, both taken as **Type** (*SMA* by default; *EMA*, *WMA* and *RMA* are offered). The space between them is shaded in the **Golden cross** colour while the fast average is on top and the **Death cross** colour while it is below, when **Shade between the averages** is on. A *Golden* label marks the bar the fast average crosses above the slow one and a *Death* label the bar it crosses below, when **Show cross labels** is on. The Data Window shows **Gap %**, how far the fast average sits above or below the slow one.\n\n## How to read it\n- A golden cross shows short-term prices pulling ahead of the longer average; a death cross shows them falling behind.\n- The width of the shaded band shows how strong the push is; a band that keeps narrowing often comes before the next cross.\n- The classic long-term version is a 50 and 200-bar pair of simple averages; set the lengths to match how you trade.\n- Alerts are available for **Golden cross** and **Death cross**, and they fire even with the labels hidden.\n\n## Limits\n- A cross comes after the move has begun, and in a sideways market the averages cross back and forth.\n- A cross is final only once its bar closes.\n- Nothing is drawn until the longer of **Fast length** and **Slow length** bars are loaded.\n- Keep **Fast length** below **Slow length** — the golden-cross/death-cross colours, labels and alerts assume the fast average is the shorter one, and are backwards if it isn't.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "crossover",
+      "golden-cross",
+      "death-cross",
+      "sma",
+      "ema",
+      "signals"
+    ]
+  }
+}

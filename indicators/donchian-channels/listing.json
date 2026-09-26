@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "The highest high and lowest low of recent bars as a channel, with markers where the close breaks out of it",
+    "description": "## What it shows\nA channel on the price chart. The **Upper band** is the highest high of the last **Length** bars (20 by default), the **Lower band** the lowest low, and the **Basis** the midpoint between them. The channel between the bands is filled. **Offset** shifts all three lines right (positive) or left (negative) by that many bars.\n\nA **Breakout** marker appears under the first bar that closes above the *previous* bar's upper band — a new closing high for the period — and a **Breakdown** marker above the first bar that closes under the previous bar's lower band. Later closes beyond the band in the same run are part of the same breakout and are not marked again. **Show breakout markers** hides the markers.\n\n## How to read it\n- The channel is the range price has held for the period; a flat, narrow channel is a base.\n- A breakout closes outside that range for the first time; the classic channel-breakout rule buys it and exits on a break of a shorter channel.\n- The basis is a simple way to see which half of the range price is in.\n- Alerts are available for **Breakout** and **Breakdown**, and they fire even with the markers hidden.\n\n## Limits\n- It reacts only to highs and lows; a single wide bar resets the band for **Length** bars.\n- Breakouts in a sideways market often fail and reverse.\n- Nothing is drawn until **Length** bars are loaded.",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "donchian",
+      "channels",
+      "breakout",
+      "highs-lows",
+      "turtle",
+      "range"
+    ]
+  }
+}

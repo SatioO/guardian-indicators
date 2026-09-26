@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "52-Week High and Low Range",
+    "summary": "How far a stock trades below its 52-week high and above its 52-week low, with guides for the zones swing traders watch",
+    "description": "## What it shows\nTwo lines in their own pane. **% off 52-week high** is the close against the highest high of the last **Lookback (bars)** (252 by default, about a year of daily sessions): 0 at the high and negative below it. **% above 52-week low** is the close against the lowest low of the same window: 0 at the low and positive above it. Each line brightens while price is on the right side of its guide: **Near-high guide (%)** (−25 by default, within 25% of the high) and **Above-low guide (%)** (30 by default). The band between zero and the near-high guide is shaded when **Shade the near-high zone** is on. A small dot just above or below the zero line marks every **New 52-week high** and **New 52-week low**, offset so a bar that is both does not hide one dot under the other. The Data Window shows the **52-week high** and **52-week low** prices and the close's **Position in range** from 0 (at the low) to 100 (at the high).\n\n## How to read it\n- Many trend traders look for stocks trading within 25% of their 52-week high and at least 30% above their 52-week low — the blue line inside the shaded band and the green line above its guide.\n- A cluster of new-high dots shows a stock breaking out to fresh highs rather than stalling under them.\n- A stock deep below its high but far above its low is mid-range; check the trend before treating it as strong.\n- Alerts are available for **New 52-week high** and **New 52-week low**.\n\n## Limits\n- It counts bars, so 252 bars is a year only on a daily chart; on other timeframes set **Lookback (bars)** to match.\n- The range uses the chart's own highs and lows, so a stock with fewer bars than the lookback draws nothing yet.\n- A new high is judged against the rest of the window, so the first qualifying bar appears only once the window is full.",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "52-week-high",
+      "52-week-low",
+      "breakout",
+      "swing",
+      "new-highs"
+    ]
+  }
+}

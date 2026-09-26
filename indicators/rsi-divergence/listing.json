@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "RSI in its own pane that draws a line between two RSI pivots whenever price and RSI disagree, with alerts",
+    "description": "## What it shows\nThe RSI of the **RSI source** (close by default) over **RSI length** bars (14 by default), plotted in its own pane with **Overbought** (70 by default) and **Oversold** (30 by default) levels and a shaded band between them. A pivot in the RSI is confirmed **Pivot lookback right** bars (5 by default) after it stands out from **Pivot lookback left** bars (5 by default) before it and the same number after. Each confirmed pivot is compared with the RSI pivot of the same side before it, when the bars between them fall between **Min of lookback range** and **Max of lookback range** (5 to 60 by default). A line is drawn between the two RSI pivots with a small label: **Bull** or **Bear** for a regular divergence, **H Bull** or **H Bear** for a hidden one. Only the most recent **Divergences shown** (20 by default) are drawn, counted across every enabled kind together — switching on **Hidden bullish** or **Hidden bearish** shares that same budget with the regular kinds and can push an older regular divergence off the chart, though every divergence still alerts regardless of whether it is drawn.\n\n## How to read it\n- A regular bullish divergence (price a lower low, RSI a higher low) often warns a down move is losing force.\n- A regular bearish divergence (price a higher high, RSI a lower high) often warns an up move is losing force.\n- A hidden bullish divergence (price a higher low, RSI a lower low) or hidden bearish divergence (price a lower high, RSI a higher high) shows the pullback that often continues a trend; both are off by default under **Hidden bullish** and **Hidden bearish**.\n- Alerts are available for each of the four divergence kinds.\n\n## Limits\n- A pivot needs **Pivot lookback right** bars of data after it before it confirms, so a divergence is always marked well after the low or high that made it.\n- Nothing is drawn until enough bars have loaded for the RSI and both pivot windows.\n- It only compares each pivot with the one before it on the same side; it does not look further back.",
+    "categories": [
+      "momentum",
+      "patterns"
+    ],
+    "tags": [
+      "rsi",
+      "divergence",
+      "pivots",
+      "momentum",
+      "hidden-divergence",
+      "alerts"
+    ]
+  }
+}

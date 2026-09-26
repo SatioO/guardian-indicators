@@ -1,0 +1,8 @@
+{
+  "type": "local.previous-high-low",
+  "name": "Previous High and Low",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

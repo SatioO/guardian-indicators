@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "summary": "Momentum as the gap between a fast and a slow average of the median price, in green and red columns",
+    "description": "## What it shows\nColumns in their own pane: the simple average of each bar's median price, (high + low) ÷ 2, over **Fast length** bars (5 by default) minus the same average over **Slow length** bars (34 by default). A column takes the **Rising column** colour when it is higher than the one before and the **Falling column** colour when it is the same or lower; the very first column has nothing to compare with and is drawn rising. A dashed zero line marks where the two averages meet.\n\n## How to read it\n- Above zero, recent prices are running ahead of the longer average; below zero, they are lagging it.\n- A cross of the zero line marks the two averages crossing — a change in the direction of momentum.\n- A change of colour shows momentum speeding up or slowing down, often before the zero line is crossed.\n- Many traders watch for twin peaks: two troughs below zero, the second shallower, followed by a rising column.\n- Alerts are available for **Crossed above zero**, **Crossed below zero**, **Turned rising** and **Turned falling**.\n\n## Limits\n- It is built from moving averages, so it lags turns in price.\n- Its scale is in price units, so readings cannot be compared between stocks at different prices.\n- Nothing is drawn until **Slow length** bars are loaded.",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "awesome-oscillator",
+      "ao",
+      "momentum",
+      "histogram",
+      "zero-line",
+      "median-price"
+    ]
+  }
+}

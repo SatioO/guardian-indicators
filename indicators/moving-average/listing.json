@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "summary": "A single moving average of price in the type you choose, coloured by its slope, with close-cross alerts",
+    "description": "## What it shows\nOne line on the price chart: the average of **Source** (the close by default) over **Length** bars (21 by default). **Type** picks how the average is taken: *EMA* (the default), *SMA*, *WMA*, *HMA* (Hull), *RMA* (Wilder), *VWMA* (volume-weighted), *ALMA* (Arnaud Legoux, shaped by **ALMA offset**, 0.85 by default, and **ALMA sigma**, 6 by default), *DEMA* and *TEMA* (double and triple exponential), or *LSMA* (the least-squares line read at the newest bar). The line is drawn in the **Rising** colour while it climbs and the **Falling** colour while it drops, and it keeps its colour through a flat stretch. **Offset** shifts the line right (positive) or left (negative) by that many bars.\n\n## How to read it\n- Price holding above a rising average is the classic picture of an up trend; below a falling one, a down trend.\n- The colour change marks the bar the average turned, which is often quieter than the price itself.\n- Faster types (HMA, DEMA, TEMA, LSMA) turn sooner and also whip more; SMA and RMA are the calmest.\n- Alerts are available for **Close crossed above the average** and **Close crossed below the average**.\n\n## Limits\n- Every average lags price; it confirms a turn after it has begun.\n- The alerts compare the close with the average on the same bar, so they ignore **Offset**.\n- Nothing is drawn until **Length** bars are loaded (about three times that for TEMA).",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "ema",
+      "sma",
+      "hull",
+      "alma",
+      "dema",
+      "tema",
+      "trend-following"
+    ]
+  }
+}

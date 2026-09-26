@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Kaufman's Adaptive Moving Average",
+    "summary": "A moving average that speeds up when price trends cleanly and nearly stops when it chops sideways",
+    "description": "## What it shows\nA line on the price chart that follows **Source** (the close by default) at a speed set by the market itself. Over the last **Length** bars (14 by default) it measures the efficiency ratio: how far price got, divided by the total distance it travelled bar by bar. A ratio of 1 is a perfectly clean trend and 0 is pure back-and-forth. The line then moves toward price at a rate between a **Fast length** average (2 by default) and a **Slow length** average (30 by default), squared, so choppy stretches barely move it. It is green while rising and red while falling, and the efficiency ratio appears in the Data Window.\n\n## How to read it\n- A flat line means price is going nowhere efficiently; many traders stand aside until it tilts.\n- A line that turns and steepens shows a trend with follow-through; its colour flips on the turn.\n- Price holding on one side of the line in a trend is a common trailing reference.\n- Alerts are available for **KAMA turned up** and **KAMA turned down**.\n\n## Limits\n- It adapts to efficiency, not direction, so a sharp reversal still takes a few bars to show.\n- In a slow grind with many small pullbacks it can stay flatter than a plain moving average.\n- Nothing is drawn until **Length** bars are loaded; the first value is that bar's close.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "kama",
+      "adaptive-moving-average",
+      "moving-average",
+      "efficiency-ratio",
+      "trend-following",
+      "kaufman"
+    ]
+  }
+}

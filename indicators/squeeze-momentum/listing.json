@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "Spots volatility squeezes, Bollinger Bands inside Keltner Channels, and shows which way momentum is building",
+    "description": "## What it shows\nA histogram of momentum in its own pane, with dots on the zero line for the squeeze. The squeeze is **on** (grey dots) while the Bollinger Bands, **BB mult factor** (2 by default) standard deviations around a **BB length**-bar average (20 by default), sit wholly inside the Keltner Channels, **KC mult factor** (1.5 by default) times the average range around a **KC length**-bar average (20 by default). The range is the true range while **Use true range (KC)** is on, otherwise the bar's high minus low. The dots turn green once the squeeze is **off**. Momentum is the close measured against the middle of its **KC length**-bar range and its average, smoothed by a linear regression. Columns are bright green while momentum rises above zero, dim green while it falls above zero, bright red while it falls below zero and dim red while it recovers below zero.\n\n## How to read it\n- Grey dots mean volatility has contracted: price is coiling and a larger move often follows.\n- The first green dot after a run of grey is the squeeze firing; the histogram's side and shade suggest the direction of the release.\n- Dim columns show momentum fading before it flips sides.\n- An alert is available for **Squeeze fired**, on the bar the squeeze turns off.\n\n## Limits\n- A squeeze says a move may be near, not which way; momentum can flip right after it fires.\n- The widely shared original applies the Keltner factor to the Bollinger Bands as well; this version uses **BB mult factor** as named, so it marks fewer, tighter squeezes.\n- The widely shared original also leaves a bar undotted whenever the bands are neither wholly inside nor wholly outside one another; here every bar past warm-up is dotted one way or the other, so grey and green together always add up to every bar — **off** means \"no longer wholly inside\", not \"wholly outside\".\n- The squeeze dots need **KC length** bars before they appear (one bar more while **Use true range (KC)** is on, since the very first bar has no true range to average), and momentum about twice that.",
+    "categories": [
+      "volatility",
+      "momentum"
+    ],
+    "tags": [
+      "squeeze",
+      "bollinger-bands",
+      "keltner-channels",
+      "momentum",
+      "breakout",
+      "volatility-contraction"
+    ]
+  }
+}

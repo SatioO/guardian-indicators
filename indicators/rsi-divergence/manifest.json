@@ -1,0 +1,8 @@
+{
+  "type": "local.rsi-divergence",
+  "name": "RSI Divergence",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

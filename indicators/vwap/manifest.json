@@ -1,0 +1,15 @@
+{
+  "type": "local.vwap",
+  "name": "Volume Weighted Average Price",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "visibility": {
+    "minutes": { "on": true },
+    "hours": { "on": true },
+    "days": false,
+    "weeks": false,
+    "months": false
+  }
+}

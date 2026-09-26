@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Commodity Channel Index",
+    "summary": "How far the typical price has strayed from its average, in units of its usual deviation, with ±100 bands",
+    "description": "## What it shows\nA line in its own pane: the distance of **Source** (the close by default) from its simple average over **Length** bars (20 by default), divided by 0.015 times the mean absolute deviation over the same bars. The constant makes most readings fall between −100 and +100. Dashed lines mark the **Upper band** (+100 by default) and the **Lower band** (−100 by default) with the space between them shaded and a dotted zero line in the middle. The line turns the **Above the upper band** colour above the upper band and the **Below the lower band** colour below the lower one. Set **Smoothing** to SMA, EMA, SMMA (RMA) or WMA to add an average of CCI over **Smoothing length** bars (14 by default); it is off by default.\n\n## How to read it\n- A move above +100 shows price pushing well beyond its usual range; many trend traders treat it as the start of strength, and a fall back inside as the move tiring.\n- A move below −100 is the same on the downside.\n- Crossing zero shows price moving back above or below its average.\n- Watch for divergence: price making a new high while CCI makes a lower one.\n- Alerts are available for **Crossed above upper band**, **Crossed below lower band**, **Crossed above zero** and **Crossed below zero**.\n\n## Limits\n- It has no fixed ceiling, so strong trends can run far past ±100 and stay there.\n- A window where price does not move at all has no deviation, so nothing is drawn there.\n- Nothing is drawn until **Length** bars are loaded.",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "cci",
+      "commodity-channel",
+      "oscillator",
+      "overbought",
+      "oversold",
+      "mean-deviation"
+    ]
+  }
+}

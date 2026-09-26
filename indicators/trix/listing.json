@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Triple Exponential Average",
+    "summary": "The rate of change of a triple-smoothed log price, filtering out short swings, with a signal line and zero crosses",
+    "description": "## What it shows\nA line in its own pane: the natural log of the close is smoothed by three exponential averages in a row, each over **Length** bars (18 by default), and TRIX is the one-bar change of the result times 10,000 — the smoothed rate of change in hundredths of a percent. A dashed zero line runs through the middle. With **Show signal line** on (the default), a **Signal** line averages TRIX over **Signal length** bars (9 by default).\n\n## How to read it\n- Above zero, the smoothed trend is rising; below zero, it is falling.\n- The triple smoothing removes most short swings, so a zero cross marks a change in the underlying trend rather than a single bar's noise.\n- A cross of the signal line is an earlier, less filtered turn.\n- Alerts are available for **Crossed above zero**, **Crossed below zero**, **Crossed above signal** and **Crossed below signal**; the signal alerts work even while the signal line is hidden.\n\n## Limits\n- The heavy smoothing makes it slow: it confirms turns well after price has made them.\n- Nothing is drawn until three full **Length** windows have passed (52 bars with the default), and the signal line starts **Signal length** − 1 bars after that.",
+    "categories": [
+      "momentum",
+      "trend"
+    ],
+    "tags": [
+      "trix",
+      "triple-ema",
+      "rate-of-change",
+      "momentum",
+      "signal-line",
+      "zero-line"
+    ]
+  }
+}

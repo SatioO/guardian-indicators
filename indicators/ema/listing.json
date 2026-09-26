@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "fullName": "Exponential Moving Average",
+    "summary": "An exponential moving average of the source you choose, the same line as the chart's built-in EMA, with close-cross alerts",
+    "description": "## What it shows\nOne line on the price chart: the exponential average of **Source** (the close by default) over **Period** bars (9 by default). The first value is the simple average of the first **Period** bars; after that each bar moves the line toward the new value by `2 / (Period + 1)` of the gap. **Color** (sky blue by default) and **Line width** (1 by default) style the line. It draws the same numbers as the chart's built-in EMA, so a copy of either reads alike.\n\n## How to read it\n- Price holding above a rising EMA is the classic picture of an up trend; below a falling one, a down trend.\n- Short periods (9, 21) hug price and turn quickly; long ones (50, 200) show the broader trend.\n- Several copies with different periods show whether short-term and long-term trends agree.\n- Alerts are available for **Close crossed above the EMA** and **Close crossed below the EMA**.\n\n## Limits\n- Every average lags price; it confirms a turn after it has begun.\n- Nothing is drawn until **Period** bars are loaded.\n- The alerts compare the close with the EMA on the same bar, so a close that only touches the line does not fire them.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "ema",
+      "moving-average",
+      "exponential",
+      "trend-following",
+      "overlay"
+    ]
+  }
+}

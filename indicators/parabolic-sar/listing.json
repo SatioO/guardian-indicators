@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "Wilder's stop-and-reverse drawn as dots that trail under price in an up trend and over it in a down trend",
+    "description": "## What it shows\nA dot on every bar, on the price chart: the stop-and-reverse level. In an up trend the dot sits under price in the **Up trend** colour and rises each bar, closing in faster as the trend makes new highs; in a down trend it sits over price in the **Down trend** colour and falls. The step starts at **Start** (0.02 by default), grows by **Increment** (0.02) with each new extreme and is capped at **Max value** (0.2). When price touches the dot the trend flips and the dot jumps to the other side. **Show flip markers** adds an arrow on each flip, and the exact level appears in the Data Window as **SAR**.\n\n## How to read it\n- The dots are a trailing stop: many traders hold a position while price stays on the right side of them.\n- A flip is the stop being hit; it is also a signal the other way for those who always hold a position.\n- Dots that close in fast show the move accelerating; a smaller **Max value** trails more loosely.\n- Alerts are available for **SAR flipped up** and **SAR flipped down**.\n\n## Limits\n- In a sideways market it flips often and each flip gives back ground.\n- The first dot uses only the first two bars, so the earliest dots of a chart are rough.\n- It trails the trend; it does not forecast where the trend ends.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "parabolic-sar",
+      "psar",
+      "trailing-stop",
+      "stop-and-reverse",
+      "wilder",
+      "trend-following",
+      "flip"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Klinger Volume Oscillator (KVO)",
+    "summary": "Signed volume averaged fast against slow, with a signal line, a histogram of the gap and cross alerts",
+    "description": "## What it shows\nIn its own pane, each bar's volume is counted as positive when its typical price (the average of high, low and close) is at or above the previous bar's, and negative when it is below. The **KVO** line is the difference between a fast exponential average of that signed volume over **Fast length** bars (34 by default) and a slow one over **Slow length** bars (55 by default). An amber **Signal** line averages KVO over **Signal length** bars (13 by default). Behind them, columns show KVO minus its signal: green above zero, red below. Values print in K, L and Cr. The day's own signed volume — the one number behind that day's move — appears in the Data Window as **Signed volume**.\n\n## How to read it\n- KVO above zero means volume on rising days has lately outweighed volume on falling days.\n- A cross of KVO above its signal is read as volume turning in the buyers' favour; a cross below, the sellers'. Alerts are available for **KVO crossed above signal** and **KVO crossed below signal**.\n- Growing columns show the gap widening; shrinking columns show the move losing its volume support.\n- A new price high with a lower KVO high is a divergence many traders watch.\n- Check **Signed volume** in the Data Window on any bar to see whether that day added or subtracted from the averages.\n\n## Limits\n- The lengths are long, so it reacts slowly and suits swing and position trading more than short-term timing.\n- It crosses its signal often in a sideways market.\n- This is the widely used simplified form, which signs each bar's whole volume by its typical price; Klinger's original volume force also weighs it by the bar's range.\n- The first bar has no previous typical price and counts as a down bar; its effect fades as the averages fill. Nothing is drawn until **Slow length** bars are loaded, and the signal needs **Signal length** more.",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "kvo",
+      "klinger",
+      "signed-volume",
+      "signal-line",
+      "histogram",
+      "divergence"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Average True Range Percent",
+    "summary": "How far a stock typically moves in a bar, gaps included, as a percent of price, with its own average to show expansion",
+    "description": "## What it shows\nA line in its own pane: the average true range over **Length** bars (14 by default) divided by the close, as a percent. The true range of a bar reaches back to the previous close, so an overnight gap counts as movement. **Smoothing** picks how the true ranges are averaged: *RMA* (Wilder's original, the default), *SMA*, *EMA* or *WMA*. A grey **ATR% average** over **Average length** bars (50 by default) shows the stock's usual volatility, and the line turns amber while ATR% runs above it. The ATR itself, in rupees, appears in the Data Window as **ATR (price)**.\n\n## How to read it\n- A higher ATR% means the stock moves more per bar relative to its price, so names at different prices can be compared directly.\n- Amber means volatility is expanding beyond its norm; a long stretch of the plain line below the average is the quiet before a move.\n- Use **ATR (price)** to set a stop in rupees that fits how the stock really moves, for example 1.5 or 2 times the ATR.\n- An alert is available for **Volatility expanding**, the bar ATR% crosses above its average.\n\n## Limits\n- ATR% counts gaps; ADR% measures only each bar's own high-to-low range. On a stock that gaps often, ATR% reads higher.\n- It measures size of movement, not direction.\n- Nothing is drawn until **Length** bars are loaded, and the average needs **Average length** more.",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "atr",
+      "true-range",
+      "gaps",
+      "volatility-expansion",
+      "position-sizing",
+      "stop-loss"
+    ]
+  }
+}

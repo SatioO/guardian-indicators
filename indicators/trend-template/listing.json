@@ -1,0 +1,20 @@
+{
+  "authored": {
+    "fullName": "Trend Template Checklist",
+    "summary": "Mark Minervini's eight-point trend template as a live checklist, with the moving averages and shading where every point passes",
+    "description": "## What it shows\nThe 50, 150 and 200-day simple moving averages on the price chart, a checklist table and a green shade behind every bar where all eight points of Mark Minervini's trend template pass:\n- the close is above the 150 and 200-day averages;\n- the 150-day is above the 200-day;\n- the 200-day is higher than it was **SMA 200 rising over (bars)** ago (20 by default, about a month);\n- the 50-day is above both the 150 and the 200-day;\n- the close is above the 50-day;\n- the close is at least **Above 52-week low by at least (%)** (30 by default) above the 52-week low;\n- the close is within **Within 52-week high by (%)** (25 by default) of the 52-week high;\n- the stock's return over the last year beats the **Benchmark**'s (NIFTY 50 by default).\n\nThe last point stands in for Minervini's RS rating, which ranks a stock against the whole market; here the stock is compared with one index. The table marks each point ✓ or ✗ at the latest bar, shows the number behind it and counts how many pass; the count is also in the Data Window as **Criteria passed**.\n\n**Show the averages** (on by default) draws the three moving averages; turn it off to keep only the checklist and shading. **Shade bars that pass** (on by default) draws the green shade behind bars where all eight points pass. **Show the checklist** (on by default) draws the table; **Checklist position** (top right by default) places it on the chart.\n\n## How to read it\n- A stock that passes all eight is in what Minervini calls a stage 2 uptrend, the stage his setups are traded from; the template is a filter, not an entry signal.\n- A count of six or seven shows a stock close to qualifying; check which point is missing.\n- Alerts are available for **Trend template passed** and **Trend template lost**, each on the bar the state changes.\n\n## Limits\n- It needs a full year of daily bars (**Year (bars)**, 252 by default) before every point can be judged; a point that cannot be judged yet counts as not passing.\n- Without the benchmark's data the relative strength point shows a dash and the template cannot pass.\n- The averages count bars, so the template reads as intended on a daily chart only.",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "minervini",
+      "trend-template",
+      "stage-2",
+      "screening",
+      "moving-averages",
+      "relative-strength",
+      "swing"
+    ]
+  }
+}

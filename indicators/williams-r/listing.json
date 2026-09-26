@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Williams Percent Range",
+    "summary": "Where the close sits inside the recent high-low range, from 0 at the top to −100 at the bottom, with zone exits marked",
+    "description": "## What it shows\nA line in its own pane: where the close sits in the range of the last **Length** bars (14 by default), `100 × (close − highest high) ÷ (highest high − lowest low)`. It reads 0 when the close is the highest high of the window and −100 when it is the lowest low. Dashed levels mark the **Overbought level** (−20 by default) and the **Oversold level** (−80 by default), with a dotted middle line at −50 and the band between them shaded. The line takes the **Overbought** colour inside the upper zone and the **Oversold** colour inside the lower one, and the **%R line** colour (violet by default) everywhere in between. With **Mark zone exits** on, a small dot marks the bar the line leaves either zone, in the colour of the zone it left.\n\n## How to read it\n- In the overbought zone the stock is closing near the top of its recent range; in a strong up trend it can stay there for a long time.\n- Many traders wait for the line to leave a zone rather than acting as soon as it enters: a fall out of overbought shows buying pressure fading, a rise out of oversold shows selling easing.\n- Compare the line's swings with price: a new price high on a weaker %R reading shows momentum lagging.\n- Alerts are available for **Left overbought** and **Left oversold**.\n\n## Limits\n- It measures only where the close sits in the window, not how wide the range is.\n- The scale is inverted from most oscillators: readings are negative, and 0 is the top.\n- A window with no range at all has no reading, so nothing is drawn there.\n- Nothing is drawn until **Length** bars are loaded.",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "williams-r",
+      "percent-range",
+      "overbought",
+      "oversold",
+      "oscillator",
+      "mean-reversion"
+    ]
+  }
+}

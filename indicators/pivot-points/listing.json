@@ -1,0 +1,20 @@
+{
+  "authored": {
+    "fullName": "Pivot Points Standard",
+    "summary": "Pivot, resistance and support levels from the previous day, week or month, drawn for each period in six classic styles",
+    "description": "## What it shows\nHorizontal levels on the price chart for each period: a pivot (P), resistances (R1 and up) and supports (S1 and down), worked out from the previous period's high, low and close. **Type** chooses the formula: *Traditional* (the default, P to R5/S5), *Fibonacci* (R3/S3), *Woodie* (uses the current period's open, R4/S4), *Classic* (R4/S4), *DM* (R1/S1, from the previous period's open and close) or *Camarilla* (R5/S5, built around the previous close). **Pivots timeframe** sets the period: *Auto* (the default) uses daily pivots on an intraday chart, weekly pivots on a daily chart and monthly pivots on a weekly chart; *Daily*, *Weekly* and *Monthly* fix it. The last **Number of pivots back** periods (15 by default) are drawn, each as its own set of segments, and the current period's levels run on to the right edge. **Show labels** and **Show prices** tag each level at its left end, such as `R1 (1,234.50)`. **Line width** sets the thickness of each segment (1 by default, up to 4). The pivot is amber, resistances red and supports green; every level of the bar under the cursor is also in the Data Window.\n\n## How to read it\n- Price above the pivot leans bullish for the period and below it bearish; many traders use P as the line in the sand.\n- R1/S1 and R2/S2 are common first targets and stop areas; the outer levels are reached only on strong trending periods.\n- Weekly pivots on a daily chart suit swing trades lasting days; daily pivots suit intraday trades.\n- Camarilla levels sit close to the previous close and are often read for reversals at R3/S3 and breakouts beyond R4/S4.\n\n## Limits\n- A period's levels are fixed from its first bar and do not change while it trades.\n- Nothing is drawn when the pivot period is not longer than the chart's own timeframe, or on a monthly chart set to *Auto*.\n- The levels need the period data the platform fetches; until it arrives nothing is drawn.",
+    "categories": [
+      "pivot",
+      "trend"
+    ],
+    "tags": [
+      "pivot-points",
+      "support-resistance",
+      "camarilla",
+      "fibonacci",
+      "woodie",
+      "intraday",
+      "weekly-pivots"
+    ]
+  }
+}

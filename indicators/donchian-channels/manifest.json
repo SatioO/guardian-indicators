@@ -1,0 +1,8 @@
+{
+  "type": "local.donchian-channels",
+  "name": "Donchian Channels",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "local.elder-impulse",
+  "name": "Elder Impulse System",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}
