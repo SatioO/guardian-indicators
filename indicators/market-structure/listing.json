@@ -1,0 +1,20 @@
+{
+  "authored": {
+    "summary": "Swing highs and lows labelled as higher or lower highs and lows, with break-of-structure lines and alerts",
+    "description": "## What it shows\nSwing highs and swing lows on the price chart, and the breaks of structure between them. A swing high is a bar whose high is strictly above the highs of the **Pivot left bars** (5 by default) before it and the **Pivot right bars** (5 by default) after it — a tie on either side means no pivot; a swing low mirrors it. Each swing after the first is labelled against the previous one on its side: `HH` or `LH` above the bar for a higher or lower high, `HL` or `LL` below it for a higher or lower low. Higher highs and higher lows take the **Bullish structure** colour, lower highs and lower lows the **Bearish structure** colour.\n\nWhen a close goes beyond the latest unbroken swing, a dashed line runs from that swing to the bar that broke it, with a `BOS` tag over its middle: above a broken high, below a broken low. Only the most recent **Structures shown** (10 by default) swings, and the most recent **Structures shown** breaks, are drawn — up to 20 items in total, not one combined cap; turn **Swing labels** off (on by default) to keep only the breaks. The Data Window shows the last swing high, the last swing low and the structure: +1 after a bullish break, -1 after a bearish one, 0 before the first. The last swing high/low keeps showing the most recently confirmed level even after it has been broken — check **Structure** to know whether it is still live.\n\n## How to read it\n- A run of higher highs and higher lows is an up trend; lower highs and lower lows are a down trend.\n- A bullish break is a close above the last swing high, where sellers had turned price before; a bearish break is a close below the last swing low.\n- A break against the run of labels, such as a bearish break after a series of higher lows, is often read as the first sign that the trend is changing.\n- Alerts are available for **Bullish BOS** and **Bearish BOS**. They fire on the bar whose close breaks the swing, for every break, not only the ones drawn.\n\n## Limits\n- A swing is known only **Pivot right bars** bars after it happens, so its label appears late and the latest bars never carry one.\n- A break needs a close beyond the level; a wick through it does not count.\n- A newer swing replaces an older unbroken one on the same side, so an older level that is crossed later is not marked.\n- The Data Window's last swing high/low is not cleared on a break: it still shows the spent level until the next swing on that side confirms, so pair it with **Structure** rather than reading it alone.\n- Longer pivot lengths find fewer, larger swings; shorter ones find more swings and more breaks.",
+    "categories": [
+      "trend",
+      "pivot"
+    ],
+    "tags": [
+      "market-structure",
+      "swing-points",
+      "break-of-structure",
+      "bos",
+      "higher-highs",
+      "price-action",
+      "pivots",
+      "trend-structure"
+    ]
+  }
+}

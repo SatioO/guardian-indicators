@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "summary": "An average of price with bands set a multiple of the average true range away, for trend and breakout reading",
+    "description": "## What it shows\nThree lines on the price chart. The **Basis** is the average of **Source** (the close by default) over **Length** bars (20 by default) — exponential while **Use exponential MA** is on, simple when it is off. The **Upper band** and **Lower band** sit **Multiplier** (2 by default) times a range measure above and below it. **Bands style** picks that measure: *Average True Range* over **ATR length** bars (10 by default, the default style), each bar's own *True Range*, or *Range*, the Wilder average of high minus low over **Length**. The channel between the bands is filled while **Fill the channel** is on, and the Data Window shows **Band width %**, the channel's height as a percent of the basis.\n\n## How to read it\n- In a steady up trend price tends to ride between the basis and the upper band; in a down trend, between the basis and the lower band.\n- A close outside a band shows a move larger than the recent volatility; many traders read it as a breakout when it comes out of a narrow channel.\n- A narrowing **Band width %** shows volatility contracting.\n- Alerts are available for **Close above upper band** and **Close below lower band**.\n\n## Limits\n- The bands widen after volatility rises, so they react to a move rather than foresee it.\n- *True Range* bands follow each bar and look jagged; the averaged styles are smoother.\n- Nothing is drawn until **Length** bars are loaded (and **ATR length** bars for the default bands).",
+    "categories": [
+      "volatility",
+      "trend"
+    ],
+    "tags": [
+      "keltner",
+      "channels",
+      "atr",
+      "bands",
+      "breakout",
+      "volatility",
+      "ema"
+    ]
+  }
+}

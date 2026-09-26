@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Relative Volume (RVOL)",
+    "summary": "Each bar's volume as a multiple of its recent average, with surges picked out in bright up or down colours",
+    "description": "## What it shows\nColumns in their own pane: each bar's volume divided by the average volume of the last **Average length** bars (50 by default), the bar itself included. A reading of 1.0 is an ordinary day; 2.0 is twice the usual volume. A column is green for an up candle (close at or above the open), in the **Up bar** colour (teal, #26a69a by default), and red for a down candle, in the **Down bar** colour (#ef5350 by default). It turns bright once it reaches **Surge at (× average)** (2 by default), and stays faded below that. A dashed line marks 1.0 and a dotted line, in the **Surge level** colour (amber, #f59e0b by default), marks the surge level. The average volume itself appears in the Data Window as **Average volume**, in K, L and Cr.\n\n## How to read it\n- A bright green column is heavy buying: many breakout traders want to see one on the day price clears a base.\n- A bright red column is heavy selling; a cluster of them near a high is often read as distribution.\n- Quiet columns well under 1.0 during a pullback show sellers are not pressing.\n- The **Bullish volume surge** alert fires on an up bar that reaches the surge level, and **Bearish volume surge** on a down bar, so a trader can be paged on one direction without the other.\n\n## Limits\n- It compares whole bars. On an intraday chart it compares each bar with the last 50 bars of the same size, not with the same time of day on earlier sessions; that intraday comparison is a different study.\n- A result, block deal or index rebalance can make one day's volume huge without any change in the trend.\n- Nothing is drawn until **Average length** bars are loaded, or where no volume traded.",
+    "categories": [
+      "volume"
+    ],
+    "tags": [
+      "rvol",
+      "relative-volume",
+      "volume-surge",
+      "breakout",
+      "accumulation",
+      "distribution"
+    ]
+  }
+}

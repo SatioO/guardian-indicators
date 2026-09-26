@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Ichimoku Kinko Hyo Cloud",
+    "summary": "The five Ichimoku lines with the cloud projected ahead of price, shaded green or red by which leading span is on top",
+    "description": "## What it shows\nFive lines on the price chart, each the midpoint of the highest high and lowest low over a window. The **Conversion line** uses **Conversion line length** bars (9 by default) and the **Base line** **Base line length** bars (26). **Leading span A** is the midpoint of those two and **Leading span B** uses **Leading span B length** bars (52); both are drawn ahead of the bar that computed them, and the **Lagging span** — the close — is drawn behind it, each by one bar less than **Displacement** (26 by default, so 25 bars). The cloud between the leading spans is green where span A is above span B and red where it is below.\n\n## How to read it\n- Price above the cloud is read as an up trend, below it as a down trend, and inside it as undecided.\n- A thick cloud ahead marks strong support or resistance; a thin one is easier to break.\n- The conversion line crossing the base line is the classic early signal; it carries more weight on the right side of the cloud.\n- Alerts are available for **Close crossed above the cloud**, **Close crossed below the cloud**, **Conversion crossed above base** and **Conversion crossed below base**. The cloud alerts judge the close against the cloud drawn over its own bar.\n\n## Limits\n- Leading span B needs **Leading span B length** bars before it is drawn, so the full cloud appears only after that.\n- The lines are built from highs and lows only; the lagging span is the close moved back, not a forecast.\n- In a sideways market price drifts in and out of a thin cloud and the signals whip.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "ichimoku",
+      "cloud",
+      "kumo",
+      "tenkan-kijun",
+      "support-resistance",
+      "trend-following"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Money Flow Index (MFI)",
+    "summary": "A 0 to 100 oscillator of money flowing in on up days against money flowing out on down days, with 80 and 20 zones",
+    "description": "## What it shows\nA line in its own pane between 0 and 100. Each bar's money flow is its typical price, the average of high, low and close, times its volume. Over the last **Length** bars (14 by default) the flow of bars whose typical price rose is set against the flow of bars whose typical price fell, and the balance is scaled to 0 to 100 the way RSI is. A bar whose typical price did not change counts for neither side. The line turns red at or above **Overbought level** (80 by default) and green at or below **Oversold level** (20 by default); the band between them is shaded and a dotted line marks 50.\n\n## How to read it\n- It is often described as a volume-weighted RSI: a move on heavy volume moves it more than the same move on light volume.\n- Readings above 80 show buying that may be stretched; below 20, selling that may be stretched. In a strong trend it can stay there for a long time.\n- Many traders act on the way out of a zone rather than the way in: alerts are available for **MFI left overbought** and **MFI left oversold**.\n- A new price high with a lower MFI high is a divergence many traders treat as a warning.\n\n## Limits\n- With no down days in the window it reads exactly 100, and with no up days exactly 0.\n- A stretch with no price change or no volume has no money flow to measure; read any value there with caution.\n- Nothing is drawn until **Length** bars after the first are loaded.",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "mfi",
+      "money-flow",
+      "overbought",
+      "oversold",
+      "oscillator",
+      "divergence"
+    ]
+  }
+}

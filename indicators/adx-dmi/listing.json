@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Average Directional Index and Directional Movement",
+    "summary": "Wilder's directional lines show which side is pushing, and ADX shows how strong the trend is, with a key level",
+    "description": "## What it shows\nThree lines in their own pane, from J. Welles Wilder's directional movement system. **+DI** (green) measures how far highs have pushed above the previous highs and **−DI** (red) how far lows have pushed below the previous lows, each smoothed over **DI length** bars (14 by default) and scaled by the true range. **ADX** (blue) is the smoothed gap between them over **ADX smoothing** bars (14 by default): it rises when one side dominates, whichever side it is. ADX is drawn in full colour at or above the dashed **Key level** (25 by default) and faded below it. The gap between +DI and −DI appears in the Data Window as **DI spread**.\n\n## How to read it\n- +DI above −DI means buyers are pushing harder; −DI above +DI means sellers are.\n- ADX above the key level shows a trend strong enough that many traders follow it; below it, the market is ranging.\n- A rising ADX strengthens whichever side leads; a falling ADX shows the trend losing force, even if price keeps going.\n- Alerts are available for **Bullish DI cross**, **Bearish DI cross** and **ADX above key level**.\n\n## Limits\n- All three lines are smoothed averages, so they confirm a trend rather than predict one.\n- ADX never says which way the trend runs; read that from the DI lines.\n- The lines settle once a few hundred bars are loaded; the earliest values depend on where the history starts.\n- **Bullish DI cross** and **Bearish DI cross** fire on every crossover, even in a ranging market; check that ADX is at or above the **Key level** before trusting one.",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "adx",
+      "dmi",
+      "wilder",
+      "trend-strength",
+      "directional-movement",
+      "crossover"
+    ]
+  }
+}

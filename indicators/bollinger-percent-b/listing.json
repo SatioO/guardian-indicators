@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Bollinger Bands Percent B",
+    "summary": "Where the close sits between the Bollinger Bands: 1 at the upper band, 0 at the lower, beyond them when price breaks out",
+    "description": "## What it shows\nA line in its own pane that places **Source** (the close by default) inside the Bollinger Bands. The bands sit **StdDev** standard deviations (2 by default) either side of the **Length**-bar simple average (20 by default), using the population standard deviation. %B reads 1 on the upper band, 0.5 on the average and 0 on the lower band; the zone between the two bands is shaded. The line turns green above 1 and red below 0, where the close is outside the bands. The band prices themselves appear in the Data Window as **Upper band (price)** and **Lower band (price)**.\n\n## How to read it\n- Above 1 the close is beyond the upper band: strong momentum in a trend, or a stretched move in a range.\n- Below 0 the close is under the lower band: heavy selling, or an oversold dip in a range.\n- In an up trend, pullbacks that hold near 0.5 show buyers defending the average.\n- A higher low in %B while price makes a lower low can flag selling that is losing force.\n- Alerts are available for **Close above the upper band** and **Close below the lower band**, on the bar the close breaks out.\n\n## Limits\n- It shows position, not direction: a reading above 1 can mean strength or exhaustion, depending on the trend.\n- Nothing is drawn until **Length** bars are loaded, or while the bands have no width on a perfectly flat stretch.",
+    "categories": [
+      "volatility",
+      "momentum"
+    ],
+    "tags": [
+      "bollinger-bands",
+      "percent-b",
+      "overbought",
+      "oversold",
+      "breakout",
+      "mean-reversion"
+    ]
+  }
+}

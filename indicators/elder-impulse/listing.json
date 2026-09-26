@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "Colours each price bar green, red or blue by whether trend and momentum are rising together, falling together or split",
+    "description": "## What it shows\nPrice bars coloured by Alexander Elder's impulse. A bar is green when both the **EMA length** exponential average (13 by default) and the MACD histogram (**MACD fast length** 12, **MACD slow length** 26, **MACD signal length** 9 by default) rose on that bar, red when both fell, and blue when they disagree. The EMA itself is drawn on the chart while **Show the EMA** is on. The impulse (+1 green, −1 red, 0 blue) and the MACD histogram appear in the Data Window. Turn **Colour the bars** off to keep the chart's own candle colours.\n\n## How to read it\n- Green bars show trend and momentum pushing up together; red bars show them pushing down together.\n- Elder's own use is as a filter: many traders avoid buying on a red bar and avoid shorting on a green one.\n- A blue bar after a run of green or red often marks the push losing strength.\n- Alerts are available for **Turned green** and **Turned red**.\n\n## Limits\n- Both inputs are moving averages, so the colours follow price rather than lead it.\n- In a choppy market the colours change often.\n- Bars keep the chart's own colours until the MACD histogram has a slope — 35 bars with the default lengths.",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "elder",
+      "impulse",
+      "macd",
+      "ema",
+      "bar-color",
+      "trend-filter"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Moving Average Extension",
+    "summary": "How far price has stretched from its moving average, in percent or in ATRs, with extended and stretched columns picked out",
+    "description": "## What it shows\nColumns in their own pane: the distance of the close from a moving average of **Average type** (EMA by default; SMA and WMA are also offered) over **Average length** bars (21 by default). With **Measure** set to *Percent* (the default) a column is `100 × (close − average) ÷ average`; with *ATRs* it is the same distance divided by the average true range over **ATR length** bars (14 by default). A column turns amber once price is beyond **Extended above (%)** (8 by default) and blue once it is below **Stretched below (%)** (−8 by default); in ATR mode **Extended above (ATRs)** (3 by default) and **Stretched below (ATRs)** (−3 by default) apply instead. Other columns are green above the average and red below it. The average itself and both measures appear in the Data Window as **Average**, **Extension (%)** and **Extension (ATRs)**.\n\n## How to read it\n- An amber column says the move has run far from its average; many swing traders avoid chasing here and some trim into strength.\n- A blue column says price has fallen far under its average, where a snap back toward it is common in an uptrend.\n- Measuring in ATRs puts a calm stock and a volatile one on the same scale.\n- Alerts are available for **Became extended** and **Became stretched**; each fires on the bar price first crosses its level.\n\n## Limits\n- Nothing is drawn until **Average length** bars are loaded, and in ATR mode until **ATR length** bars are too.\n- The levels are fixed numbers; what counts as extended differs from stock to stock, so tune them to the name you trade.\n- A strong trend can stay extended for a long time; extension alone does not mark a top.",
+    "categories": [
+      "momentum",
+      "trend"
+    ],
+    "tags": [
+      "ema",
+      "extension",
+      "mean-reversion",
+      "overextended",
+      "atr",
+      "swing"
+    ]
+  }
+}

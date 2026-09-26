@@ -1,0 +1,21 @@
+{
+  "authored": {
+    "fullName": "Swing Trading Dashboard",
+    "summary": "One compact table of the numbers a swing trader checks first: range, volatility, volume, liquidity, trend and strength",
+    "description": "## What it shows\nA small table on the price chart, read at the latest bar, docked at **Position** (top right by default). Rows that read one of two ways use the **Good** colour (teal by default) for the favourable side and the **Poor** colour (red by default) for the other:\n- **ADR% (20)**: the average daily range as a percent, from the high ÷ low of the last **ADR length** bars (20 by default); the **Good** colour at or above **Minimum ADR%** (3.5 by default), muted grey below it.\n- **ATR% (14)**: the average true range over **ATR length** bars (14 by default) as a percent of the close.\n- **RVOL (50)**: today's volume against the average of the **Volume average length** sessions before it (50 by default); the **Volume surge** colour (amber by default) at **Volume surge at (× average)** (1.5 by default), the **Volume dry-up** colour (blue by default) at **Volume dry-up at (× average)** (0.5 by default).\n- **Off 52-week high** and **Above 52-week low**: the close against the year's highest high and lowest low; the **Good** colour within 25% of the high and 30% above the low, the **Poor** colour otherwise.\n- **Avg turnover (50)**: the average of close × volume in rupees, shown in crore (₹ Cr) or lakh (₹ L); the **Good** colour at or above **Minimum turnover (₹ Cr)** (10 by default), the **Poor** colour otherwise.\n- **Up/down volume (50)**: volume on up closes divided by volume on down closes, shown as **∞** when the window has no down-close volume at all; the **Good** colour at or above 1 (including that all-up-volume case), the **Poor** colour below it.\n- **From 50 SMA**: the close against its 50-day average; the **Good** colour at or above zero, the **Poor** colour below it.\n- **3M vs NIFTY**: how much the stock has beaten or lagged the **Benchmark** (NIFTY 50 by default) over the last 63 sessions; the **Good** colour at or above zero, the **Poor** colour below it.\n\nEvery number is also in the Data Window for any bar under the cursor.\n\n## How to read it\n- Many swing traders want enough range (ADR%) to make a trade worthwhile and enough turnover to get in and out easily.\n- A volume dry-up near the high, with up/down volume above 1 (including the **∞** case), often shows a stock being quietly held rather than sold.\n- The **Good** colour on the 52-week rows and on the benchmark row points to a leader in an uptrend.\n- Alerts are available for **Quiet accumulation** (a volume dry-up together with up/down volume at or above 1) and **Volume surge**.\n\n## Limits\n- The rows count bars, so they read as intended on a daily chart.\n- A dash means there is not enough history yet, or the benchmark's data has not arrived; it is different from **∞** on the Up/down volume row, which is a real reading (no down-close volume in the window), not a missing one.\n- Turnover uses the chart's close and volume, not the exchange's reported traded value.",
+    "categories": [
+      "utility",
+      "volatility",
+      "volume"
+    ],
+    "tags": [
+      "dashboard",
+      "adr",
+      "rvol",
+      "turnover",
+      "relative-strength",
+      "screening",
+      "swing"
+    ]
+  }
+}

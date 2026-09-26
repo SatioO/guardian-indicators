@@ -18519,6 +18519,29 @@ function normalizeGScriptSessionSelector(value) {
   return CANDIDATE_V2_SELECTOR_SEMANTICS.normalizeSession(value);
 }
 const SOURCE_KEYS = ["close", "open", "high", "low", "hl2", "hlc3", "ohlc4", "hlcc4", "volume"];
+function sourceValue(bar, key) {
+  switch (key) {
+    case "open":
+      return bar.open;
+    case "high":
+      return bar.high;
+    case "low":
+      return bar.low;
+    case "hl2":
+      return (bar.high + bar.low) / 2;
+    case "hlc3":
+      return (bar.high + bar.low + bar.close) / 3;
+    case "ohlc4":
+      return (bar.open + bar.high + bar.low + bar.close) / 4;
+    case "hlcc4":
+      return (bar.high + bar.low + 2 * bar.close) / 4;
+    case "volume":
+      return bar.volume;
+    case "close":
+    default:
+      return bar.close;
+  }
+}
 const STRING_INPUT_CONTROLS = [
   "text",
   "textArea",
@@ -39722,6 +39745,153 @@ async function loadIndicatorFolder(dir, io, esbuild2, deps, loadIntent) {
     deps
   );
 }
+function emaNext(prevEma, price, period) {
+  const k = 2 / (period + 1);
+  return price * k + prevEma * (1 - k);
+}
+function vwapPoint(base, typical, vol) {
+  const pv = base.cumPV + typical * vol;
+  const v = base.cumVol + vol;
+  return v > 0 ? pv / v : typical;
+}
+function emaSeries(bars, period, pick) {
+  if (period < 1 || bars.length < period) return [];
+  let ema3 = 0;
+  for (let i = 0; i < period; i++) ema3 += pick(bars[i]);
+  ema3 /= period;
+  const points = [{ time: bars[period - 1].time, value: ema3 }];
+  for (let i = period; i < bars.length; i++) {
+    ema3 = emaNext(ema3, pick(bars[i]), period);
+    points.push({ time: bars[i].time, value: ema3 });
+  }
+  return points;
+}
+const emaModule = {
+  manifest: {
+    type: "ema",
+    name: "EMA",
+    placement: "price",
+    // First schema-declared module (#208 pilot). Defaults MUST mirror the
+    // INDICATOR_REGISTRY entry until registry defaults derive from manifests —
+    // schema.test.ts pins the parity. Deliberate Phase A residue: EMA keeps
+    // color/lineWidth as INPUTS rather than a Style-tab catalog — it is the
+    // one multi-instance line indicator, and color is instance identity
+    // (which of my three EMAs is this?), which belongs with period, not in a
+    // per-layer override map.
+    inputs: [
+      { kind: "number", key: "period", label: "Period", default: 9, min: 1, max: 500, step: 1 },
+      { kind: "source", key: "source", label: "Source", default: "close" },
+      { kind: "color", key: "color", label: "Color", default: "#38bdf8" },
+      { kind: "lineWidth", key: "lineWidth", label: "Line width", default: 1 }
+    ],
+    // The source names a copy only off the close: 'EMA (9)', 'EMA (9, hl2)'.
+    legendTitle: { params: ["period", "source"], omitDefaults: ["source"] },
+    legendValue: { layerId: "ema" }
+  },
+  compute(input, s) {
+    const points = emaSeries(input.bars, s.period, (b2) => sourceValue(b2, s.source));
+    if (points.length === 0) return { layers: [] };
+    return {
+      layers: [{
+        kind: "line",
+        id: "ema",
+        pane: "price",
+        points,
+        style: { color: s.color, lineWidth: s.lineWidth }
+      }]
+    };
+  },
+  createFormingUpdater(_input, s, spec) {
+    const line = spec.layers.find((l) => l.kind === "line" && l.id === "ema");
+    if (line?.kind !== "line" || line.points.length < 2) return null;
+    const base = line.points[line.points.length - 2].value;
+    return (bar) => [{ layerId: "ema", value: emaNext(base, sourceValue(bar, s.source), s.period) }];
+  }
+};
+function computeVWAP(bars, volBars) {
+  const out = [];
+  let cumTPV = 0;
+  let cumVol = 0;
+  let prevKey = "";
+  for (let i = 0; i < bars.length; i++) {
+    const b2 = bars[i];
+    const key = istDateKey(b2.time);
+    if (key !== prevKey) {
+      cumTPV = 0;
+      cumVol = 0;
+      prevKey = key;
+    }
+    const vol = volBars[i]?.value ?? 0;
+    const tp = (b2.high + b2.low + b2.close) / 3;
+    cumTPV += tp * vol;
+    cumVol += vol;
+    if (cumVol > 0) out.push({ time: b2.time, value: cumTPV / cumVol });
+  }
+  return out;
+}
+const vwapModule = {
+  manifest: {
+    type: "vwap",
+    name: "VWAP",
+    placement: "price",
+    // VWAP is a session indicator — intraday only. Host-enforced per-timeframe
+    // visibility (§6.3) replaces the old `isIntradayTimeframe → { layers: [] }`
+    // convention: the drain never even calls compute on a daily+ chart, so
+    // compute is now a pure bars→spec transform with no timeframe guard.
+    visibility: { minutes: { on: true }, hours: { on: true }, days: false, weeks: false, months: false },
+    // No input-shaped settings — VWAP's only knobs were its line color/width,
+    // now the derived Style tab (the layer catalog below). An empty Inputs
+    // schema keeps the type schema-covered (the modal renders the Style +
+    // Visibility tabs; there is no bespoke form left).
+    inputs: [],
+    // Layer catalog (styles split #213): the sole VWAP line. defaultStyle mirrors
+    // the pre-split literals exactly so a default instance renders byte-identical
+    // after the host applies catalog + user overrides. Persisted pre-split
+    // color/lineWidth heal into styles.vwap via migrateModuleStyles.
+    layers: [
+      { id: "vwap", title: "VWAP", kind: "line", defaultStyle: { color: "#e879f9", lineWidth: 2 } }
+    ],
+    legendValue: { layerId: "vwap" }
+  },
+  // No settings param: VWAP has no input-shaped knobs post styles-split (#213);
+  // the line style is a catalog default the host applies.
+  compute(input) {
+    const candles = input.bars;
+    const volBars = input.bars.map((b2) => ({ time: b2.time, value: b2.volume }));
+    const data = computeVWAP(candles, volBars);
+    if (!data.length) return { layers: [] };
+    return {
+      layers: [{
+        kind: "line",
+        id: "vwap",
+        pane: "price",
+        points: data.map((d) => ({ time: d.time, value: d.value })),
+        // Static literals = the catalog's defaultStyle; the host re-applies
+        // catalog + user overrides, so compute never reads style settings.
+        style: { color: "#e879f9", lineWidth: 2 }
+      }]
+    };
+  },
+  createFormingUpdater(input) {
+    const bars = input.bars;
+    if (bars.length === 0) return null;
+    const sessionKey = istDateKey(bars[bars.length - 1].time);
+    let cumPV = 0, cumVol = 0;
+    for (let i = bars.length - 2; i >= 0; i--) {
+      const b2 = bars[i];
+      if (istDateKey(b2.time) !== sessionKey) break;
+      const typical = (b2.high + b2.low + b2.close) / 3;
+      cumPV += typical * b2.volume;
+      cumVol += b2.volume;
+    }
+    const base = { cumPV, cumVol };
+    return (bar) => {
+      if (base.cumVol + bar.volume <= 0) return null;
+      const typical = (bar.high + bar.low + bar.close) / 3;
+      return [{ layerId: "vwap", value: vwapPoint(base, typical, bar.volume) }];
+    };
+  }
+};
 var __defProp = Object.defineProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -48114,8 +48284,633 @@ function volumeIndex(bars, side) {
     return index;
   });
 }
+const INDICATOR_CATEGORIES = [
+  { id: "trend", label: "Trend" },
+  { id: "momentum", label: "Momentum" },
+  { id: "volatility", label: "Volatility" },
+  { id: "volume", label: "Volume" },
+  { id: "orderflow", label: "Order flow" },
+  { id: "pivot", label: "Pivots & levels" },
+  { id: "patterns", label: "Patterns" },
+  { id: "depth", label: "Market depth" },
+  { id: "fundamental", label: "Fundamentals" },
+  { id: "utility", label: "Utilities" }
+];
+const CATEGORY_LABELS = new Map(INDICATOR_CATEGORIES.map((c) => [c.id, c.label]));
+const isIndicatorCategory = (id) => typeof id === "string" && CATEGORY_LABELS.has(id);
+const LISTING_PROBLEM = {
+  html: "HTML isn’t allowed. Use the formatting buttons instead.",
+  image: "Images come from the Showcase, not from a link in the text.",
+  insecureLink: "Links must start with https://.",
+  heading: "Use ## or ### for headings.",
+  table: "Tables aren’t supported. Use a list instead."
+};
+const SYMBOL = /^\$([A-Z][A-Z0-9_]*:[A-Z0-9](?:[A-Z0-9_.&-]*[A-Z0-9_])?)/;
+const HTML_ELEMENTS = /* @__PURE__ */ new Set([
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdi",
+  "bdo",
+  "bgsound",
+  "big",
+  "blink",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "data",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "dir",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "head",
+  "header",
+  "hgroup",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "image",
+  "img",
+  "input",
+  "ins",
+  "isindex",
+  "kbd",
+  "keygen",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "listing",
+  "main",
+  "map",
+  "mark",
+  "marquee",
+  "math",
+  "menu",
+  "menuitem",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noembed",
+  "noframes",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "picture",
+  "plaintext",
+  "pre",
+  "progress",
+  "q",
+  "rb",
+  "rp",
+  "rt",
+  "rtc",
+  "ruby",
+  "s",
+  "samp",
+  "script",
+  "search",
+  "section",
+  "select",
+  "slot",
+  "small",
+  "source",
+  "spacer",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "svg",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "track",
+  "tt",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp"
+]);
+const BOOLEAN_ATTRIBUTES = /* @__PURE__ */ new Set([
+  "allowfullscreen",
+  "async",
+  "autofocus",
+  "autoplay",
+  "checked",
+  "controls",
+  "default",
+  "defer",
+  "disabled",
+  "formnovalidate",
+  "hidden",
+  "inert",
+  "ismap",
+  "itemscope",
+  "loop",
+  "multiple",
+  "muted",
+  "nomodule",
+  "novalidate",
+  "open",
+  "playsinline",
+  "readonly",
+  "required",
+  "reversed",
+  "selected"
+]);
+const OPEN_TAG = /<([A-Za-z][A-Za-z0-9-]*)((?:[\s/](?:[^<>"']|"[^"]*"|'[^']*')*)?)>/y;
+const CLOSE_TAG = /<\/\s*([A-Za-z][A-Za-z0-9-]*)\s*>/y;
+const LINK = /\[([^[\]]+)\]\(([^)\s]+)\)/y;
+const LINKED_IMAGE = /\[!\[[^[\]]*\]\([^)]*\)\]\([^)]*\)/y;
+const IMAGE = /!\[[^[\]]*\]\([^)]*\)/y;
+const SYMBOL_AT = new RegExp(SYMBOL.source.slice(1), "y");
+const SPECIAL = /[`![$<*_~]/g;
+const FENCE = /^\s*```/;
+const HEADING = /^(#{1,6})\s+(.*)$/;
+const BULLET = /^\s*[-*+]\s+(.*)$/;
+const ORDERED = /^\s*\d{1,3}[.)]\s+(.*)$/;
+const QUOTE = /^\s*>\s?(.*)$/;
+const TABLE_ROW = /^\s*\|.*\|\s*$/;
+function isHttpsUrl(href) {
+  try {
+    return new URL(href).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+function parseListingMarkdown(source) {
+  const problems = /* @__PURE__ */ new Set();
+  const inline = (text) => parseInline(text, problems);
+  const blocks = [];
+  const lines = source.replace(/\r\n?/g, "\n").split("\n");
+  let paragraph = [];
+  let list = null;
+  let quote = [];
+  const flush = () => {
+    if (paragraph.length > 0) blocks.push({ kind: "paragraph", children: inline(paragraph.join(" ")) });
+    if (list) blocks.push({ kind: "list", ordered: list.ordered, items: list.items.map(inline) });
+    if (quote.length > 0) blocks.push({ kind: "quote", children: inline(quote.join(" ")) });
+    paragraph = [];
+    list = null;
+    quote = [];
+  };
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.trim() === "") {
+      flush();
+      continue;
+    }
+    if (FENCE.test(line)) {
+      flush();
+      const code = [];
+      for (i += 1; i < lines.length && !FENCE.test(lines[i]); i++) code.push(lines[i]);
+      blocks.push({ kind: "code", text: code.join("\n") });
+      continue;
+    }
+    const heading = HEADING.exec(line);
+    if (heading) {
+      flush();
+      const hashes = heading[1].length;
+      if (hashes !== 2 && hashes !== 3) problems.add(LISTING_PROBLEM.heading);
+      blocks.push({ kind: "heading", level: hashes <= 2 ? 2 : 3, children: inline(heading[2].trim()) });
+      continue;
+    }
+    const bullet = BULLET.exec(line);
+    const ordered = bullet ? null : ORDERED.exec(line);
+    const item = bullet ?? ordered;
+    if (item) {
+      const isOrdered = ordered !== null;
+      if (paragraph.length > 0 || quote.length > 0 || list && list.ordered !== isOrdered) flush();
+      list ??= { ordered: isOrdered, items: [] };
+      list.items.push(item[1].trim());
+      continue;
+    }
+    const quoted = QUOTE.exec(line);
+    if (quoted) {
+      if (paragraph.length > 0 || list) flush();
+      quote.push(quoted[1].trim());
+      continue;
+    }
+    if (TABLE_ROW.test(line)) problems.add(LISTING_PROBLEM.table);
+    if (list && /^\s{2,}\S/.test(line)) {
+      list.items[list.items.length - 1] += ` ${line.trim()}`;
+      continue;
+    }
+    if (list || quote.length > 0) flush();
+    paragraph.push(line.trim());
+  }
+  flush();
+  return { blocks, problems: [...problems] };
+}
+function htmlAt(text, at, lower2) {
+  if (text[at + 1] === "!" || text[at + 1] === "?") {
+    const close = text.indexOf(">", at);
+    return close === -1 ? 2 : close - at + 1;
+  }
+  const isElement = (name2) => name2.includes("-") || HTML_ELEMENTS.has(name2);
+  CLOSE_TAG.lastIndex = at;
+  const closing = CLOSE_TAG.exec(text);
+  if (closing) return isElement(closing[1].toLowerCase()) ? closing[0].length : 0;
+  OPEN_TAG.lastIndex = at;
+  const open = OPEN_TAG.exec(text);
+  if (!open) return 0;
+  const name = open[1].toLowerCase();
+  if (!isElement(name)) return 0;
+  const attributes = (open[2] ?? "").replace(/\/\s*$/, "").trim();
+  const html = attributes === "" || /[="'/]/.test(attributes) || attributes.split(/\s+/).every((word) => BOOLEAN_ATTRIBUTES.has(word.toLowerCase())) || lower2.includes(`</${name}`, at + open[0].length);
+  return html ? open[0].length : 0;
+}
+const isSpace = (ch) => ch === void 0 || /\s/u.test(ch);
+const isPunctuation = (ch) => ch !== void 0 && /[\p{P}\p{S}]/u.test(ch);
+function delimiterAt(text, at) {
+  const char = text[at];
+  let end = at;
+  while (text[end] === char) end += 1;
+  const length2 = end - at;
+  if (char === "~" && length2 !== 2) return null;
+  const before = at === 0 ? void 0 : [...text.slice(Math.max(0, at - 2), at)].pop();
+  const after = end < text.length ? String.fromCodePoint(text.codePointAt(end)) : void 0;
+  const leftFlanking = !isSpace(after) && (!isPunctuation(after) || isSpace(before) || isPunctuation(before));
+  const rightFlanking = !isSpace(before) && (!isPunctuation(before) || isSpace(after) || isPunctuation(after));
+  const canOpen = char === "_" ? leftFlanking && (!rightFlanking || isPunctuation(before)) : leftFlanking;
+  const canClose = char === "_" ? rightFlanking && (!leftFlanking || isPunctuation(after)) : rightFlanking;
+  return { kind: "delimiter", char, count: length2, length: length2, canOpen, canClose };
+}
+function tokenize(text, problems) {
+  const out = [];
+  const lower2 = text.toLowerCase();
+  const pushText = (value) => {
+    if (value) out.push({ kind: "text", text: value });
+  };
+  const at = (pattern, index) => {
+    pattern.lastIndex = index;
+    return pattern.exec(text);
+  };
+  let i = 0;
+  while (i < text.length) {
+    SPECIAL.lastIndex = i;
+    const special = SPECIAL.exec(text);
+    const next = special ? special.index : text.length;
+    pushText(text.slice(i, next));
+    i = next;
+    if (i >= text.length) break;
+    const ch = text[i];
+    if (ch === "`") {
+      const end = text.indexOf("`", i + 1);
+      if (end > i + 1) {
+        out.push({ kind: "code", text: text.slice(i + 1, end) });
+        i = end + 1;
+        continue;
+      }
+    } else if (ch === "!" && text[i + 1] === "[") {
+      const image = at(IMAGE, i);
+      if (image) {
+        problems.add(LISTING_PROBLEM.image);
+        i += image[0].length;
+        continue;
+      }
+    } else if (ch === "[") {
+      const linkedImage = at(LINKED_IMAGE, i);
+      if (linkedImage) {
+        problems.add(LISTING_PROBLEM.image);
+        i += linkedImage[0].length;
+        continue;
+      }
+      const link = at(LINK, i);
+      if (link) {
+        const children = parseInline(link[1], problems);
+        if (isHttpsUrl(link[2])) out.push({ kind: "link", href: link[2], children });
+        else {
+          problems.add(LISTING_PROBLEM.insecureLink);
+          out.push(...children);
+        }
+        i += link[0].length;
+        continue;
+      }
+    } else if (ch === "$") {
+      const previous = out[out.length - 1];
+      const wordStart = i === 0 || /[\s(]/.test(text[i - 1]) || previous?.kind === "delimiter" && previous.canOpen;
+      const symbol = wordStart ? at(SYMBOL_AT, i) : null;
+      if (symbol) {
+        out.push({ kind: "symbol", symbol: symbol[1] });
+        i += symbol[0].length;
+        continue;
+      }
+    } else if (ch === "<") {
+      const length2 = htmlAt(text, i, lower2);
+      if (length2 > 0) {
+        problems.add(LISTING_PROBLEM.html);
+        pushText(text.slice(i, i + length2));
+        i += length2;
+        continue;
+      }
+    } else if (ch === "*" || ch === "_" || ch === "~") {
+      const delimiter = delimiterAt(text, i);
+      if (delimiter) {
+        out.push(delimiter);
+        i += delimiter.length;
+        continue;
+      }
+      let end = i;
+      while (text[end] === ch) end += 1;
+      pushText(text.slice(i, end));
+      i = end;
+      continue;
+    }
+    pushText(ch);
+    i += 1;
+  }
+  return out;
+}
+const delimiterText = (node) => node.kind === "delimiter" ? { kind: "text", text: node.char.repeat(node.count) } : node;
+function mergeText(nodes) {
+  const out = [];
+  for (const node of nodes) {
+    const last2 = out[out.length - 1];
+    if (node.kind === "text" && last2?.kind === "text") out[out.length - 1] = { kind: "text", text: last2.text + node.text };
+    else if (node.kind !== "text" || node.text) out.push(node);
+  }
+  return out;
+}
+function parseInline(text, problems) {
+  const head = { node: { kind: "text", text: "" }, order: -1, prev: null, next: null };
+  let tail = head;
+  tokenize(text, problems).forEach((node, order) => {
+    const slot = { node, order, prev: tail, next: null };
+    tail.next = slot;
+    tail = slot;
+  });
+  const unlink = (slot) => {
+    if (slot.prev) slot.prev.next = slot.next;
+    if (slot.next) slot.next.prev = slot.prev;
+  };
+  const floors = /* @__PURE__ */ new Map();
+  for (let closer = head.next; closer; ) {
+    const d = closer.node;
+    if (d.kind !== "delimiter" || !d.canClose || d.count === 0) {
+      closer = closer.next;
+      continue;
+    }
+    const floorKey = `${d.char}${d.canOpen ? 1 : 0}${d.length % 3}`;
+    const floor2 = floors.get(floorKey) ?? -1;
+    let opener = closer.prev;
+    for (; opener && opener !== head && opener.order > floor2; opener = opener.prev) {
+      const o2 = opener.node;
+      if (o2.kind !== "delimiter" || o2.char !== d.char || !o2.canOpen || o2.count === 0) continue;
+      if (d.char === "~" && (o2.count < 2 || d.count < 2)) continue;
+      if ((o2.canClose || d.canOpen) && (o2.length + d.length) % 3 === 0 && !(o2.length % 3 === 0 && d.length % 3 === 0)) continue;
+      break;
+    }
+    if (!opener || opener === head || opener.order <= floor2) {
+      floors.set(floorKey, closer.order - 0.25);
+      closer = closer.next;
+      continue;
+    }
+    const o = opener.node;
+    const use = d.char === "~" ? 2 : o.count >= 2 && d.count >= 2 ? 2 : 1;
+    const children = [];
+    for (let slot = opener.next; slot && slot !== closer; slot = slot.next) children.push(delimiterText(slot.node));
+    const group = {
+      node: { kind: d.char === "~" ? "strike" : use === 2 ? "strong" : "em", children: mergeText(children) },
+      order: closer.order - 0.5,
+      prev: opener,
+      next: closer
+    };
+    opener.next = group;
+    closer.prev = group;
+    o.count -= use;
+    d.count -= use;
+    if (o.count === 0) unlink(opener);
+    if (d.count === 0) {
+      const next = closer.next;
+      unlink(closer);
+      closer = next;
+    }
+  }
+  const out = [];
+  for (let slot = head.next; slot; slot = slot.next) out.push(delimiterText(slot.node));
+  return mergeText(out);
+}
+function plainText(doc) {
+  const inlineText = (nodes) => nodes.map((node) => {
+    switch (node.kind) {
+      case "text":
+      case "code":
+        return node.text;
+      case "symbol":
+        return node.symbol;
+      default:
+        return inlineText(node.children);
+    }
+  }).join("");
+  return doc.blocks.map((block) => {
+    switch (block.kind) {
+      case "code":
+        return block.text;
+      case "list":
+        return block.items.map(inlineText).join(" ");
+      default:
+        return inlineText(block.children);
+    }
+  }).join(" ").replace(/\s+/g, " ").trim();
+}
+function headings(doc) {
+  return doc.blocks.flatMap((block) => block.kind === "heading" && block.level === 2 ? [plainText({ blocks: [{ kind: "paragraph", children: block.children }] })] : []);
+}
+const LISTING_LIMITS = {
+  title: { min: 3, max: 60 },
+  summary: { min: 20, max: 140 },
+  description: { min: 200, max: 5e3 },
+  categories: { min: 1, max: 3 },
+  tags: { max: 8 }
+};
+const CLAIM = String.raw`(?:accura(?:te|cy)|success(?:ful)?(?:[- ]?(?:rate|ratio))?|(?:hit|strike|win(?:ning)?)[- ]?(?:rate|ratio))`;
+const APPROX = String.raw`(?:(?:over|above|about|around|nearly|almost|approx(?:imately)?|more than|up ?to|>|≥|~|≈)\s*=?\s*)?`;
+const PERCENT = String.raw`\d{1,4}(?:[.,]\d+)?(?:\s?[-–]\s?\d{1,4}(?:[.,]\d+)?)?\s?\+?\s?(?:%|percent|per ?cent)\+?`;
+const PROMISE = new RegExp([
+  String.raw`\b(guarantee[ds]?|assured|sure[- ]?shot|risk[- ]?free|never loses?|jackpot|multi-?bagger|double your|(daily|weekly|monthly) (profits?|returns?))\b`,
+  // "90% accuracy", "99.9% accurate", "95 percent success rate", "80% win", "85-90% hit rate"
+  String.raw`\b${PERCENT}\s*(?:${CLAIM}|wins?\b)`,
+  // "Accuracy: 90%", "win rate of about 80%", "hit ratio > 70 percent", "success rate 85-90%"
+  String.raw`\b${CLAIM}\s*(?:of|is|was|:|=|-|–|—)?\s*${APPROX}${PERCENT}`,
+  // A return promised per period or per trade: "5% returns every month", "2% profit per trade"
+  String.raw`\b${PERCENT}\s*(?:returns?|profits?|gains?)\s+(?:every|per|a|each|in a)\s+(?:day|week|month|year|trade|session)\b`,
+  // Hype, not a level: "1000% profit", "300% returns" (a "2% profit target" is a level)
+  String.raw`\b[1-9]\d{2,3}(?:[.,]\d+)?\s?(?:%|percent|per ?cent)\+?\s*(?:returns?|profits?|gains?)\b`
+].join("|"), "i");
+const DENIED_HOSTS = [
+  "t.me",
+  "telegram.me",
+  "telegram.org",
+  "telegram.dog",
+  "wa.me",
+  "wa.link",
+  "whatsapp.com",
+  "discord.gg",
+  "discord.com",
+  "discordapp.com",
+  "discord.me",
+  "bit.ly",
+  "tinyurl.com",
+  "cutt.ly",
+  "t.co",
+  "goo.gl",
+  "rb.gy",
+  "is.gd",
+  "shorturl.at",
+  "ow.ly",
+  "tiny.cc",
+  "rzp.io",
+  "razorpay.me",
+  "pages.razorpay.com",
+  "paytm.me",
+  "instamojo.com",
+  "buymeacoffee.com",
+  "patreon.com"
+];
+const TAG = /^[a-z0-9][a-z0-9-]{0,23}$/;
+const SHOUTING = /\b[A-Z]{5,}\b/;
+const CONTACT = /(https?:\/\/|www\.|@[a-z0-9_]{2,}|\.(com|in|io|net|org)\b)/i;
+function canonicalHost(value) {
+  try {
+    const host = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(value) ? value : `https://${value}`).hostname;
+    return host.toLowerCase().replace(/\.+$/, "") || void 0;
+  } catch {
+    return void 0;
+  }
+}
+const linkHosts = (nodes) => nodes.flatMap((node) => {
+  if (node.kind === "link") return [...canonicalHost(node.href) ? [canonicalHost(node.href)] : [], ...linkHosts(node.children)];
+  return "children" in node ? linkHosts(node.children) : [];
+});
+function textHosts(text) {
+  const runs = text.normalize("NFKC").match(/[\p{L}\p{N}-]+(?:[.。．｡][\p{L}\p{N}-]+)+/gu) ?? [];
+  return runs.flatMap((run) => {
+    const host = canonicalHost(run);
+    return host && host.includes(".") ? [host] : [];
+  });
+}
+function textRuns(doc) {
+  return doc.blocks.flatMap((block) => {
+    if (block.kind === "list") return block.items.map((item) => plainText({ blocks: [{ kind: "paragraph", children: item }] }));
+    return [plainText({ blocks: [block] })];
+  });
+}
+function docLinkHosts(doc) {
+  return doc.blocks.flatMap((block) => {
+    if (block.kind === "list") return block.items.flatMap(linkHosts);
+    return "children" in block ? linkHosts(block.children) : [];
+  });
+}
+const deniedHost = (host) => DENIED_HOSTS.some((denied) => host === denied || host.endsWith(`.${denied}`));
+function checkListing(listing, title) {
+  const findings = [];
+  const block = (rule, message) => findings.push({ rule, severity: "block", message });
+  const warn = (rule, message) => findings.push({ rule, severity: "warn", message });
+  const trimmedTitle = title.trim();
+  if (trimmedTitle.length < LISTING_LIMITS.title.min || trimmedTitle.length > LISTING_LIMITS.title.max) {
+    block("title", `Keep the title between ${LISTING_LIMITS.title.min} and ${LISTING_LIMITS.title.max} characters.`);
+  }
+  if (!/^[\x20-\x7E]*$/.test(trimmedTitle)) block("title", "Write the title in plain English letters, without emoji or symbols.");
+  if (SHOUTING.test(trimmedTitle)) block("title", "Don’t write the title in capitals; short abbreviations like RSI are fine.");
+  if (CONTACT.test(trimmedTitle)) block("title", "Leave links, websites and handles out of the title.");
+  const summary = listing.summary.trim();
+  if (summary.length < LISTING_LIMITS.summary.min || summary.length > LISTING_LIMITS.summary.max) {
+    block("summary", `Write the summary as one sentence of ${LISTING_LIMITS.summary.min}–${LISTING_LIMITS.summary.max} characters.`);
+  }
+  if (CONTACT.test(summary)) block("summary", "Leave links, websites and handles out of the summary.");
+  const description = listing.description ?? "";
+  if (description.length > LISTING_LIMITS.description.max) {
+    block("description", `Keep the description under ${LISTING_LIMITS.description.max.toLocaleString("en-IN")} characters.`);
+  }
+  const doc = parseListingMarkdown(description.slice(0, LISTING_LIMITS.description.max));
+  const words = plainText(doc);
+  if (words.length < LISTING_LIMITS.description.min) {
+    block("description", `Describe what it shows, how to read it and its limits in at least ${LISTING_LIMITS.description.min} characters.`);
+  }
+  for (const problem of doc.problems) block("description-format", problem);
+  if (words.length > 0 && !headings(doc).some((heading) => /how to read/i.test(heading))) {
+    warn("how-to-read", "Add a “How to read it” part so traders know what to look for.");
+  }
+  const denied = [...docLinkHosts(doc), ...textHosts([trimmedTitle, summary, words].join(" "))].filter(deniedHost);
+  if (denied.length > 0) {
+    block("links", `Remove links to ${[...new Set(denied)].join(", ")}: listings can’t point to messaging groups, link shorteners or payment pages.`);
+  }
+  if ([trimmedTitle, summary, ...textRuns(doc)].some((text) => PROMISE.test(text))) {
+    block("promises", "Describe what the indicator shows, not what a trader will earn or how often it is right.");
+  }
+  const { categories, tags } = listing;
+  if (categories.length < LISTING_LIMITS.categories.min || categories.length > LISTING_LIMITS.categories.max) {
+    block("categories", `Choose ${LISTING_LIMITS.categories.min} to ${LISTING_LIMITS.categories.max} categories.`);
+  }
+  if (!categories.every(isIndicatorCategory)) block("categories", "Choose categories from the list.");
+  if (new Set(categories).size !== categories.length) block("categories", "Choose each category once.");
+  if (tags.length > LISTING_LIMITS.tags.max) block("tags", `Use at most ${LISTING_LIMITS.tags.max} tags.`);
+  if (!tags.every((tag) => TAG.test(tag))) block("tags", "Write tags in lower case, with letters, digits and hyphens only.");
+  if (new Set(tags).size !== tags.length) block("tags", "Use each tag once.");
+  return findings;
+}
 const TOOLCHAIN = Object.freeze({
-  id: "gscript-toolchain@0.0.1+b2473a3593f2",
+  id: "gscript-toolchain@0.0.1+0795b0a657e3",
   apiVersion: G_SCRIPT_ADAPTER_API_VERSION,
   gScriptVersions: [...SUPPORTED_G_SCRIPT_LANGUAGE_VERSIONS]
 });
@@ -48181,19 +48976,25 @@ if (invokedDirectly()) {
 export {
   DAY,
   DAY_ZERO,
+  SOURCE_KEYS,
   TOOLCHAIN,
   accumulationDistribution,
   atr,
   barsFrom,
   centerOfGravity,
+  checkListing,
   checkVersionBump,
+  chopBars,
   closeSeries,
   compareSemver,
   contractChange,
   createTestRuntime,
   createToolchainExecutor,
+  emaModule,
   field,
   flatRangeBars,
+  gScriptTime,
+  gapBars,
   intradayIntensity,
   main,
   map,
@@ -48207,10 +49008,13 @@ export {
   releaseNotesFor,
   rma,
   sma,
+  sourceValue,
   supertrend,
+  trendBars,
   trueRange,
   validatePublishedManifest,
   volumeIndex,
+  vwapModule,
   williamsAd,
   williamsVad,
   zip

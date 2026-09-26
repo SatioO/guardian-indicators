@@ -1,0 +1,21 @@
+{
+  "authored": {
+    "fullName": "Previous Day, Week and Month High and Low",
+    "summary": "Yesterday's high, low and close, and last week's and last month's range, as levels on the price chart",
+    "description": "## What it shows\nStep lines on the price chart at the high and low of the last completed day, week and month, plus the previous day's close. Each level stays flat through the whole of the current period and moves on its first bar, so the last session of a month still shows the month before. Periods follow the Indian calendar: sessions, Monday-based weeks and calendar months. Toggle **Previous day high/low**, **Previous day close**, **Previous week high/low** and **Previous month high/low**; with **Label the levels** on, each one is tagged at the latest bar as PDH, PDL, PDC, PWH, PWL, PMH or PML with its price. With **Mark the first break of the day** on (this needs **Previous day high/low** on too), a small triangle marks the first bar of each session that trades through the previous day's high or low.\n\n## How to read it\n- The previous day's high and low are the first levels many intraday and swing traders watch: a clean break often draws follow-through, a failed one often reverses.\n- Last week's and last month's range frame the bigger picture; a daily close above last month's high is a strong signal for many positional traders.\n- On a daily chart the previous day is simply yesterday's bar, and a higher high counts as a break.\n- Alerts are available for **Broke previous day high** and **Broke previous day low**, each once per session, and follow the same **Previous day high/low** and **Mark the first break of the day** toggles as the triangle markers.\n\n## Limits\n- A level is drawn only on charts faster than its period: no daily levels on a weekly chart, no weekly ones on a monthly chart.\n- The levels come from the period data the platform fetches; until it arrives nothing is drawn.\n- Periods are calendar based: a week runs Monday through Sunday, so a special weekend session counts toward the week that started on the Monday before it, and a holiday week is simply shorter.",
+    "categories": [
+      "pivot",
+      "trend"
+    ],
+    "tags": [
+      "pdh",
+      "pdl",
+      "previous-day",
+      "weekly-levels",
+      "monthly-levels",
+      "support-resistance",
+      "breakout",
+      "intraday"
+    ]
+  }
+}

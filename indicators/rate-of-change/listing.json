@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "fullName": "Rate of Change",
+    "summary": "How far price has moved, in percent, against where it stood a set number of bars ago, coloured by side of zero",
+    "description": "## What it shows\nA line in its own pane: the percent change of **Source** (the close by default) against its value **Length** bars earlier (9 by default), `100 × (source − source[length]) ÷ source[length]`. The line is drawn in the **Above zero** colour while the change is zero or positive and in the **Below zero** colour while it is negative, around a dashed zero line. The same change, in **Source**'s own units — rupees for a price **Source**, shares for Volume — appears in the Data Window as **Change**.\n\n## How to read it\n- Above zero, price is higher than it was **Length** bars ago; below zero, it is lower.\n- The further the line sits from zero, the faster price has moved; a line that flattens while price keeps rising shows momentum slowing.\n- A cross of the zero line marks the bar the move over the window turned from a loss to a gain, or back.\n- Alerts are available for **Crossed above zero** and **Crossed below zero**.\n\n## Limits\n- It compares two single bars, so one unusual close — the one leaving the window as well as the one entering it — can swing the line.\n- It has no fixed upper or lower bound, so extremes differ from stock to stock.\n- Nothing is drawn until **Length** earlier bars are loaded.",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "roc",
+      "rate-of-change",
+      "momentum",
+      "oscillator",
+      "zero-line"
+    ]
+  }
+}

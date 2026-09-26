@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "Tells a trending market from a sideways one: high readings mean choppy, overlapping bars, low readings a clean trend",
+    "description": "## What it shows\nA line in its own pane, from 0 to 100. Over the last **Length** bars (14 by default) it compares the distance price travelled bar by bar, the sum of each bar's true range, with the ground it actually covered, from the highest high to the lowest low, on a log scale. Dashed bands sit at **Choppy above** (61.8 by default) and **Trending below** (38.2 by default) with the zone between them shaded, and a dotted line marks 50. The line turns amber above the choppy band and violet below the trending band.\n\n## How to read it\n- High readings mean bars overlap and price goes back and forth: a range, where breakout and trend systems struggle.\n- Low readings mean most bars push the same way: a trend, whichever direction it runs.\n- A long stay above the choppy band often comes before a strong move; the drop below the trending band shows that move under way.\n- Alerts are available for **Trend started** and **Market turned choppy**, on the bar the line crosses a band.\n\n## Limits\n- It says whether the market trends, not which way; pair it with a direction tool.\n- It lags by design, since it looks back over the whole **Length**.\n- Nothing is drawn until **Length** bars are loaded.",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "chop",
+      "choppiness",
+      "trend-strength",
+      "range-bound",
+      "market-regime",
+      "consolidation"
+    ]
+  }
+}

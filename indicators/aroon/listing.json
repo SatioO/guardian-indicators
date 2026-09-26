@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "summary": "Two lines that measure how recently price made its highest high and lowest low, to show when a trend starts and fades",
+    "description": "## What it shows\nTwo lines in their own pane, each between 0 and 100. **Aroon Up** reads 100 on the bar that makes the highest high of the last **Length** + 1 bars (14 by default) and drops by 100 ÷ **Length** for every bar that passes without a new high; **Aroon Down** does the same for the lowest low. With **Show oscillator** on, columns show Aroon Up minus Aroon Down, green when the highs are fresher and red when the lows are. Dashed guides sit at **Strong trend level** (70 by default) and **Weak trend level** (30 by default). The number of bars since the high and since the low appear in the Data Window as **Bars since high** and **Bars since low**.\n\n## How to read it\n- Aroon Up near 100 with Aroon Down near 0 shows an up trend making fresh highs; the reverse shows a down trend.\n- Both lines low means neither side is making new extremes — often a consolidation.\n- A cross of the two lines is an early sign that the trend may be changing; alerts are available for **Bullish cross** and **Bearish cross**.\n\n## Limits\n- It looks only at when the extremes happened, not at how far price moved.\n- In a narrow range the lines swing sharply and cross often.\n- Nothing is drawn until **Length** + 1 bars are loaded.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "aroon",
+      "trend-strength",
+      "new-highs",
+      "new-lows",
+      "crossover",
+      "oscillator"
+    ]
+  }
+}

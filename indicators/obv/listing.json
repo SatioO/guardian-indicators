@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "On Balance Volume (OBV)",
+    "summary": "A running total of volume that rises on up closes and falls on down closes, with a signal line and cross alerts",
+    "description": "## What it shows\nA line in its own pane that keeps a running total of volume. A bar that closes above the previous close adds its volume, a bar that closes below subtracts it, and an unchanged close adds nothing. The first bar has no previous close, so the line starts at 0. An amber **Signal** line, an exponential average of the line over **Signal length** bars (21 by default), smooths it. The line is green while it is at or above the signal and red while it is below; it is blue until the signal has enough bars. Values print in K, L and Cr.\n\n## How to read it\n- The level of the line means nothing on its own; its direction and its highs and lows do.\n- A line making new highs ahead of price is often read as quiet accumulation before a breakout.\n- Price at a new high while the line fails to follow is a warning that volume is not confirming the move.\n- Alerts are available for **OBV crossed above signal** and **OBV crossed below signal**.\n\n## Limits\n- A whole bar's volume counts one way, however small the change in the close, so one heavy day can swing the line.\n- The running total depends on where the loaded history starts, so compare shapes, not values, between charts.\n- The signal line draws nothing until **Signal length** bars are loaded.",
+    "categories": [
+      "volume",
+      "trend"
+    ],
+    "tags": [
+      "obv",
+      "on-balance-volume",
+      "accumulation",
+      "divergence",
+      "signal-line",
+      "confirmation"
+    ]
+  }
+}

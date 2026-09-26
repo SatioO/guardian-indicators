@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "summary": "Where RSI sits within its own recent range, as smoothed K and D lines between 80 and 20 bands",
+    "description": "## What it shows\nTwo lines in their own pane built from RSI rather than price. RSI of **RSI source** (the close by default) over **RSI length** bars (14 by default) is placed within its own highest-to-lowest range over the last **Stochastic length** bars (14 by default), from 0 at the bottom of that range to 100 at the top. **K** averages that reading over 3 bars (the **K** input) and **D** averages K over 3 more (the **D** input). Dashed lines mark the **Upper band** (80 by default) and the **Lower band** (20 by default), with the space between them shaded and a dotted line at 50. With **Mark crosses in the zones** on, a dot marks K crossing above D while D is at or below the lower band, and K crossing below D while D is at or above the upper band. The underlying RSI appears in the Data Window.\n\n## How to read it\n- It moves far faster than RSI, reaching both extremes even when RSI itself stays between 30 and 70.\n- Above the upper band RSI is near the top of its recent range; below the lower band, near the bottom.\n- K crossing above D inside the lower zone often marks momentum turning back up; K crossing below D inside the upper zone, turning down.\n- In a strong trend it can stay pinned at 100 or 0 for many bars; read that as strength, not as a signal to fade.\n- Alerts are available for **Bullish cross in oversold** and **Bearish cross in overbought**.\n\n## Limits\n- Because it is a stochastic of a stochastic-like measure, it is noisy on short timeframes.\n- A window where RSI does not change at all has no range, so nothing is drawn there.\n- K starts 3 bars after RSI has a full window behind it and D 2 bars after K (bar 19 with the defaults).",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "stoch-rsi",
+      "stochastic",
+      "rsi",
+      "overbought",
+      "oversold",
+      "crossover"
+    ]
+  }
+}

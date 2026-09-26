@@ -1,0 +1,8 @@
+{
+  "type": "local.obv",
+  "name": "On Balance Volume",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}

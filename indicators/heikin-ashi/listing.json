@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "summary": "Heikin Ashi candles in their own pane, averaged to smooth out noise so runs of trend and turns stand out",
+    "description": "## What it shows\nCandles in their own pane built from averages rather than raw prices. Each candle closes at the average of the bar's open, high, low and close, and opens at the middle of the previous candle's body; the first candle opens midway between its own open and close. The high and low stretch to take in the bar's own extremes. Up candles use the **Up candle** colour and down candles the **Down candle** colour. With **Single out strong candles** on (the default), candles that show no wick against their trend are drawn solid and the rest lighter. The number of candles in a row of one colour appears in the Data Window as **Candles in a row**, negative for down.\n\n## How to read it\n- A run of solid up candles with no lower wicks is a steady up trend; solid down candles with no upper wicks a steady down trend.\n- Small bodies with wicks on both sides often come before a change of direction.\n- Alerts are available for **Turned up** and **Turned down**, on the bar the candle colour changes.\n\n## Limits\n- The candles are averages, not traded prices: read entries and stops from the real chart.\n- Because each open depends on the one before, the candles lag the market by a bar or two.\n- The first few candles depend on where the loaded history starts.",
+    "categories": [
+      "trend",
+      "patterns"
+    ],
+    "tags": [
+      "heikin-ashi",
+      "candles",
+      "trend-following",
+      "smoothing",
+      "reversal"
+    ]
+  }
+}

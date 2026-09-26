@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Volume-Weighted Average Price",
+    "summary": "The session's volume-weighted average price, restarting each IST trading day, with close-cross alerts",
+    "description": "## What it shows\nOne line on the price chart: the running volume-weighted average of **Source** (the typical price, `(high + low + close) / 3`, by default) since the session began. Every bar adds `source * volume` and its volume to two running totals, and the line is their ratio. Both totals reset on the first bar of each new IST calendar day. **Color** (pink by default) and **Line width** (2 by default) style the line. With the default source it draws the same numbers as the chart's built-in VWAP.\n\n## How to read it\n- Price above the line is trading above what the session has paid on average; below it, under that average.\n- Consider it a yardstick for whether an intraday entry is rich or cheap against the session so far.\n- Early bars move the line a lot; as volume builds through the day, each new bar usually moves it less.\n- Alerts are available for **Close crossed above VWAP** and **Close crossed below VWAP**.\n\n## Limits\n- **Daily**, **Weekly** and **Monthly** in the Visibility tab are off by default, so it shows on minute and hour charts only. Turned on there, every bar is its own session and the line just traces that bar's source.\n- It depends on volume: nothing is drawn while the session's running volume is zero, so a feed without volume shows no line.\n- No deviation bands are drawn around it.",
+    "categories": [
+      "volume"
+    ],
+    "tags": [
+      "vwap",
+      "volume-weighted",
+      "average-price",
+      "intraday",
+      "session",
+      "benchmark"
+    ]
+  }
+}

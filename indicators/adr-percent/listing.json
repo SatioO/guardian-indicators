@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "fullName": "Average Daily Range Percent",
+    "summary": "How far a stock typically travels in a day, as a percent of price, with tight days and expansion days picked out",
+    "description": "## What it shows\nA line in its own pane: the average of each day's range over **Length** bars (20 by default), as a percent of price. With **Method** set to *High ÷ low* (the default) each day contributes `high / low - 1`; *Range ÷ close* divides the averaged high-to-low range by the close instead. Behind the line, a column shows each day's own range in the same units, drawn from the first bar. A day is judged against the average up to the day before it, so it never dilutes its own yardstick: one at or below **Tight day at or below (× ADR)** (0.5 by default) times yesterday's average turns the column violet, in the **Tight day** colour; one at or above **Expansion day at or above (× ADR)** (1.5 by default) turns it amber, in the **Expansion day** colour. The line itself shows the **ADR% above minimum** colour while it is at or above **Minimum ADR%** (3.5 by default), and the **ADR% below minimum** colour while it sits below it. The average range in rupees appears in the Data Window as **ADR (price)**.\n\n## How to read it\n- A higher ADR% means a stock moves more in a typical day; many swing traders look for names that move enough to make a trade worthwhile.\n- A run of violet columns is the range contracting — the tightening that often comes before a breakout — but a tight or expansion day is confirmed only once its bar closes.\n- An amber column marks a day that moved far more than usual; check whether volume came with it.\n- Use **ADR (price)** to size a stop in rupees that fits how the stock usually moves.\n- Alerts are available for **Tight day** and **Expansion day**.\n\n## Limits\n- It measures the chart's own bars, so on an intraday chart it is the average bar range, not the daily one.\n- It ignores gaps between bars — a circuit-locked or big-gap day can still show as tight and trip the Tight day alert, because only the bar's own high-to-low range is judged; use an ATR-based measure such as ATR% when overnight gaps matter.\n- The ADR% line needs **Length** bars; the Day range columns draw from the first bar, and the tight/expansion colours need one bar more, since they compare against yesterday's average.",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "adr",
+      "daily-range",
+      "swing",
+      "range-contraction",
+      "tight-days",
+      "position-sizing"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "authored": {
+    "fullName": "Up/Down Volume Ratio",
+    "summary": "Volume on up days divided by volume on down days over the last 50 bars, with accumulation and distribution zones",
+    "description": "## What it shows\nA line in its own pane: the total volume of the bars that closed above the previous close, divided by the total volume of the bars that closed below it, over the last **Length** bars (50 by default). A bar with an unchanged close counts for neither side. A dashed line marks 1.0, where up-day and down-day volume balance. The line turns green at or above **Accumulation at or above** (1.5 by default) and red at or below **Distribution at or below** (0.7 by default), each marked with a dotted line. The Data Window carries **Up volume** and **Down volume**, the raw totals behind the ratio.\n\n## How to read it\n- Above 1.0, more shares changed hands on up days than on down days; growth-stock traders in the O'Neil school read a reading above 1.5 as institutions accumulating.\n- Below 0.7, down days carry the volume, which is read as distribution.\n- A ratio holding above 1.0 through a base is a sign the stock is being supported.\n- **Up volume** and **Down volume** show whether a reading comes from thin or heavy volume.\n- Alerts are available for **Entered accumulation** and **Entered distribution**.\n\n## Limits\n- It counts whole days as up or down by the close alone, so a small gain on huge volume weighs as much as a big one.\n- Nothing is drawn while the window holds no down day, because the ratio has no upper bound there.\n- Nothing is drawn until **Length** bars are loaded.",
+    "categories": [
+      "volume",
+      "trend"
+    ],
+    "tags": [
+      "up-down-volume",
+      "ud-ratio",
+      "accumulation",
+      "distribution",
+      "canslim",
+      "institutional"
+    ]
+  }
+}

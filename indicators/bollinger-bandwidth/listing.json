@@ -1,0 +1,17 @@
+{
+  "authored": {
+    "summary": "How wide the Bollinger Bands are as a percent of their average, with the widest and narrowest levels and squeezes marked",
+    "description": "## What it shows\nA line in its own pane: the distance between the upper and lower Bollinger Bands divided by the middle band, times 100. The bands sit **StdDev** standard deviations (2 by default) either side of the **Length**-bar simple average (20 by default) of **Source** (the close by default). A red **Highest expansion** line tracks the widest reading of the last **Highest expansion length** bars and a green **Lowest contraction** line the narrowest of the last **Lowest contraction length** bars (125 each by default). A violet dot marks a **Squeeze**: a bar where the width is at its lowest contraction. The bands themselves appear in the Data Window as **Basis (price)**, **Upper band (price)** and **Lower band (price)**.\n\n## How to read it\n- A reading of 8 means the bands span 8% of the average price.\n- A squeeze is the market coiling: the bands are as tight as they have been in months, and a larger move often follows. It does not tell which way.\n- A width pinned at the highest expansion shows a move in full flow; a turn down from it often marks the move slowing.\n- An alert is available for **Squeeze**, on every bar the width sets a new low for the lookback.\n\n## Limits\n- It measures how spread out closes are, not direction.\n- Widths of different stocks compare only roughly, since the percent depends on price level and volatility.\n- Nothing is drawn until **Length** bars are loaded; the expansion and contraction lines need their full lengths.",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "bollinger-bands",
+      "bandwidth",
+      "squeeze",
+      "volatility-contraction",
+      "breakout",
+      "bbw"
+    ]
+  }
+}

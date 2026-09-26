@@ -1,0 +1,18 @@
+{
+  "authored": {
+    "summary": "Four moving averages of the close with the ribbon shaded while they are stacked in trend order, up or down",
+    "description": "## What it shows\nFour averages of the close on the price chart: **Fast length** (20 by default), **Medium length** (50), **Slow length** (100) and **Long length** (200). **Type** takes all four as simple averages (*SMA*, the default) or exponential ones (*EMA*). When the averages are stacked in bullish order — fast above medium above slow above long — the band from the fast to the long average is shaded in the **Bullish stack** colour; in bearish order (fast below medium below slow below long) it is shaded in the **Bearish stack** colour. Any other order is left unshaded. The Data Window shows **Stack**: +1 bullish, −1 bearish, 0 mixed.\n\n## How to read it\n- A green ribbon is an orderly up trend at every horizon the four averages measure; many trend followers only look for longs while it lasts.\n- The ribbon widening shows the trend accelerating; narrowing and losing its shade shows it tiring.\n- A red ribbon is the mirror picture of a down trend.\n- Alerts are available for **Bullish stack formed** and **Bearish stack formed** on the bar the order completes, and **Bullish stack lost** and **Bearish stack lost** on the bar it breaks, so exits can be alerted too, not just entries.\n- Switch **Shade stacked ribbon** off to keep only the four lines.\n\n## Limits\n- Every average needs its own length in bars (Fast, Medium, Slow and Long length) before any stack can be judged, so nothing is shaded until the slowest of the four is ready — whichever length is largest, since the four have no required order.\n- A full stack forms late in a move by design; it describes a trend rather than calling its start.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "ribbon",
+      "trend-alignment",
+      "sma",
+      "ema",
+      "200-dma",
+      "trend-following"
+    ]
+  }
+}

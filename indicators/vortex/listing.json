@@ -1,0 +1,16 @@
+{
+  "authored": {
+    "summary": "Two lines that compare upward and downward price movement to show which side controls the trend, with cross alerts",
+    "description": "## What it shows\nTwo lines in their own pane. **VI+** adds up how far each high reached above the previous low, and **VI−** how far each low reached below the previous high, each over **Length** bars (14 by default) and divided by the true range over the same bars. The space between the lines is shaded green while VI+ leads and red while VI− leads when **Shade the leader** is on. A small dot marks each bar where the lines cross when **Mark crosses** is on, and a dashed guide sits at 1.0. The gap between the lines appears in the Data Window as **VI spread**.\n\n## How to read it\n- VI+ above VI− means upward movement dominates; VI− above VI+ means downward movement dominates.\n- A cross is the moment control changes hands; many traders wait for the bar to close before acting on it.\n- Lines far apart show a strong trend; lines wound together show a market without direction.\n- Alerts are available for **Bullish cross** (VI+ rises above VI−) and **Bearish cross** (VI+ falls below VI−).\n\n## Limits\n- In a sideways market the lines cross back and forth and the crosses mean little.\n- It sums the last bars equally, so it turns only after a move has started.\n- Nothing is drawn until **Length** bars after the first bar are loaded.",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "vortex",
+      "trend-direction",
+      "crossover",
+      "true-range",
+      "trend-strength"
+    ]
+  }
+}

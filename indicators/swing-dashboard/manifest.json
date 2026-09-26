@@ -1,0 +1,8 @@
+{
+  "type": "local.swing-dashboard",
+  "name": "Swing Dashboard",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0"
+}
