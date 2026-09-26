@@ -1,37 +1,38 @@
 // Rebuild catalog.json from the packages/ tree. The catalog is the ONLY file the
-// app's Browse tab reads to list packages; per-package manifests/bundles are
-// fetched lazily on install.
+// app's Library reads to list indicators; each package's files are fetched when
+// a trader adds it.
 //
 //   node scripts/build-catalog.mjs
+//
+// Listing metadata (categories, tags, full name) comes from the indicator's
+// listing.json: indicators/<name>/listing.json for those built here from
+// source (published as pub.guardian.<name>), or packages/<id>/listing.json for
+// a prebuilt package that ships one.
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { compareSemver } from './lib.mjs';
+import { catalogEntry, compareSemver } from './lib.mjs';
 
 const PKG_ROOT = 'packages';
+const SOURCE_AUTHOR_HANDLE = 'guardian';
 const dirs = (p) => (existsSync(p) ? readdirSync(p).filter((n) => statSync(join(p, n)).isDirectory()) : []);
+const readJson = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : undefined);
+
+function listingFor(id) {
+  const sourcePrefix = `pub.${SOURCE_AUTHOR_HANDLE}.`;
+  if (id.startsWith(sourcePrefix)) {
+    const fromSource = readJson(join('indicators', id.slice(sourcePrefix.length), 'listing.json'));
+    if (fromSource) return fromSource;
+  }
+  return readJson(join(PKG_ROOT, id, 'listing.json'));
+}
 
 const entries = [];
 for (const id of dirs(PKG_ROOT)) {
   const idDir = join(PKG_ROOT, id);
   const versions = dirs(idDir).filter((v) => existsSync(join(idDir, v, 'manifest.json'))).sort(compareSemver);
   if (versions.length === 0) continue;
-  const latest = versions[versions.length - 1];
-  const m = JSON.parse(readFileSync(join(idDir, latest, 'manifest.json'), 'utf8'));
-  entries.push({
-    id: m.type,
-    name: m.name,
-    creator: m.creator,
-    summary: m.summary ?? m.description ?? '',
-    latestVersion: latest,
-    versions,
-    apiVersion: m.apiVersion,
-    // G Script packages (apiVersion 2) are pinned to a language version too;
-    // the app refuses a v2 row without it, so the catalog must carry it.
-    ...(m.gScriptVersion === undefined ? {} : { gScriptVersion: m.gScriptVersion }),
-    ...(m.packageFormat === undefined ? {} : { packageFormat: m.packageFormat }),
-    // Where it draws, so the app can check pane room before downloading it.
-    ...(m.placement === undefined ? {} : { placement: m.placement }),
-  });
+  const manifest = readJson(join(idDir, versions[versions.length - 1], 'manifest.json'));
+  entries.push(catalogEntry(manifest, versions, listingFor(id)));
 }
 entries.sort((a, b) => a.id.localeCompare(b.id));
 writeFileSync('catalog.json', JSON.stringify(entries, null, 2) + '\n');

@@ -75,3 +75,32 @@ export function checkPrChanges(changes, repo) {
   }
   return errors;
 }
+
+/**
+ * One catalog row: what the app's Library lists before anything is installed.
+ * `listing` is the indicator's listing.json (source-built indicators) — its
+ * categories, tags and full name let the Library file and find the indicator
+ * like a built-in. Display data only: installs verify the signed package.
+ */
+export function catalogEntry(manifest, versions, listing) {
+  const sorted = [...versions].sort(compareSemver);
+  const authored = listing?.authored ?? {};
+  return {
+    id: manifest.type,
+    name: manifest.name,
+    creator: manifest.creator,
+    summary: manifest.summary ?? manifest.description ?? '',
+    latestVersion: sorted[sorted.length - 1],
+    versions: sorted,
+    apiVersion: manifest.apiVersion,
+    // G Script packages (apiVersion 2) are pinned to a language version too;
+    // the app refuses a v2 row without it, so the catalog must carry it.
+    ...(manifest.gScriptVersion === undefined ? {} : { gScriptVersion: manifest.gScriptVersion }),
+    ...(manifest.packageFormat === undefined ? {} : { packageFormat: manifest.packageFormat }),
+    // Where it draws, so the app can check pane room before downloading it.
+    ...(manifest.placement === undefined ? {} : { placement: manifest.placement }),
+    ...(typeof authored.fullName === 'string' && authored.fullName ? { fullName: authored.fullName } : {}),
+    ...(Array.isArray(authored.categories) && authored.categories.length ? { categories: authored.categories } : {}),
+    ...(Array.isArray(authored.tags) && authored.tags.length ? { tags: authored.tags } : {}),
+  };
+}
