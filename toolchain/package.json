@@ -16,5 +16,5 @@
     "quickjs-emscripten-core": "0.32.0",
     "@jitl/quickjs-ng-wasmfile-release-sync": "0.32.0"
   },
-  "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3"
+  "toolchain": "gscript-toolchain@0.0.1+5ebe2c5dcf8c"
 }

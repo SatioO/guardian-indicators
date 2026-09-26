@@ -14,8 +14,8 @@ indicators/<name>/                    SOURCE — reviewed in PRs (Guardian's ind
   RELEASE-NOTES.md                    one "## x.y.z" entry per Published version
   <name>.test.ts                      tests against a reference computation
 packages/pub.<author>.<name>/<version>/
-  manifest.json                       BUILT by CI, contract baked in, provenance recorded
-  bundle.js                           the compiled script
+  manifest.json                       BUILT by CI, contract baked in, provenance recorded (compact JSON)
+  bundle.js                           the compiled script (minified)
   package.sig                         the registry signature (CI)
 catalog.json                          the index the app lists (CI)
 toolchain/                            the app's G Script toolchain, pinned (see below)
@@ -89,6 +89,14 @@ The toolchain is the app's, built in the Guardian app repo with `npm run gscript
 build and refreshes `package-lock.json` (`npm install`). `npx gscript-toolchain info` prints
 the pinned build and the G Script versions it compiles. An existing version is never rebuilt
 with a newer toolchain — Published versions stay byte-for-byte what was signed.
+
+**Package size.** Packages ship as production builds: `bundle.js` minified (whitespace,
+syntax and local names, no comments) and `manifest.json` as compact JSON — about 44% smaller
+than readable output, which keeps downloads, the app's installed-indicator store and
+sandbox parse time small. Reviewers read `indicators/<name>/indicator.ts`, never the
+bundle; the app's test suite proves every published indicator draws exactly the same
+minified as readable. Versions published before minification stay as they were signed;
+each indicator's next version ships minified.
 
 ## Prebuilt packages (SDK v1)
 

@@ -27390,7 +27390,7 @@ const MAX_LOG_ENTRIES = G_SCRIPT_PHYSICAL_EXECUTION_RESULT_WIRE_V1.resourceLimit
 const MAX_LOG_LEN = G_SCRIPT_PHYSICAL_EXECUTION_RESULT_WIRE_V1.resourceLimits.maximumGuestLogTextUtf16CodeUnitsBeforeTruncation;
 const RESYNC_SENTINEL = "\0RESYNC";
 const OUTPUT_LIMIT_SENTINEL = "__GUARDIAN_OUTPUT_LIMIT__";
-const DRIVER_BOOTSTRAP = `(() => {const __global = globalThis;const __parse = JSON.parse;const __stringify = JSON.stringify;const __charCodeAt = Function.prototype.call.bind(String.prototype.charCodeAt);let __compute;let __barsCacheIdentity;const __install = (__candidate) => {if (__compute !== undefined) throw new Error('indicator compute was already installed');if (typeof __candidate !== 'function') throw new Error('guest did not define compute');__compute = __candidate;Object.defineProperty(__global, 'compute', {value: __compute, writable: false, configurable: false, enumerable: false});};const __run = (__maxOutputBytes) => {if (typeof __compute !== 'function') throw new Error('guest did not define compute');if (__global.__barsMode === 'extend') {var __c = __global.__barsCache;if (!__c || __c.length === 0 || __barsCacheIdentity !== __global.__barsDatasetIdentity) return ${JSON.stringify(RESYNC_SENTINEL)};__c[__c.length - 1] = __parse(__global.__barsTail);} else {__global.__barsCache = __parse(__global.__barsFull);__barsCacheIdentity = __global.__barsDatasetIdentity;}var __in = __parse(__global.__inputRest);__in.bars = __global.__barsCache;var __serialized = __stringify(__compute(__in, __parse(__global.__settings)));if (typeof __serialized !== 'string') return undefined;var __bytes = 0;for (var __i = 0; __i < __serialized.length; __i++) {var __code = __charCodeAt(__serialized, __i);if (__code <= 127) __bytes += 1;else if (__code <= 2047) __bytes += 2;else if (__code >= 55296 && __code <= 56319 && __i + 1 < __serialized.length && __charCodeAt(__serialized, __i + 1) >= 56320 && __charCodeAt(__serialized, __i + 1) <= 57343) {__bytes += 4; __i += 1;} else __bytes += 3;if (__bytes > __maxOutputBytes) return ${JSON.stringify(OUTPUT_LIMIT_SENTINEL)};}return __serialized;};Object.defineProperty(__global, '__guardianInstallIndicatorCompute', {value: __install, writable: false, configurable: true, enumerable: false});Object.defineProperty(__global, '__guardianRunIndicator', {value: __run, writable: false, configurable: true, enumerable: false});})();`;
+const DRIVER_BOOTSTRAP = `(() => {const __global = globalThis;const __parse = JSON.parse;const __stringify = JSON.stringify;const __charCodeAt = Function.prototype.call.bind(String.prototype.charCodeAt);let __compute;let __barsCacheIdentity;const __install = (__candidate) => {if (__compute !== undefined) throw new Error('indicator compute was already installed');if (typeof __candidate !== 'function') throw new Error('guest did not define compute');__compute = __candidate;Object.defineProperty(__global, 'compute', {value: __compute, writable: false, configurable: false, enumerable: false});};const __run = (__maxOutputBytes) => {if (typeof __compute !== 'function') throw new Error('guest did not define compute');if (__global.__barsMode === 'extend') {var __c = __global.__barsCache;if (!__c || __c.length === 0 || __barsCacheIdentity !== __global.__barsDatasetIdentity) return ${JSON.stringify(RESYNC_SENTINEL)};__c[__c.length - 1] = __parse(__global.__barsTail);} else {__global.__barsCache = __parse(__global.__barsFull);__barsCacheIdentity = __global.__barsDatasetIdentity;}var __in = __parse(__global.__inputRest);__in.bars = __global.__barsCache;var __serialized = __stringify(__compute(__in, __parse(__global.__settings)));if (typeof __serialized !== 'string') return undefined;if (__serialized.length * 3 <= __maxOutputBytes) return __serialized;var __bytes = 0;for (var __i = 0; __i < __serialized.length; __i++) {var __code = __charCodeAt(__serialized, __i);if (__code <= 127) __bytes += 1;else if (__code <= 2047) __bytes += 2;else if (__code >= 55296 && __code <= 56319 && __i + 1 < __serialized.length && __charCodeAt(__serialized, __i + 1) >= 56320 && __charCodeAt(__serialized, __i + 1) <= 57343) {__bytes += 4; __i += 1;} else __bytes += 3;if (__bytes > __maxOutputBytes) return ${JSON.stringify(OUTPUT_LIMIT_SENTINEL)};}return __serialized;};Object.defineProperty(__global, '__guardianInstallIndicatorCompute', {value: __install, writable: false, configurable: true, enumerable: false});Object.defineProperty(__global, '__guardianRunIndicator', {value: __run, writable: false, configurable: true, enumerable: false});})();`;
 function utf8ByteLengthWithinLimit(value, limit) {
   let bytes = 0;
   for (let i = 0; i < value.length; i++) {
@@ -28765,10 +28765,10 @@ class WorkerExecutor {
     let timer;
     const wall = new Promise((resolve2) => {
       timer = setTimeout(() => {
+        resolve2({ ok: false, error: `worker exceeded ${this.wallClockMs}ms wall-clock — hard-killed` });
         this.transport.kill();
         this.barsShadow.clear();
         this.requestedSeriesTransport.reset();
-        resolve2({ ok: false, error: `worker exceeded ${this.wallClockMs}ms wall-clock — hard-killed` });
       }, remainingMs);
     });
     try {
@@ -37284,7 +37284,7 @@ function resolveInFiles(spec, importer, files) {
   }
   return null;
 }
-async function bundleIndicatorFolder(files, esbuild2) {
+async function bundleIndicatorFolder(files, esbuild2, options = {}) {
   if (!(ENTRY in files)) return { ok: false, errors: `missing entry '${ENTRY}'` };
   if (!("manifest.json" in files)) return { ok: false, errors: "missing manifest.json" };
   let manifest;
@@ -37405,7 +37405,8 @@ async function bundleIndicatorFolder(files, esbuild2) {
       plugins: [sandbox],
       write: false,
       target: "es2020",
-      logLevel: "silent"
+      logLevel: "silent",
+      ...options.minify ? { minify: true, legalComments: "none" } : {}
     });
     if (result.errors.length) {
       return { ok: false, errors: result.errors.map((e2) => explain(e2.text)).join("; ") };
@@ -37543,8 +37544,6 @@ const LOCAL_ID = /^local\.[a-z0-9][a-z0-9-]*$/;
 const isLocalId = (id) => typeof id === "string" && LOCAL_ID.test(id);
 const PUB_ID = /^pub\.[a-z0-9][a-z0-9-]*\.[a-z0-9][a-z0-9-]*$/;
 const isPubId = (id) => typeof id === "string" && PUB_ID.test(id);
-const GS_ID = /^gs\.[a-z0-9][a-z0-9-]*$/;
-const isGsId = (id) => typeof id === "string" && GS_ID.test(id);
 function resolvePolicy(policy, policyDefaults) {
   if (policy.origin === "const") return policy.value;
   return policyDefaults.get(policy.policySlot);
@@ -37837,9 +37836,9 @@ function loadCustomDefinition(rawManifest, bundledJs, opts = {}) {
     return reject("bundled JS is empty — nothing to run");
   }
   const raw = rawManifest;
-  const idOk = allow === "pub" ? isPubId(raw.type) : allow === "gs" ? isGsId(raw.type) : isLocalId(raw.type);
+  const idOk = allow === "pub" ? isPubId(raw.type) : isLocalId(raw.type);
   if (!idOk) {
-    return reject(allow === "pub" ? `published id must be 'pub.<creator>.<name>' (lowercase, hyphens) — got ${JSON.stringify(raw.type)}; a built-in, local.*, or gs.* id can never register as published` : allow === "gs" ? `bundled pack id must be 'gs.<slug>' (lowercase, hyphens) — got ${JSON.stringify(raw.type)}; a built-in, local.*, or pub.* id can never register as a bundled pack script` : `custom id must be 'local.<slug>' (lowercase, hyphens) — got ${JSON.stringify(raw.type)}; a built-in, pub.*, or gs.* id can never register locally`);
+    return reject(allow === "pub" ? `published id must be 'pub.<creator>.<name>' (lowercase, hyphens) — got ${JSON.stringify(raw.type)}; a built-in or local.* id can never register as published` : `custom id must be 'local.<slug>' (lowercase, hyphens) — got ${JSON.stringify(raw.type)}; a built-in or pub.* id can never register locally`);
   }
   const compatibility = validateManifestCompatibility(raw, {
     allowUnboundGScriptDiscovery: opts.allowUnboundPineDiscovery === true
@@ -39630,9 +39629,7 @@ async function applyDevUpdate(event, deps, commitIntent) {
   }
   const expectedDefinition = await deps.store.get(event.id);
   const js = event.js ?? "";
-  const allow = event.idClass === "gs" ? "gs" : void 0;
   let loaded = loadCustomDefinition(event.manifest, js, {
-    allow,
     allowUnboundPineDiscovery: event.pine === true
   });
   if (!loaded.ok) {
@@ -39641,7 +39638,7 @@ async function applyDevUpdate(event, deps, commitIntent) {
     return { ok: false, stage: "validate", error: loaded.error };
   }
   if (event.pine) {
-    const baked = await bakeGScriptDiscovery(loaded, event.manifest, js, deps.executor, allow);
+    const baked = await bakeGScriptDiscovery(loaded, event.manifest, js, deps.executor, void 0);
     if (!baked.ok) {
       deps.surfaceError(event.id, baked.error);
       deps.recordDiag?.(event.id, { ok: false, stage: "validate", message: baked.error });
@@ -47527,7 +47524,7 @@ async function buildSdkPreamble(esbuild2, entryPath = SDK_VM_ENTRY) {
   if (!text) throw new Error("buildSdkPreamble: esbuild produced no output");
   return text;
 }
-const PACK_ROOT = join$1(process.cwd(), "indicators/pack/");
+const PACK_ROOT = join$1(process.cwd(), "indicators/fixtures/");
 function packFiles(slug, root = PACK_ROOT) {
   const dir = join$1(root, slug, "/");
   const files = {};
@@ -47640,6 +47637,51 @@ function makeRun(bars, snapshot) {
     }
   };
 }
+function packIndicator(slug, module, executor) {
+  let sequence = 0;
+  return {
+    slug,
+    module,
+    manifest: module.manifest,
+    async run(bars, settings = {}, options = {}) {
+      const timeframe = options.timeframe ?? "1D";
+      const requested = authenticateRequestedData({
+        requires: module.manifest.requires,
+        chartBars: bars,
+        chartTimeframe: timeframe,
+        epoch: `pack:${slug}:${sequence + 1}`,
+        barsFor: (binding) => binding.channel === "symbols" ? options.symbols?.[binding.inputKey] : options.timeframes?.[binding.inputKey]
+      });
+      const input = {
+        bars,
+        timeframe,
+        ...requested?.input,
+        ...options.syminfo ? { syminfo: options.syminfo } : {}
+      };
+      const keyed = { [PINE_OUTPUT_EXECUTION_SETTING]: "native-event" };
+      for (const [id, value] of Object.entries(settings)) keyed[`input@${id}`] = value;
+      const live = await executor.run(module, input, keyed, requested?.executionContext);
+      if (!live.ok) throw new Error(`${slug} failed to run: ${live.error}`);
+      sequence += 1;
+      const resolved = resolvePineNativeEventExecution({
+        module,
+        guestOutputV2: live.outputV2,
+        rawSpec: live.spec,
+        sourceBars: bars,
+        symbol: "NSE:PACK",
+        timeframe,
+        requestId: `pack:${slug}:${sequence}`,
+        frameSequence: sequence,
+        outputStyleSnapshot: outputStyleSnapshotFor(outputStyleAuthorityFor(module), {}),
+        placement: { epoch: "main:chart", paneId: "main", mainPaneId: "main", scale: "chart" }
+      });
+      if (!resolved.ok) {
+        throw new Error(`${slug} output did not resolve: ${JSON.stringify(resolved.diagnostics)}`);
+      }
+      return makeRun(bars, resolved.value);
+    }
+  };
+}
 async function createPackRuntime(options = {}) {
   const executor = options.executor ?? new WorkerExecutor(await InlineVmTransport.create({
     preamble: await buildSdkPreamble(esbuild)
@@ -47660,49 +47702,7 @@ async function createPackRuntime(options = {}) {
     if (registered.length !== 1) throw new Error(`${slug} registered ${registered.length} modules`);
     const module = registered[0];
     if (module.outputV2 === void 0) throw new Error(`${slug} has no compiled native output plan`);
-    let sequence = 0;
-    return {
-      slug,
-      module,
-      manifest: module.manifest,
-      async run(bars, settings = {}, options2 = {}) {
-        const timeframe = options2.timeframe ?? "1D";
-        const requested = authenticateRequestedData({
-          requires: module.manifest.requires,
-          chartBars: bars,
-          chartTimeframe: timeframe,
-          epoch: `pack:${slug}:${sequence + 1}`,
-          barsFor: (binding) => binding.channel === "symbols" ? options2.symbols?.[binding.inputKey] : options2.timeframes?.[binding.inputKey]
-        });
-        const input = {
-          bars,
-          timeframe,
-          ...requested?.input,
-          ...options2.syminfo ? { syminfo: options2.syminfo } : {}
-        };
-        const keyed = { [PINE_OUTPUT_EXECUTION_SETTING]: "native-event" };
-        for (const [id, value] of Object.entries(settings)) keyed[`input@${id}`] = value;
-        const live = await executor.run(module, input, keyed, requested?.executionContext);
-        if (!live.ok) throw new Error(`${slug} failed to run: ${live.error}`);
-        sequence += 1;
-        const resolved = resolvePineNativeEventExecution({
-          module,
-          guestOutputV2: live.outputV2,
-          rawSpec: live.spec,
-          sourceBars: bars,
-          symbol: "NSE:PACK",
-          timeframe,
-          requestId: `pack:${slug}:${sequence}`,
-          frameSequence: sequence,
-          outputStyleSnapshot: outputStyleSnapshotFor(outputStyleAuthorityFor(module), {}),
-          placement: { epoch: "main:chart", paneId: "main", mainPaneId: "main", scale: "chart" }
-        });
-        if (!resolved.ok) {
-          throw new Error(`${slug} output did not resolve: ${JSON.stringify(resolved.diagnostics)}`);
-        }
-        return makeRun(bars, resolved.value);
-      }
-    };
+    return packIndicator(slug, module, executor);
   };
   return {
     load: (slug) => loadFiles(slug, packFiles(slug, options.root)),
@@ -47741,7 +47741,8 @@ async function buildRegistryPackage(folder, options, esbuild2, executor) {
   };
   const bundled = await bundleIndicatorFolder(
     { "manifest.json": JSON.stringify(manifest), "indicator.ts": folder.files["indicator.ts"] },
-    esbuild2
+    esbuild2,
+    { minify: true }
   );
   if (!bundled.ok) return { ok: false, stage: "compile", error: bundled.errors };
   const first2 = loadCustomDefinition(bundled.manifest, bundled.js, {
@@ -47758,7 +47759,7 @@ async function buildRegistryPackage(folder, options, esbuild2, executor) {
   }
   const published = validatePublishedManifest(baked.manifest);
   if (!published.ok) return { ok: false, stage: "validate", error: published.error };
-  return { ok: true, id, manifestJson: `${JSON.stringify(baked.manifest, null, 2)}
+  return { ok: true, id, manifestJson: `${JSON.stringify(baked.manifest)}
 `, bundleJs: bundled.js };
 }
 const PLACEMENT_NAME = { price: "the price pane", "own-subpane": "its own pane" };
@@ -47947,7 +47948,7 @@ async function publishIndicator(source, published, options, esbuild2, executor) 
     id,
     version,
     ...change3 ? { change: change3 } : {},
-    manifestJson: `${JSON.stringify(withProvenance, null, 2)}
+    manifestJson: `${JSON.stringify(withProvenance)}
 `,
     bundleJs: built.bundleJs
   };
@@ -48910,7 +48911,7 @@ function checkListing(listing, title) {
   return findings;
 }
 const TOOLCHAIN = Object.freeze({
-  id: "gscript-toolchain@0.0.1+0795b0a657e3",
+  id: "gscript-toolchain@0.0.1+5ebe2c5dcf8c",
   apiVersion: G_SCRIPT_ADAPTER_API_VERSION,
   gScriptVersions: [...SUPPORTED_G_SCRIPT_LANGUAGE_VERSIONS]
 });
