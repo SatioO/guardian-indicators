@@ -4,7 +4,8 @@
 //
 //   node scripts/build-catalog.mjs
 //
-// Listing metadata (categories, tags, full name) comes from the indicator's
+// Listing metadata (categories, tags, full name, and the path of the listing
+// holding the long description) comes from the indicator's
 // listing.json: indicators/<name>/listing.json for those built here from
 // source (published as pub.guardian.<name>), or packages/<id>/listing.json for
 // a prebuilt package that ships one.
@@ -17,13 +18,18 @@ const SOURCE_AUTHOR_HANDLE = 'guardian';
 const dirs = (p) => (existsSync(p) ? readdirSync(p).filter((n) => statSync(join(p, n)).isDirectory()) : []);
 const readJson = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : undefined);
 
+/** The listing and its repo path (posix, what the CDN serves), or undefined. */
 function listingFor(id) {
   const sourcePrefix = `pub.${SOURCE_AUTHOR_HANDLE}.`;
-  if (id.startsWith(sourcePrefix)) {
-    const fromSource = readJson(join('indicators', id.slice(sourcePrefix.length), 'listing.json'));
-    if (fromSource) return fromSource;
+  const candidates = [
+    ...(id.startsWith(sourcePrefix) ? [`indicators/${id.slice(sourcePrefix.length)}/listing.json`] : []),
+    `${PKG_ROOT}/${id}/listing.json`,
+  ];
+  for (const path of candidates) {
+    const listing = readJson(path);
+    if (listing) return { listing, path };
   }
-  return readJson(join(PKG_ROOT, id, 'listing.json'));
+  return undefined;
 }
 
 const entries = [];
@@ -32,7 +38,8 @@ for (const id of dirs(PKG_ROOT)) {
   const versions = dirs(idDir).filter((v) => existsSync(join(idDir, v, 'manifest.json'))).sort(compareSemver);
   if (versions.length === 0) continue;
   const manifest = readJson(join(idDir, versions[versions.length - 1], 'manifest.json'));
-  entries.push(catalogEntry(manifest, versions, listingFor(id)));
+  const found = listingFor(id);
+  entries.push(catalogEntry(manifest, versions, found?.listing, found?.path));
 }
 entries.sort((a, b) => a.id.localeCompare(b.id));
 writeFileSync('catalog.json', JSON.stringify(entries, null, 2) + '\n');

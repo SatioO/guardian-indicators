@@ -26,4 +26,12 @@ describe('catalogEntry: one catalog row, with what the Library needs to file it'
     expect(row).not.toHaveProperty('tags');
     expect(row).not.toHaveProperty('fullName');
   });
+
+  it('points at the listing when it has a long description, so the app can fetch it on demand', () => {
+    const described = { authored: { ...listing.authored, description: '## What it shows\nA line.' } };
+    expect(catalogEntry(manifest, ['1.0.0'], described, 'indicators/connors-rsi/listing.json').listing)
+      .toBe('indicators/connors-rsi/listing.json');
+    expect(catalogEntry(manifest, ['1.0.0'], listing, 'indicators/connors-rsi/listing.json')).not.toHaveProperty('listing');
+    expect(catalogEntry(manifest, ['1.0.0'], described)).not.toHaveProperty('listing');
+  });
 });
