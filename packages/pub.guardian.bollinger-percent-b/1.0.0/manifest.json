@@ -1,0 +1,905 @@
+{
+  "type": "pub.guardian.bollinger-percent-b",
+  "name": "Bollinger %B",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "Where the close sits between the Bollinger Bands: 1 at the upper band, 0 at the lower, beyond them when price breaks out",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "number",
+      "key": "input@length",
+      "label": "Length",
+      "aliases": [
+        "input#0",
+        "length"
+      ],
+      "default": 20,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 500
+    },
+    {
+      "kind": "source",
+      "key": "input@source",
+      "label": "Source",
+      "aliases": [
+        "input#1",
+        "source"
+      ],
+      "default": "close"
+    },
+    {
+      "kind": "number",
+      "key": "input@mult",
+      "label": "StdDev",
+      "aliases": [
+        "input#2",
+        "stddev"
+      ],
+      "default": 2,
+      "numericKind": "float",
+      "min": 0.001,
+      "max": 50,
+      "step": 0.1
+    },
+    {
+      "kind": "color",
+      "key": "input@line-color",
+      "label": "%B",
+      "aliases": [
+        "input#3",
+        "b"
+      ],
+      "default": "#38bdf8"
+    },
+    {
+      "kind": "color",
+      "key": "input@above-color",
+      "label": "Above the upper band",
+      "aliases": [
+        "input#4",
+        "above-the-upper-band"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@below-color",
+      "label": "Below the lower band",
+      "aliases": [
+        "input#5",
+        "below-the-lower-band"
+      ],
+      "default": "#ef5350"
+    },
+    {
+      "kind": "color",
+      "key": "input@zone-color",
+      "label": "Band zone",
+      "aliases": [
+        "input#6",
+        "band-zone"
+      ],
+      "default": "#38bdf8"
+    }
+  ],
+  "precision": 2,
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/29a123513e6ebee9",
+    "alertConditions": [
+      {
+        "id": "close-above-upper",
+        "title": "Close above the upper band",
+        "message": "The close broke above the upper Bollinger Band (%B above 1)"
+      },
+      {
+        "id": "close-below-lower",
+        "title": "Close below the lower band",
+        "message": "The close broke below the lower Bollinger Band (%B below 0)"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/8767fd4e1621fef0",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "hline",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 21,
+          "column": 13
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 1,
+        "kind": "hline",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 22,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 2,
+        "kind": "hline",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 23,
+          "column": 16
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 3,
+        "kind": "fill",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 24,
+          "column": 1
+        },
+        "valueType": "fill",
+        "qualifiers": {
+          "color": "input"
+        },
+        "dependencySlots": [
+          0,
+          2
+        ],
+        "edgeKind": "hline"
+      },
+      {
+        "slot": 4,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 26,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "series",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 5,
+        "kind": "plot",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 35,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 6,
+        "kind": "plot",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 36,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_0",
+          "settingsKey": "hline#0"
+        },
+        "title": "Upper band",
+        "sourceOrder": 0,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_1",
+          "settingsKey": "hline#1"
+        },
+        "title": "Middle band",
+        "sourceOrder": 1,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "rgba(120, 123, 134, 0.5)"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dotted"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_2",
+          "settingsKey": "hline#2"
+        },
+        "title": "Lower band",
+        "sourceOrder": 2,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "derived.fill",
+        "visual": {
+          "type": "fill"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "fill_0",
+          "settingsKey": "fill#0"
+        },
+        "title": "Fill 1",
+        "sourceOrder": 3,
+        "renderGroup": "fill",
+        "payloadPolicy": "derived",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [
+          "hline_0",
+          "hline_2"
+        ],
+        "channels": [],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 34
+            }
+          },
+          "properties": [
+            "color"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "%B",
+        "sourceOrder": 4,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.color",
+            "property": "color",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 2
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {
+            "color": "style.color"
+          }
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_1",
+          "settingsKey": "plot#1"
+        },
+        "title": "Upper band (price)",
+        "sourceOrder": 5,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "price"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_2",
+          "settingsKey": "plot#2"
+        },
+        "title": "Lower band (price)",
+        "sourceOrder": 6,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "price"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_close-above-upper",
+          "settingsKey": "alert_close-above-upper"
+        },
+        "title": "Close above the upper band",
+        "sourceOrder": 7,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "The close broke above the upper Bollinger Band (%B above 1)"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_close-below-lower",
+          "settingsKey": "alert_close-below-lower"
+        },
+        "title": "Close below the lower band",
+        "sourceOrder": 8,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "The close broke below the lower Bollinger Band (%B below 0)"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.bollinger-percent-b",
+      "shortTitle": "Bollinger %B",
+      "initialPlacement": "new-pane",
+      "scale": "none",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "precision": 2,
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": [
+        {
+          "slot": 34,
+          "name": "fill-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 34,
+        "value": "rgba(56, 189, 248, 0.1)"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "d78f1e0986e2a8502b2fbe9f64d0cb7aae00bf575d50e0015d8eccd1d7629a20"
+  }
+}

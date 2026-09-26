@@ -1,0 +1,607 @@
+{
+  "type": "pub.guardian.awesome-oscillator",
+  "name": "Awesome Oscillator",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "Momentum as the gap between a fast and a slow average of the median price, in green and red columns",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "number",
+      "key": "input@fast-length",
+      "label": "Fast length",
+      "aliases": [
+        "input#0",
+        "fast-length"
+      ],
+      "default": 5,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 200
+    },
+    {
+      "kind": "number",
+      "key": "input@slow-length",
+      "label": "Slow length",
+      "aliases": [
+        "input#1",
+        "slow-length"
+      ],
+      "default": 34,
+      "numericKind": "integer",
+      "min": 2,
+      "max": 500
+    },
+    {
+      "kind": "color",
+      "key": "input@rising-color",
+      "label": "Rising column",
+      "aliases": [
+        "input#2",
+        "rising-column"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@falling-color",
+      "label": "Falling column",
+      "aliases": [
+        "input#3",
+        "falling-column"
+      ],
+      "default": "#ef5350"
+    }
+  ],
+  "precision": 2,
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/54e57ec9eaf408d2",
+    "alertConditions": [
+      {
+        "id": "crossed-above-zero",
+        "title": "Crossed above zero",
+        "message": "Awesome Oscillator crossed above zero"
+      },
+      {
+        "id": "crossed-below-zero",
+        "title": "Crossed below zero",
+        "message": "Awesome Oscillator crossed below zero"
+      },
+      {
+        "id": "turned-rising",
+        "title": "Turned rising",
+        "message": "Awesome Oscillator columns turned rising"
+      },
+      {
+        "id": "turned-falling",
+        "title": "Turned falling",
+        "message": "Awesome Oscillator columns turned falling"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/d61642e05d117273",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 13,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "series",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "columns",
+        "histBase": 0
+      },
+      {
+        "slot": 1,
+        "kind": "hline",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 20,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 2,
+        "kind": "plot",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 24,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "columns",
+          "base": 0
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "AO",
+        "sourceOrder": 0,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.color",
+            "property": "color",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth"
+          ],
+          "serial": {
+            "color": "style.color"
+          }
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_0",
+          "settingsKey": "hline#0"
+        },
+        "title": "Zero",
+        "sourceOrder": 1,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_1",
+          "settingsKey": "plot#1"
+        },
+        "title": "Change",
+        "sourceOrder": 2,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_crossed-above-zero",
+          "settingsKey": "alert_crossed-above-zero"
+        },
+        "title": "Crossed above zero",
+        "sourceOrder": 3,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Awesome Oscillator crossed above zero"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_crossed-below-zero",
+          "settingsKey": "alert_crossed-below-zero"
+        },
+        "title": "Crossed below zero",
+        "sourceOrder": 4,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Awesome Oscillator crossed below zero"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_turned-rising",
+          "settingsKey": "alert_turned-rising"
+        },
+        "title": "Turned rising",
+        "sourceOrder": 5,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Awesome Oscillator columns turned rising"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_turned-falling",
+          "settingsKey": "alert_turned-falling"
+        },
+        "title": "Turned falling",
+        "sourceOrder": 6,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Awesome Oscillator columns turned falling"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.awesome-oscillator",
+      "shortTitle": "Awesome Oscillator",
+      "initialPlacement": "new-pane",
+      "scale": "none",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "precision": 2,
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": []
+    },
+    "defaultPolicies": []
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "6b7a53335b7ddc7e438de98aa278c56295bf307c502a0f2efd09317cd901f808"
+  }
+}

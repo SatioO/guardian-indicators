@@ -1,0 +1,1421 @@
+{
+  "type": "pub.guardian.fifty-two-week-range",
+  "name": "52-Week Range",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "How far a stock trades below its 52-week high and above its 52-week low, with guides for the zones swing traders watch",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "number",
+      "key": "input@length",
+      "label": "Lookback (bars)",
+      "aliases": [
+        "input#0",
+        "lookback-bars"
+      ],
+      "default": 252,
+      "numericKind": "integer",
+      "min": 2,
+      "max": 1000
+    },
+    {
+      "kind": "number",
+      "key": "input@near-high",
+      "label": "Near-high guide (%)",
+      "aliases": [
+        "input#1",
+        "near-high-guide"
+      ],
+      "default": -25,
+      "numericKind": "float",
+      "max": 0,
+      "step": 1
+    },
+    {
+      "kind": "number",
+      "key": "input@above-low",
+      "label": "Above-low guide (%)",
+      "aliases": [
+        "input#2",
+        "above-low-guide"
+      ],
+      "default": 30,
+      "numericKind": "float",
+      "min": 0,
+      "step": 1
+    },
+    {
+      "kind": "toggle",
+      "key": "input@shade",
+      "label": "Shade the near-high zone",
+      "aliases": [
+        "input#3",
+        "shade-the-near-high-zone"
+      ],
+      "default": true
+    },
+    {
+      "kind": "color",
+      "key": "input@high-color",
+      "label": "Off the high",
+      "aliases": [
+        "input#4",
+        "off-the-high"
+      ],
+      "default": "#38bdf8"
+    },
+    {
+      "kind": "color",
+      "key": "input@low-color",
+      "label": "Above the low",
+      "aliases": [
+        "input#5",
+        "above-the-low"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@new-high-color",
+      "label": "New high",
+      "aliases": [
+        "input#6",
+        "new-high"
+      ],
+      "default": "#a78bfa"
+    },
+    {
+      "kind": "color",
+      "key": "input@new-low-color",
+      "label": "New low",
+      "aliases": [
+        "input#7",
+        "new-low"
+      ],
+      "default": "#ef5350"
+    }
+  ],
+  "precision": 2,
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/657b53082a2dc8d1",
+    "alertConditions": [
+      {
+        "id": "new-52-week-high",
+        "title": "New 52-week high",
+        "message": "Price made a new 52-week high"
+      },
+      {
+        "id": "new-52-week-low",
+        "title": "New 52-week low",
+        "message": "Price made a new 52-week low"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/a2c947b543745980",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "hline",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 24,
+          "column": 14
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 1,
+        "kind": "hline",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 25,
+          "column": 19
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "input",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 2,
+        "kind": "hline",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 26,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "input",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 3,
+        "kind": "fill",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 28,
+          "column": 1
+        },
+        "valueType": "fill",
+        "qualifiers": {
+          "color": "input"
+        },
+        "dependencySlots": [
+          0,
+          1
+        ],
+        "edgeKind": "hline"
+      },
+      {
+        "slot": 4,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 30,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "series",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 5,
+        "kind": "plot",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 35,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "series",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 6,
+        "kind": "plotshape",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 43,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      },
+      {
+        "slot": 7,
+        "kind": "plotshape",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 50,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      },
+      {
+        "slot": 8,
+        "kind": "plot",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 58,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 9,
+        "kind": "plot",
+        "kindOrdinal": 3,
+        "source": {
+          "file": "indicator.ts",
+          "line": 59,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 10,
+        "kind": "plot",
+        "kindOrdinal": 4,
+        "source": {
+          "file": "indicator.ts",
+          "line": 60,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_0",
+          "settingsKey": "hline#0"
+        },
+        "title": "Zero",
+        "sourceOrder": 0,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "rgba(120, 123, 134, 0.5)"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "solid"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_1",
+          "settingsKey": "hline#1"
+        },
+        "title": "Near-high guide",
+        "sourceOrder": 1,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_2",
+          "settingsKey": "hline#2"
+        },
+        "title": "Above-low guide",
+        "sourceOrder": 2,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "derived.fill",
+        "visual": {
+          "type": "fill"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "fill_0",
+          "settingsKey": "fill#0"
+        },
+        "title": "Fill 1",
+        "sourceOrder": 3,
+        "renderGroup": "fill",
+        "payloadPolicy": "derived",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [
+          "hline_0",
+          "hline_1"
+        ],
+        "channels": [],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 34
+            }
+          },
+          "properties": [
+            "color"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "% off 52-week high",
+        "sourceOrder": 4,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.color",
+            "property": "color",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 2
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {
+            "color": "style.color"
+          }
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_1",
+          "settingsKey": "plot#1"
+        },
+        "title": "% above 52-week low",
+        "sourceOrder": 5,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.color",
+            "property": "color",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 2
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {
+            "color": "style.color"
+          }
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_0",
+          "settingsKey": "plotshape#0"
+        },
+        "title": "New 52-week high",
+        "sourceOrder": 6,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "circle"
+            },
+            "location": {
+              "origin": "const",
+              "value": "absolute"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 64
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#a78bfa"
+            },
+            "size": {
+              "origin": "const",
+              "value": "tiny"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_1",
+          "settingsKey": "plotshape#1"
+        },
+        "title": "New 52-week low",
+        "sourceOrder": 7,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "circle"
+            },
+            "location": {
+              "origin": "const",
+              "value": "absolute"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 74
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#ef5350"
+            },
+            "size": {
+              "origin": "const",
+              "value": "tiny"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_2",
+          "settingsKey": "plot#2"
+        },
+        "title": "52-week high",
+        "sourceOrder": 8,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "price"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_3",
+          "settingsKey": "plot#3"
+        },
+        "title": "52-week low",
+        "sourceOrder": 9,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "price"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_4",
+          "settingsKey": "plot#4"
+        },
+        "title": "Position in range",
+        "sourceOrder": 10,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_new-52-week-high",
+          "settingsKey": "alert_new-52-week-high"
+        },
+        "title": "New 52-week high",
+        "sourceOrder": 11,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Price made a new 52-week high"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_new-52-week-low",
+          "settingsKey": "alert_new-52-week-low"
+        },
+        "title": "New 52-week low",
+        "sourceOrder": 12,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Price made a new 52-week low"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.fifty-two-week-range",
+      "shortTitle": "52-Week Range",
+      "initialPlacement": "new-pane",
+      "scale": "none",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "percent",
+      "precision": 2,
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": [
+        {
+          "slot": 34,
+          "name": "fill-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 64,
+          "name": "plotshape-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 74,
+          "name": "plotshape-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 34,
+        "value": "rgba(56, 189, 248, 0.1)"
+      },
+      {
+        "slot": 64,
+        "value": "#a78bfa"
+      },
+      {
+        "slot": 74,
+        "value": "#ef5350"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "14070f091e9fdad2260f81d52c8486611e2373ab8ced6d98c225051188bef602"
+  }
+}

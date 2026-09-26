@@ -1,0 +1,1315 @@
+{
+  "type": "pub.guardian.ma-cross",
+  "name": "MA Cross",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "A fast and a slow moving average with the space between them shaded, and golden-cross and death-cross labels",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "select",
+      "key": "input@type",
+      "label": "Type",
+      "aliases": [
+        "input#0",
+        "type"
+      ],
+      "default": "SMA",
+      "options": [
+        {
+          "value": "SMA",
+          "label": "SMA"
+        },
+        {
+          "value": "EMA",
+          "label": "EMA"
+        },
+        {
+          "value": "WMA",
+          "label": "WMA"
+        },
+        {
+          "value": "RMA",
+          "label": "RMA"
+        }
+      ]
+    },
+    {
+      "kind": "number",
+      "key": "input@fast-length",
+      "label": "Fast length",
+      "aliases": [
+        "input#1",
+        "fast-length"
+      ],
+      "default": 9,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 500
+    },
+    {
+      "kind": "number",
+      "key": "input@slow-length",
+      "label": "Slow length",
+      "aliases": [
+        "input#2",
+        "slow-length"
+      ],
+      "default": 21,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 500
+    },
+    {
+      "kind": "toggle",
+      "key": "input@shade",
+      "label": "Shade between the averages",
+      "aliases": [
+        "input#3",
+        "shade-between-the-averages"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@signals",
+      "label": "Show cross labels",
+      "aliases": [
+        "input#4",
+        "show-cross-labels"
+      ],
+      "default": true
+    },
+    {
+      "kind": "color",
+      "key": "input@fast-color",
+      "label": "Fast MA",
+      "aliases": [
+        "input#5",
+        "fast-ma"
+      ],
+      "default": "#38bdf8"
+    },
+    {
+      "kind": "color",
+      "key": "input@slow-color",
+      "label": "Slow MA",
+      "aliases": [
+        "input#6",
+        "slow-ma"
+      ],
+      "default": "#f59e0b"
+    },
+    {
+      "kind": "color",
+      "key": "input@up-color",
+      "label": "Golden cross",
+      "aliases": [
+        "input#7",
+        "golden-cross"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@down-color",
+      "label": "Death cross",
+      "aliases": [
+        "input#8",
+        "death-cross"
+      ],
+      "default": "#ef5350"
+    }
+  ],
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/e67a794221c8b4f6",
+    "alertConditions": [
+      {
+        "id": "golden-cross",
+        "title": "Golden cross",
+        "message": "The fast average crossed above the slow average"
+      },
+      {
+        "id": "death-cross",
+        "title": "Death cross",
+        "message": "The fast average crossed below the slow average"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/aaf3169cb693ba68",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 28,
+          "column": 18
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 1,
+        "kind": "plot",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 29,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 2,
+        "kind": "plot",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 33,
+          "column": 18
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 3,
+        "kind": "plot",
+        "kindOrdinal": 3,
+        "source": {
+          "file": "indicator.ts",
+          "line": 34,
+          "column": 18
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 4,
+        "kind": "fill",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 36,
+          "column": 1
+        },
+        "valueType": "fill",
+        "qualifiers": {
+          "color": "input"
+        },
+        "dependencySlots": [
+          0,
+          2
+        ],
+        "edgeKind": "line"
+      },
+      {
+        "slot": 5,
+        "kind": "fill",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 37,
+          "column": 1
+        },
+        "valueType": "fill",
+        "qualifiers": {
+          "color": "input"
+        },
+        "dependencySlots": [
+          0,
+          3
+        ],
+        "edgeKind": "line"
+      },
+      {
+        "slot": 6,
+        "kind": "plot",
+        "kindOrdinal": 4,
+        "source": {
+          "file": "indicator.ts",
+          "line": 39,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 7,
+        "kind": "plotshape",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 41,
+          "column": 1
+        },
+        "valueType": "boolean",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      },
+      {
+        "slot": 8,
+        "kind": "plotshape",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 50,
+          "column": 1
+        },
+        "valueType": "boolean",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "Fast MA",
+        "sourceOrder": 0,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 4
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 2
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_1",
+          "settingsKey": "plot#1"
+        },
+        "title": "Slow MA",
+        "sourceOrder": 1,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 14
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 2
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_2",
+          "settingsKey": "plot#2"
+        },
+        "title": "Bullish shade edge",
+        "sourceOrder": 2,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_3",
+          "settingsKey": "plot#3"
+        },
+        "title": "Bearish shade edge",
+        "sourceOrder": 3,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "derived.fill",
+        "visual": {
+          "type": "fill"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "fill_0",
+          "settingsKey": "fill#0"
+        },
+        "title": "Fill 1",
+        "sourceOrder": 4,
+        "renderGroup": "fill",
+        "payloadPolicy": "derived",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [
+          "plot_0",
+          "plot_2"
+        ],
+        "channels": [],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 44
+            }
+          },
+          "properties": [
+            "color"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        }
+      },
+      {
+        "kind": "derived.fill",
+        "visual": {
+          "type": "fill"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "fill_1",
+          "settingsKey": "fill#1"
+        },
+        "title": "Fill 2",
+        "sourceOrder": 5,
+        "renderGroup": "fill",
+        "payloadPolicy": "derived",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [
+          "plot_0",
+          "plot_3"
+        ],
+        "channels": [],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 54
+            }
+          },
+          "properties": [
+            "color"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_4",
+          "settingsKey": "plot#4"
+        },
+        "title": "Gap %",
+        "sourceOrder": 6,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "percent"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_0",
+          "settingsKey": "plotshape#0"
+        },
+        "title": "Golden cross",
+        "sourceOrder": 7,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "labelUp"
+            },
+            "location": {
+              "origin": "const",
+              "value": "belowbar"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 74
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#ffffff"
+            },
+            "size": {
+              "origin": "const",
+              "value": "small"
+            },
+            "text": {
+              "origin": "const",
+              "value": "Golden"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size",
+            "text"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_1",
+          "settingsKey": "plotshape#1"
+        },
+        "title": "Death cross",
+        "sourceOrder": 8,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "labelDown"
+            },
+            "location": {
+              "origin": "const",
+              "value": "abovebar"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 84
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#ffffff"
+            },
+            "size": {
+              "origin": "const",
+              "value": "small"
+            },
+            "text": {
+              "origin": "const",
+              "value": "Death"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size",
+            "text"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_golden-cross",
+          "settingsKey": "alert_golden-cross"
+        },
+        "title": "Golden cross",
+        "sourceOrder": 9,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "The fast average crossed above the slow average"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_death-cross",
+          "settingsKey": "alert_death-cross"
+        },
+        "title": "Death cross",
+        "sourceOrder": 10,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "The fast average crossed below the slow average"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.ma-cross",
+      "shortTitle": "MA Cross",
+      "initialPlacement": "main-chart",
+      "scale": "chart",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": [
+        {
+          "slot": 4,
+          "name": "plot-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 14,
+          "name": "plot-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 44,
+          "name": "fill-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 54,
+          "name": "fill-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 74,
+          "name": "plotshape-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 84,
+          "name": "plotshape-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 4,
+        "value": "#38bdf8"
+      },
+      {
+        "slot": 14,
+        "value": "#f59e0b"
+      },
+      {
+        "slot": 44,
+        "value": "rgba(38, 166, 154, 0.15)"
+      },
+      {
+        "slot": 54,
+        "value": "rgba(239, 83, 80, 0.15)"
+      },
+      {
+        "slot": 74,
+        "value": "#26a69a"
+      },
+      {
+        "slot": 84,
+        "value": "#ef5350"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "22b797139dbafc84aed49c531011b0ed30c410ef784225267f784b70639fc06b"
+  }
+}

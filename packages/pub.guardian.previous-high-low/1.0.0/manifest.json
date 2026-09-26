@@ -1,0 +1,1407 @@
+{
+  "type": "pub.guardian.previous-high-low",
+  "name": "Previous High and Low",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "Yesterday's high, low and close, and last week's and last month's range, as levels on the price chart",
+  "changelog": "Initial release.",
+  "requires": {
+    "timeframes": [
+      {
+        "timeframe": "1D"
+      },
+      {
+        "timeframe": "W"
+      },
+      {
+        "timeframe": "1M"
+      }
+    ]
+  },
+  "inputs": [
+    {
+      "kind": "toggle",
+      "key": "input@day",
+      "label": "Previous day high/low",
+      "aliases": [
+        "input#0",
+        "previous-day-high-low"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@day-close",
+      "label": "Previous day close",
+      "aliases": [
+        "input#1",
+        "previous-day-close"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@week",
+      "label": "Previous week high/low",
+      "aliases": [
+        "input#2",
+        "previous-week-high-low"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@month",
+      "label": "Previous month high/low",
+      "aliases": [
+        "input#3",
+        "previous-month-high-low"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@labels",
+      "label": "Label the levels",
+      "aliases": [
+        "input#4",
+        "label-the-levels"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@breaks",
+      "label": "Mark the first break of the day",
+      "aliases": [
+        "input#5",
+        "mark-the-first-break-of-the-day"
+      ],
+      "default": true
+    },
+    {
+      "kind": "color",
+      "key": "input@day-color",
+      "label": "Day",
+      "aliases": [
+        "input#6",
+        "day"
+      ],
+      "default": "#38bdf8"
+    },
+    {
+      "kind": "color",
+      "key": "input@close-color",
+      "label": "Day close",
+      "aliases": [
+        "input#7",
+        "day-close"
+      ],
+      "default": "#787b86"
+    },
+    {
+      "kind": "color",
+      "key": "input@week-color",
+      "label": "Week",
+      "aliases": [
+        "input#8",
+        "week"
+      ],
+      "default": "#a78bfa"
+    },
+    {
+      "kind": "color",
+      "key": "input@month-color",
+      "label": "Month",
+      "aliases": [
+        "input#9",
+        "month"
+      ],
+      "default": "#f59e0b"
+    }
+  ],
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/5c87b8338c0c215e",
+    "drawingContract": "g-script-v2",
+    "alertConditions": [
+      {
+        "id": "broke-previous-day-high",
+        "title": "Broke previous day high",
+        "message": "Price traded above the previous day's high"
+      },
+      {
+        "id": "broke-previous-day-low",
+        "title": "Broke previous day low",
+        "message": "Price traded below the previous day's low"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/874c14e84dda3ae9",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 58,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "stepline",
+        "histBase": 0
+      },
+      {
+        "slot": 1,
+        "kind": "plot",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 59,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "stepline",
+        "histBase": 0
+      },
+      {
+        "slot": 2,
+        "kind": "plot",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 60,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "stepline",
+        "histBase": 0
+      },
+      {
+        "slot": 3,
+        "kind": "plot",
+        "kindOrdinal": 3,
+        "source": {
+          "file": "indicator.ts",
+          "line": 61,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "stepline",
+        "histBase": 0
+      },
+      {
+        "slot": 4,
+        "kind": "plot",
+        "kindOrdinal": 4,
+        "source": {
+          "file": "indicator.ts",
+          "line": 62,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "stepline",
+        "histBase": 0
+      },
+      {
+        "slot": 5,
+        "kind": "plot",
+        "kindOrdinal": 5,
+        "source": {
+          "file": "indicator.ts",
+          "line": 63,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "stepline",
+        "histBase": 0
+      },
+      {
+        "slot": 6,
+        "kind": "plot",
+        "kindOrdinal": 6,
+        "source": {
+          "file": "indicator.ts",
+          "line": 64,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "stepline",
+        "histBase": 0
+      },
+      {
+        "slot": 7,
+        "kind": "plotshape",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 83,
+          "column": 1
+        },
+        "valueType": "boolean",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      },
+      {
+        "slot": 8,
+        "kind": "plotshape",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 90,
+          "column": 1
+        },
+        "valueType": "boolean",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "Previous day high",
+        "sourceOrder": 0,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 4
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "stepped"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_1",
+          "settingsKey": "plot#1"
+        },
+        "title": "Previous day low",
+        "sourceOrder": 1,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 14
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "stepped"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_2",
+          "settingsKey": "plot#2"
+        },
+        "title": "Previous day close",
+        "sourceOrder": 2,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 24
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "stepped"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_3",
+          "settingsKey": "plot#3"
+        },
+        "title": "Previous week high",
+        "sourceOrder": 3,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 34
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "stepped"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_4",
+          "settingsKey": "plot#4"
+        },
+        "title": "Previous week low",
+        "sourceOrder": 4,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 44
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "stepped"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_5",
+          "settingsKey": "plot#5"
+        },
+        "title": "Previous month high",
+        "sourceOrder": 5,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 54
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "stepped"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_6",
+          "settingsKey": "plot#6"
+        },
+        "title": "Previous month low",
+        "sourceOrder": 6,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 64
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "stepped"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_0",
+          "settingsKey": "plotshape#0"
+        },
+        "title": "Previous day high break",
+        "sourceOrder": 7,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "triangleUp"
+            },
+            "location": {
+              "origin": "const",
+              "value": "belowbar"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 74
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "size": {
+              "origin": "const",
+              "value": "tiny"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_1",
+          "settingsKey": "plotshape#1"
+        },
+        "title": "Previous day low break",
+        "sourceOrder": 8,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "triangleDown"
+            },
+            "location": {
+              "origin": "const",
+              "value": "abovebar"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 84
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "size": {
+              "origin": "const",
+              "value": "tiny"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_broke-previous-day-high",
+          "settingsKey": "alert_broke-previous-day-high"
+        },
+        "title": "Broke previous day high",
+        "sourceOrder": 9,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Price traded above the previous day's high"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_broke-previous-day-low",
+          "settingsKey": "alert_broke-previous-day-low"
+        },
+        "title": "Broke previous day low",
+        "sourceOrder": 10,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Price traded below the previous day's low"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.previous-high-low",
+      "shortTitle": "Previous High and Low",
+      "initialPlacement": "main-chart",
+      "scale": "chart",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "drawingLimits": {
+        "label": 20,
+        "line": 50,
+        "box": 50,
+        "table": 4,
+        "polyline": 0
+      },
+      "policySlots": [
+        {
+          "slot": 4,
+          "name": "plot-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 14,
+          "name": "plot-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 24,
+          "name": "plot-2-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 34,
+          "name": "plot-3-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 44,
+          "name": "plot-4-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 54,
+          "name": "plot-5-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 64,
+          "name": "plot-6-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 74,
+          "name": "plotshape-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 84,
+          "name": "plotshape-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 4,
+        "value": "#38bdf8"
+      },
+      {
+        "slot": 14,
+        "value": "#38bdf8"
+      },
+      {
+        "slot": 24,
+        "value": "#787b86"
+      },
+      {
+        "slot": 34,
+        "value": "#a78bfa"
+      },
+      {
+        "slot": 44,
+        "value": "#a78bfa"
+      },
+      {
+        "slot": 54,
+        "value": "#f59e0b"
+      },
+      {
+        "slot": 64,
+        "value": "#f59e0b"
+      },
+      {
+        "slot": 74,
+        "value": "#38bdf8"
+      },
+      {
+        "slot": 84,
+        "value": "#38bdf8"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "8935b594f3b0476d97398855ff31194ed6e6814d4e8a569e22633333d7b353af"
+  }
+}

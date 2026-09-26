@@ -1,0 +1,951 @@
+{
+  "type": "pub.guardian.williams-r",
+  "name": "Williams %R",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "Where the close sits inside the recent high-low range, from 0 at the top to −100 at the bottom, with zone exits marked",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "number",
+      "key": "input@length",
+      "label": "Length",
+      "aliases": [
+        "input#0",
+        "length"
+      ],
+      "default": 14,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 500
+    },
+    {
+      "kind": "number",
+      "key": "input@overbought",
+      "label": "Overbought level",
+      "aliases": [
+        "input#1",
+        "overbought-level"
+      ],
+      "default": -20,
+      "numericKind": "float",
+      "min": -100,
+      "max": 0,
+      "step": 5
+    },
+    {
+      "kind": "number",
+      "key": "input@oversold",
+      "label": "Oversold level",
+      "aliases": [
+        "input#2",
+        "oversold-level"
+      ],
+      "default": -80,
+      "numericKind": "float",
+      "min": -100,
+      "max": 0,
+      "step": 5
+    },
+    {
+      "kind": "toggle",
+      "key": "input@mark-exits",
+      "label": "Mark zone exits",
+      "aliases": [
+        "input#3",
+        "mark-zone-exits"
+      ],
+      "default": true
+    },
+    {
+      "kind": "color",
+      "key": "input@line-color",
+      "label": "%R line",
+      "aliases": [
+        "input#4",
+        "r-line"
+      ],
+      "default": "#a78bfa"
+    },
+    {
+      "kind": "color",
+      "key": "input@high-color",
+      "label": "Overbought",
+      "aliases": [
+        "input#5",
+        "overbought"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@low-color",
+      "label": "Oversold",
+      "aliases": [
+        "input#6",
+        "oversold"
+      ],
+      "default": "#ef5350"
+    }
+  ],
+  "precision": 2,
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/2d57655cd65f03cc",
+    "alertConditions": [
+      {
+        "id": "left-overbought",
+        "title": "Left overbought",
+        "message": "Williams %R fell out of the overbought zone"
+      },
+      {
+        "id": "left-oversold",
+        "title": "Left oversold",
+        "message": "Williams %R rose out of the oversold zone"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/80da662edb50eae2",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "hline",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 19,
+          "column": 15
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "input",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 1,
+        "kind": "hline",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 20,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 2,
+        "kind": "hline",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 21,
+          "column": 15
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "input",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 3,
+        "kind": "fill",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 22,
+          "column": 1
+        },
+        "valueType": "fill",
+        "qualifiers": {
+          "color": "input"
+        },
+        "dependencySlots": [
+          0,
+          2
+        ],
+        "edgeKind": "hline"
+      },
+      {
+        "slot": 4,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 24,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "series",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      },
+      {
+        "slot": 5,
+        "kind": "plotshape",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 35,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      },
+      {
+        "slot": 6,
+        "kind": "plotshape",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 42,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "primary": "const",
+          "text": "const",
+          "location": "const",
+          "color": "input",
+          "textColor": "const",
+          "editable": "const",
+          "size": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        }
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_0",
+          "settingsKey": "hline#0"
+        },
+        "title": "Overbought",
+        "sourceOrder": 0,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_1",
+          "settingsKey": "hline#1"
+        },
+        "title": "Middle",
+        "sourceOrder": 1,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "rgba(120, 123, 134, 0.5)"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dotted"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_2",
+          "settingsKey": "hline#2"
+        },
+        "title": "Oversold",
+        "sourceOrder": 2,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "derived.fill",
+        "visual": {
+          "type": "fill"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "fill_0",
+          "settingsKey": "fill#0"
+        },
+        "title": "Fill 1",
+        "sourceOrder": 3,
+        "renderGroup": "fill",
+        "payloadPolicy": "derived",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [
+          "hline_0",
+          "hline_2"
+        ],
+        "channels": [],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 34
+            }
+          },
+          "properties": [
+            "color"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "%R",
+        "sourceOrder": 4,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.color",
+            "property": "color",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 2
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {
+            "color": "style.color"
+          }
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_0",
+          "settingsKey": "plotshape#0"
+        },
+        "title": "Left overbought",
+        "sourceOrder": 5,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "circle"
+            },
+            "location": {
+              "origin": "const",
+              "value": "absolute"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 54
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#26a69a"
+            },
+            "size": {
+              "origin": "const",
+              "value": "tiny"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "serial.event",
+        "visual": {
+          "type": "shape"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "markerSeries_1",
+          "settingsKey": "plotshape#1"
+        },
+        "title": "Left oversold",
+        "sourceOrder": 6,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 11
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "event",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "shape": {
+              "origin": "const",
+              "value": "circle"
+            },
+            "location": {
+              "origin": "const",
+              "value": "absolute"
+            },
+            "color": {
+              "origin": "input",
+              "policySlot": 64
+            },
+            "textColor": {
+              "origin": "const",
+              "value": "#ef5350"
+            },
+            "size": {
+              "origin": "const",
+              "value": "tiny"
+            }
+          },
+          "properties": [
+            "shape",
+            "location",
+            "color",
+            "textColor",
+            "size"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_left-overbought",
+          "settingsKey": "alert_left-overbought"
+        },
+        "title": "Left overbought",
+        "sourceOrder": 7,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Williams %R fell out of the overbought zone"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_left-oversold",
+          "settingsKey": "alert_left-oversold"
+        },
+        "title": "Left oversold",
+        "sourceOrder": 8,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Williams %R rose out of the oversold zone"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.williams-r",
+      "shortTitle": "Williams %R",
+      "initialPlacement": "new-pane",
+      "scale": "none",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "precision": 2,
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": [
+        {
+          "slot": 34,
+          "name": "fill-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 54,
+          "name": "plotshape-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 64,
+          "name": "plotshape-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 34,
+        "value": "rgba(167, 139, 250, 0.1)"
+      },
+      {
+        "slot": 54,
+        "value": "#26a69a"
+      },
+      {
+        "slot": 64,
+        "value": "#ef5350"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "51ad03d61aca54babf075dc022a609581917519384a4b8909d9d6a4d3dfc2977"
+  }
+}

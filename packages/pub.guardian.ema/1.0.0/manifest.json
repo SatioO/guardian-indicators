@@ -1,0 +1,337 @@
+{
+  "type": "pub.guardian.ema",
+  "name": "EMA",
+  "placement": "price",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "An exponential moving average of the source you choose, the same line as the chart's built-in EMA, with close-cross alerts",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "number",
+      "key": "input@period",
+      "label": "Period",
+      "aliases": [
+        "input#0",
+        "period"
+      ],
+      "default": 9,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 500
+    },
+    {
+      "kind": "source",
+      "key": "input@source",
+      "label": "Source",
+      "aliases": [
+        "input#1",
+        "source"
+      ],
+      "default": "close"
+    },
+    {
+      "kind": "color",
+      "key": "input@color",
+      "label": "Color",
+      "aliases": [
+        "input#2",
+        "color"
+      ],
+      "default": "#38bdf8"
+    },
+    {
+      "kind": "number",
+      "key": "input@line-width",
+      "label": "Line width",
+      "aliases": [
+        "input#3",
+        "line-width"
+      ],
+      "default": 1,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 4
+    }
+  ],
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/786268e3c93681a0",
+    "alertConditions": [
+      {
+        "id": "cross-above",
+        "title": "Close crossed above the EMA",
+        "message": "The close crossed above the EMA"
+      },
+      {
+        "id": "cross-below",
+        "title": "Close crossed below the EMA",
+        "message": "The close crossed below the EMA"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/a87e61dc3f57a2bf",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 15,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "input",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "EMA",
+        "sourceOrder": 0,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 4
+            },
+            "lineWidth": {
+              "origin": "input",
+              "policySlot": 3
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_cross-above",
+          "settingsKey": "alert_cross-above"
+        },
+        "title": "Close crossed above the EMA",
+        "sourceOrder": 1,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "The close crossed above the EMA"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_cross-below",
+          "settingsKey": "alert_cross-below"
+        },
+        "title": "Close crossed below the EMA",
+        "sourceOrder": 2,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "The close crossed below the EMA"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.ema",
+      "shortTitle": "EMA",
+      "initialPlacement": "main-chart",
+      "scale": "chart",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": [
+        {
+          "slot": 3,
+          "name": "plot-0-line-width",
+          "wireType": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        {
+          "slot": 4,
+          "name": "plot-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 3,
+        "value": 1
+      },
+      {
+        "slot": 4,
+        "value": "#38bdf8"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "0936567c98552e4e97de909640a03eed35c6adcbd5ce9541cecf61c2a3816dd9"
+  }
+}

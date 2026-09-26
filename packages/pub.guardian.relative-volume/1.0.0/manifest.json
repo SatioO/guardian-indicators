@@ -1,0 +1,611 @@
+{
+  "type": "pub.guardian.relative-volume",
+  "name": "Relative Volume",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "Each bar's volume as a multiple of its recent average, with surges picked out in bright up or down colours",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "number",
+      "key": "input@length",
+      "label": "Average length",
+      "aliases": [
+        "input#0",
+        "average-length"
+      ],
+      "default": 50,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 500
+    },
+    {
+      "kind": "number",
+      "key": "input@surge-at",
+      "label": "Surge at (× average)",
+      "aliases": [
+        "input#1",
+        "surge-at-average"
+      ],
+      "default": 2,
+      "numericKind": "float",
+      "min": 0,
+      "step": 0.1
+    },
+    {
+      "kind": "color",
+      "key": "input@up-color",
+      "label": "Up bar",
+      "aliases": [
+        "input#2",
+        "up-bar"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@down-color",
+      "label": "Down bar",
+      "aliases": [
+        "input#3",
+        "down-bar"
+      ],
+      "default": "#ef5350"
+    },
+    {
+      "kind": "color",
+      "key": "input@surge-color",
+      "label": "Surge level",
+      "aliases": [
+        "input#4",
+        "surge-level"
+      ],
+      "default": "#f59e0b"
+    }
+  ],
+  "precision": 2,
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/ebf26189303de961",
+    "alertConditions": [
+      {
+        "id": "bullish-volume-surge",
+        "title": "Bullish volume surge",
+        "message": "Volume reached the surge multiple of its average on an up bar"
+      },
+      {
+        "id": "bearish-volume-surge",
+        "title": "Bearish volume surge",
+        "message": "Volume reached the surge multiple of its average on a down bar"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/984543a3dfc2e0f2",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 16,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "series",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "columns",
+        "histBase": 0
+      },
+      {
+        "slot": 1,
+        "kind": "hline",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 24,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 2,
+        "kind": "hline",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 25,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "input",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 3,
+        "kind": "plot",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 26,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "columns",
+          "base": 0
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "RVOL",
+        "sourceOrder": 0,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.color",
+            "property": "color",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth"
+          ],
+          "serial": {
+            "color": "style.color"
+          }
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_0",
+          "settingsKey": "hline#0"
+        },
+        "title": "Normal volume",
+        "sourceOrder": 1,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_1",
+          "settingsKey": "hline#1"
+        },
+        "title": "Surge level",
+        "sourceOrder": 2,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 24
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dotted"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_1",
+          "settingsKey": "plot#1"
+        },
+        "title": "Average volume",
+        "sourceOrder": 3,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "volume"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_bullish-volume-surge",
+          "settingsKey": "alert_bullish-volume-surge"
+        },
+        "title": "Bullish volume surge",
+        "sourceOrder": 4,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Volume reached the surge multiple of its average on an up bar"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_bearish-volume-surge",
+          "settingsKey": "alert_bearish-volume-surge"
+        },
+        "title": "Bearish volume surge",
+        "sourceOrder": 5,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Volume reached the surge multiple of its average on a down bar"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.relative-volume",
+      "shortTitle": "Relative Volume",
+      "initialPlacement": "new-pane",
+      "scale": "none",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "precision": 2,
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": [
+        {
+          "slot": 24,
+          "name": "hline-1-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 24,
+        "value": "rgba(245, 158, 11, 0.7)"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "a0d03767abb321bc755563f87bafd679418f1a75174bad9925e87bc3b5d1326d"
+  }
+}

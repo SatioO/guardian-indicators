@@ -1,0 +1,887 @@
+{
+  "type": "pub.guardian.rsi-divergence",
+  "name": "RSI Divergence",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "RSI in its own pane that draws a line between two RSI pivots whenever price and RSI disagree, with alerts",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "number",
+      "key": "input@rsi-length",
+      "label": "RSI length",
+      "aliases": [
+        "input#0",
+        "rsi-length"
+      ],
+      "default": 14,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 200
+    },
+    {
+      "kind": "source",
+      "key": "input@source",
+      "label": "RSI source",
+      "aliases": [
+        "input#1",
+        "rsi-source"
+      ],
+      "default": "close"
+    },
+    {
+      "kind": "number",
+      "key": "input@left",
+      "label": "Pivot lookback left",
+      "aliases": [
+        "input#2",
+        "pivot-lookback-left"
+      ],
+      "default": 5,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 50
+    },
+    {
+      "kind": "number",
+      "key": "input@right",
+      "label": "Pivot lookback right",
+      "aliases": [
+        "input#3",
+        "pivot-lookback-right"
+      ],
+      "default": 5,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 50
+    },
+    {
+      "kind": "number",
+      "key": "input@range-min",
+      "label": "Min of lookback range",
+      "aliases": [
+        "input#4",
+        "min-of-lookback-range"
+      ],
+      "default": 5,
+      "numericKind": "integer",
+      "min": 0,
+      "max": 500
+    },
+    {
+      "kind": "number",
+      "key": "input@range-max",
+      "label": "Max of lookback range",
+      "aliases": [
+        "input#5",
+        "max-of-lookback-range"
+      ],
+      "default": 60,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 500
+    },
+    {
+      "kind": "toggle",
+      "key": "input@bull",
+      "label": "Regular bullish",
+      "aliases": [
+        "input#6",
+        "regular-bullish"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@hidden-bull",
+      "label": "Hidden bullish",
+      "aliases": [
+        "input#7",
+        "hidden-bullish"
+      ],
+      "default": false
+    },
+    {
+      "kind": "toggle",
+      "key": "input@bear",
+      "label": "Regular bearish",
+      "aliases": [
+        "input#8",
+        "regular-bearish"
+      ],
+      "default": true
+    },
+    {
+      "kind": "toggle",
+      "key": "input@hidden-bear",
+      "label": "Hidden bearish",
+      "aliases": [
+        "input#9",
+        "hidden-bearish"
+      ],
+      "default": false
+    },
+    {
+      "kind": "number",
+      "key": "input@keep",
+      "label": "Divergences shown",
+      "aliases": [
+        "input#10",
+        "divergences-shown"
+      ],
+      "default": 20,
+      "numericKind": "integer",
+      "min": 1,
+      "max": 250
+    },
+    {
+      "kind": "number",
+      "key": "input@overbought",
+      "label": "Overbought",
+      "aliases": [
+        "input#11",
+        "overbought"
+      ],
+      "default": 70,
+      "numericKind": "float",
+      "min": 50,
+      "max": 100,
+      "step": 5
+    },
+    {
+      "kind": "number",
+      "key": "input@oversold",
+      "label": "Oversold",
+      "aliases": [
+        "input#12",
+        "oversold"
+      ],
+      "default": 30,
+      "numericKind": "float",
+      "min": 0,
+      "max": 50,
+      "step": 5
+    },
+    {
+      "kind": "color",
+      "key": "input@rsi-color",
+      "label": "RSI line",
+      "aliases": [
+        "input#13",
+        "rsi-line"
+      ],
+      "default": "#a78bfa"
+    },
+    {
+      "kind": "color",
+      "key": "input@bull-color",
+      "label": "Bullish divergence",
+      "aliases": [
+        "input#14",
+        "bullish-divergence"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@bear-color",
+      "label": "Bearish divergence",
+      "aliases": [
+        "input#15",
+        "bearish-divergence"
+      ],
+      "default": "#ef5350"
+    }
+  ],
+  "precision": 2,
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/0efd3e5fe544a84c",
+    "drawingContract": "g-script-v2",
+    "alertConditions": [
+      {
+        "id": "regular-bullish",
+        "title": "Regular bullish divergence",
+        "message": "RSI regular bullish divergence: price made a lower low, RSI a higher low"
+      },
+      {
+        "id": "hidden-bullish",
+        "title": "Hidden bullish divergence",
+        "message": "RSI hidden bullish divergence: price made a higher low, RSI a lower low"
+      },
+      {
+        "id": "regular-bearish",
+        "title": "Regular bearish divergence",
+        "message": "RSI regular bearish divergence: price made a higher high, RSI a lower high"
+      },
+      {
+        "id": "hidden-bearish",
+        "title": "Hidden bearish divergence",
+        "message": "RSI hidden bearish divergence: price made a lower high, RSI a higher high"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/321ca3c960cf82f3",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "hline",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 70,
+          "column": 15
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "input",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 1,
+        "kind": "hline",
+        "kindOrdinal": 1,
+        "source": {
+          "file": "indicator.ts",
+          "line": 71,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "const",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 2,
+        "kind": "hline",
+        "kindOrdinal": 2,
+        "source": {
+          "file": "indicator.ts",
+          "line": 72,
+          "column": 15
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "input",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "lineStyle": "const"
+        }
+      },
+      {
+        "slot": 3,
+        "kind": "fill",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 73,
+          "column": 1
+        },
+        "valueType": "fill",
+        "qualifiers": {
+          "color": "input"
+        },
+        "dependencySlots": [
+          0,
+          2
+        ],
+        "edgeKind": "hline"
+      },
+      {
+        "slot": 4,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 75,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "input",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_0",
+          "settingsKey": "hline#0"
+        },
+        "title": "Overbought",
+        "sourceOrder": 0,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_1",
+          "settingsKey": "hline#1"
+        },
+        "title": "Middle",
+        "sourceOrder": 1,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "rgba(120, 123, 134, 0.5)"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dotted"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "level",
+        "visual": {
+          "type": "hline"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "hline_2",
+          "settingsKey": "hline#2"
+        },
+        "title": "Oversold",
+        "sourceOrder": 2,
+        "renderGroup": "level",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 0
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineStyle": {
+              "origin": "const",
+              "value": "dashed"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineStyle"
+          ],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "derived.fill",
+        "visual": {
+          "type": "fill"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "fill_0",
+          "settingsKey": "fill#0"
+        },
+        "title": "Fill 1",
+        "sourceOrder": 3,
+        "renderGroup": "fill",
+        "payloadPolicy": "derived",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [
+          "hline_0",
+          "hline_2"
+        ],
+        "channels": [],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 34
+            }
+          },
+          "properties": [
+            "color"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "RSI",
+        "sourceOrder": 4,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 15
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "input",
+              "policySlot": 44
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 2
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": null
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_regular-bullish",
+          "settingsKey": "alert_regular-bullish"
+        },
+        "title": "Regular bullish divergence",
+        "sourceOrder": 5,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "RSI regular bullish divergence: price made a lower low, RSI a higher low"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_hidden-bullish",
+          "settingsKey": "alert_hidden-bullish"
+        },
+        "title": "Hidden bullish divergence",
+        "sourceOrder": 6,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "RSI hidden bullish divergence: price made a higher low, RSI a lower low"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_regular-bearish",
+          "settingsKey": "alert_regular-bearish"
+        },
+        "title": "Regular bearish divergence",
+        "sourceOrder": 7,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "RSI regular bearish divergence: price made a higher high, RSI a lower high"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_hidden-bearish",
+          "settingsKey": "alert_hidden-bearish"
+        },
+        "title": "Hidden bearish divergence",
+        "sourceOrder": 8,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "RSI hidden bearish divergence: price made a lower high, RSI a higher high"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.rsi-divergence",
+      "shortTitle": "RSI Divergence",
+      "initialPlacement": "new-pane",
+      "scale": "none",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "inherit",
+      "precision": 2,
+      "drawingLimits": {
+        "label": 500,
+        "line": 500,
+        "box": 50,
+        "table": 4,
+        "polyline": 0
+      },
+      "policySlots": [
+        {
+          "slot": 34,
+          "name": "fill-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        },
+        {
+          "slot": 44,
+          "name": "plot-0-color",
+          "wireType": "string",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      ]
+    },
+    "defaultPolicies": [
+      {
+        "slot": 34,
+        "value": "rgba(167, 139, 250, 0.1)"
+      },
+      {
+        "slot": 44,
+        "value": "#a78bfa"
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "86cdc8d5fba418a635d38fff955aef9423abbc19587dbd73308c50e8cf41fe9b"
+  }
+}

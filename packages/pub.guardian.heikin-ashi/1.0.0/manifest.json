@@ -1,0 +1,418 @@
+{
+  "type": "pub.guardian.heikin-ashi",
+  "name": "Heikin Ashi",
+  "placement": "own-subpane",
+  "apiVersion": 2,
+  "gScriptVersion": 2,
+  "version": "1.0.0",
+  "creator": "guardian",
+  "description": "Heikin Ashi candles in their own pane, averaged to smooth out noise so runs of trend and turns stand out",
+  "changelog": "Initial release.",
+  "inputs": [
+    {
+      "kind": "toggle",
+      "key": "input@strong",
+      "label": "Single out strong candles",
+      "aliases": [
+        "input#0",
+        "single-out-strong-candles"
+      ],
+      "default": true
+    },
+    {
+      "kind": "color",
+      "key": "input@up-color",
+      "label": "Up candle",
+      "aliases": [
+        "input#1",
+        "up-candle"
+      ],
+      "default": "#26a69a"
+    },
+    {
+      "kind": "color",
+      "key": "input@down-color",
+      "label": "Down candle",
+      "aliases": [
+        "input#2",
+        "down-candle"
+      ],
+      "default": "#ef5350"
+    }
+  ],
+  "outputContract": {
+    "schemaVersion": 1,
+    "adapter": "pine-event-v2",
+    "mode": "native-event",
+    "gScriptVersion": 2,
+    "outputSemantics": {
+      "id": "g-script-v2",
+      "limits": {
+        "maxPrecision": 8,
+        "maxShowLastBars": 50000,
+        "maxOffsetBars": 500
+      }
+    },
+    "outputWireVersion": 2,
+    "planSchemaVersion": 1,
+    "declarationFingerprint": "pine-event-declarations/v1/65e690326872c504",
+    "alertConditions": [
+      {
+        "id": "turned-up",
+        "title": "Turned up",
+        "message": "Heikin Ashi candles turned up"
+      },
+      {
+        "id": "turned-down",
+        "title": "Turned down",
+        "message": "Heikin Ashi candles turned down"
+      }
+    ],
+    "runtimeShapeFingerprint": "pine-event-runtime-shape/v1/9436ddba66fc0b67",
+    "declarations": [
+      {
+        "slot": 0,
+        "kind": "plotcandle",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 30,
+          "column": 1
+        },
+        "valueType": "ohlc",
+        "qualifiers": {
+          "open": "series",
+          "high": "series",
+          "low": "series",
+          "close": "series",
+          "title": "const",
+          "color": "series",
+          "wickColor": "series",
+          "borderColor": "series"
+        },
+        "colorPresent": true,
+        "wickColorPresent": true,
+        "borderColorPresent": true
+      },
+      {
+        "slot": 1,
+        "kind": "plot",
+        "kindOrdinal": 0,
+        "source": {
+          "file": "indicator.ts",
+          "line": 40,
+          "column": 1
+        },
+        "valueType": "number",
+        "qualifiers": {
+          "value": "series",
+          "title": "const",
+          "color": "const",
+          "lineWidth": "const",
+          "style": "const",
+          "histBase": "const",
+          "editable": "const",
+          "showLast": "const",
+          "display": "const",
+          "format": "const",
+          "precision": "const",
+          "offsetBars": "const",
+          "forceOverlay": "const"
+        },
+        "style": "line",
+        "histBase": 0
+      }
+    ],
+    "definitions": [
+      {
+        "kind": "serial.ohlc",
+        "visual": {
+          "type": "candles"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "candle_0",
+          "settingsKey": "plotcandle#0"
+        },
+        "title": "Heikin Ashi",
+        "sourceOrder": 0,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 1
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "ohlc",
+            "valueType": "ohlc",
+            "packet": "required",
+            "plotCost": 4
+          },
+          {
+            "role": "serial-style",
+            "key": "style.color",
+            "property": "color",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.wickColor",
+            "property": "wickColor",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          },
+          {
+            "role": "serial-style",
+            "key": "style.borderColor",
+            "property": "borderColor",
+            "valueType": "color",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "upColor": {
+              "origin": "const",
+              "value": "#26a69a"
+            },
+            "downColor": {
+              "origin": "const",
+              "value": "#ef5350"
+            },
+            "color": {
+              "origin": "const",
+              "value": "#26a69a"
+            },
+            "wickColor": {
+              "origin": "const",
+              "value": "#787b86"
+            },
+            "borderColor": {
+              "origin": "const",
+              "value": "#787b86"
+            }
+          },
+          "properties": [
+            "upColor",
+            "downColor",
+            "color",
+            "wickColor",
+            "borderColor"
+          ],
+          "serial": {
+            "color": "style.color",
+            "wickColor": "style.wickColor",
+            "borderColor": "style.borderColor"
+          }
+        }
+      },
+      {
+        "kind": "serial.numeric",
+        "visual": {
+          "type": "line"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "plot_0",
+          "settingsKey": "plot#0"
+        },
+        "title": "Candles in a row",
+        "sourceOrder": 1,
+        "renderGroup": "plot",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 8
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "value",
+            "key": "value",
+            "valueType": "number",
+            "packet": "required",
+            "plotCost": 1
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": true
+          },
+          "visible": {
+            "origin": "const",
+            "value": true
+          },
+          "defaults": {
+            "color": {
+              "origin": "const",
+              "value": "#38bdf8"
+            },
+            "lineWidth": {
+              "origin": "const",
+              "value": 1
+            },
+            "lineType": {
+              "origin": "const",
+              "value": "simple"
+            }
+          },
+          "properties": [
+            "color",
+            "lineWidth",
+            "lineType"
+          ],
+          "serial": {}
+        },
+        "mapping": {
+          "show": {
+            "origin": "const",
+            "value": {
+              "type": "all"
+            }
+          },
+          "offsetBars": {
+            "origin": "const",
+            "value": 0
+          },
+          "route": {
+            "origin": "const",
+            "value": "instance"
+          }
+        },
+        "presentation": {
+          "format": {
+            "origin": "const",
+            "value": "inherit"
+          },
+          "precision": {
+            "origin": "const",
+            "value": 0
+          }
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_turned-up",
+          "settingsKey": "alert_turned-up"
+        },
+        "title": "Turned up",
+        "sourceOrder": 2,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Heikin Ashi candles turned up"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      },
+      {
+        "kind": "signal.alert-condition",
+        "visual": {
+          "type": "none"
+        },
+        "pattern": {
+          "type": "exact",
+          "key": "alert_turned-down",
+          "settingsKey": "alert_turned-down"
+        },
+        "title": "Turned down",
+        "sourceOrder": 3,
+        "renderGroup": "signal",
+        "payloadPolicy": "runtime-packet",
+        "display": {
+          "origin": "const",
+          "value": 0
+        },
+        "dependencies": [],
+        "channels": [
+          {
+            "role": "alert-condition",
+            "key": "condition",
+            "valueType": "boolean",
+            "packet": "required",
+            "plotCost": 0,
+            "message": "Heikin Ashi candles turned down"
+          }
+        ],
+        "style": {
+          "editable": {
+            "origin": "const",
+            "value": false
+          },
+          "visible": {
+            "origin": "const",
+            "value": false
+          },
+          "defaults": {},
+          "properties": [],
+          "serial": {}
+        }
+      }
+    ],
+    "defaults": {
+      "scriptKey": "pub.guardian.heikin-ashi",
+      "shortTitle": "Heikin Ashi",
+      "initialPlacement": "new-pane",
+      "scale": "none",
+      "behindChart": true,
+      "explicitPlotZOrder": true,
+      "format": "price",
+      "drawingLimits": {
+        "label": 50,
+        "line": 50,
+        "box": 50,
+        "table": 4
+      },
+      "policySlots": []
+    },
+    "defaultPolicies": []
+  },
+  "build": {
+    "toolchain": "gscript-toolchain@0.0.1+0795b0a657e3",
+    "sourceSha256": "15134e8fc1c79d5623dab8b14c3fb9f707b33d08154c7035cd86af7621284247"
+  }
+}

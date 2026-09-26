@@ -10,7 +10,219 @@
     ],
     "apiVersion": 2,
     "gScriptVersion": 2,
-    "placement": "own-subpane"
+    "placement": "own-subpane",
+    "fullName": "Accumulation/Distribution Line",
+    "categories": [
+      "volume",
+      "trend"
+    ],
+    "tags": [
+      "accumulation",
+      "distribution",
+      "ad-line",
+      "money-flow",
+      "signal-line",
+      "cumulative-volume"
+    ]
+  },
+  {
+    "id": "pub.guardian.adr-percent",
+    "name": "ADR%",
+    "creator": "guardian",
+    "summary": "How far a stock typically travels in a day, as a percent of price, with tight days and expansion days picked out",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Average Daily Range Percent",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "adr",
+      "daily-range",
+      "swing",
+      "range-contraction",
+      "tight-days",
+      "position-sizing"
+    ]
+  },
+  {
+    "id": "pub.guardian.adx-dmi",
+    "name": "ADX and DMI",
+    "creator": "guardian",
+    "summary": "Wilder's directional lines show which side is pushing, and ADX shows how strong the trend is, with a key level",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Average Directional Index and Directional Movement",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "adx",
+      "dmi",
+      "wilder",
+      "trend-strength",
+      "directional-movement",
+      "crossover"
+    ]
+  },
+  {
+    "id": "pub.guardian.aroon",
+    "name": "Aroon",
+    "creator": "guardian",
+    "summary": "Two lines that measure how recently price made its highest high and lowest low, to show when a trend starts and fades",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "aroon",
+      "trend-strength",
+      "new-highs",
+      "new-lows",
+      "crossover",
+      "oscillator"
+    ]
+  },
+  {
+    "id": "pub.guardian.atr-percent",
+    "name": "ATR%",
+    "creator": "guardian",
+    "summary": "How far a stock typically moves in a bar, gaps included, as a percent of price, with its own average to show expansion",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Average True Range Percent",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "atr",
+      "true-range",
+      "gaps",
+      "volatility-expansion",
+      "position-sizing",
+      "stop-loss"
+    ]
+  },
+  {
+    "id": "pub.guardian.awesome-oscillator",
+    "name": "Awesome Oscillator",
+    "creator": "guardian",
+    "summary": "Momentum as the gap between a fast and a slow average of the median price, in green and red columns",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "awesome-oscillator",
+      "ao",
+      "momentum",
+      "histogram",
+      "zero-line",
+      "median-price"
+    ]
+  },
+  {
+    "id": "pub.guardian.bollinger-bandwidth",
+    "name": "Bollinger BandWidth",
+    "creator": "guardian",
+    "summary": "How wide the Bollinger Bands are as a percent of their average, with the widest and narrowest levels and squeezes marked",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "bollinger-bands",
+      "bandwidth",
+      "squeeze",
+      "volatility-contraction",
+      "breakout",
+      "bbw"
+    ]
+  },
+  {
+    "id": "pub.guardian.bollinger-percent-b",
+    "name": "Bollinger %B",
+    "creator": "guardian",
+    "summary": "Where the close sits between the Bollinger Bands: 1 at the upper band, 0 at the lower, beyond them when price breaks out",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Bollinger Bands Percent B",
+    "categories": [
+      "volatility",
+      "momentum"
+    ],
+    "tags": [
+      "bollinger-bands",
+      "percent-b",
+      "overbought",
+      "oversold",
+      "breakout",
+      "mean-reversion"
+    ]
+  },
+  {
+    "id": "pub.guardian.cci",
+    "name": "CCI",
+    "creator": "guardian",
+    "summary": "How far the typical price has strayed from its average, in units of its usual deviation, with ±100 bands",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Commodity Channel Index",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "cci",
+      "commodity-channel",
+      "oscillator",
+      "overbought",
+      "oversold",
+      "mean-deviation"
+    ]
   },
   {
     "id": "pub.guardian.chaikin-money-flow",
@@ -23,7 +235,70 @@
     ],
     "apiVersion": 2,
     "gScriptVersion": 2,
-    "placement": "own-subpane"
+    "placement": "own-subpane",
+    "fullName": "Chaikin Money Flow (CMF)",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "cmf",
+      "chaikin",
+      "money-flow",
+      "buying-pressure",
+      "selling-pressure",
+      "accumulation"
+    ]
+  },
+  {
+    "id": "pub.guardian.chandelier-exit",
+    "name": "Chandelier Exit",
+    "creator": "guardian",
+    "summary": "A trailing stop hung a few ATRs below the highest close in an up trend and above the lowest close in a down trend",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "chandelier-exit",
+      "trailing-stop",
+      "atr",
+      "stop-loss",
+      "trend-following",
+      "signals"
+    ]
+  },
+  {
+    "id": "pub.guardian.choppiness-index",
+    "name": "Choppiness Index",
+    "creator": "guardian",
+    "summary": "Tells a trending market from a sideways one: high readings mean choppy, overlapping bars, low readings a clean trend",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "chop",
+      "choppiness",
+      "trend-strength",
+      "range-bound",
+      "market-regime",
+      "consolidation"
+    ]
   },
   {
     "id": "pub.guardian.connors-rsi",
@@ -36,7 +311,44 @@
     ],
     "apiVersion": 2,
     "gScriptVersion": 2,
-    "placement": "own-subpane"
+    "placement": "own-subpane",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "connors-rsi",
+      "crsi",
+      "rsi",
+      "streak",
+      "percent-rank",
+      "mean-reversion",
+      "pullback"
+    ]
+  },
+  {
+    "id": "pub.guardian.donchian-channels",
+    "name": "Donchian Channels",
+    "creator": "guardian",
+    "summary": "The highest high and lowest low of recent bars as a channel, with markers where the close breaks out of it",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "donchian",
+      "channels",
+      "breakout",
+      "highs-lows",
+      "turtle",
+      "range"
+    ]
   },
   {
     "id": "pub.guardian.elder-force-index",
@@ -49,7 +361,143 @@
     ],
     "apiVersion": 2,
     "gScriptVersion": 2,
-    "placement": "own-subpane"
+    "placement": "own-subpane",
+    "fullName": "Elder Force Index (EFI)",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "efi",
+      "force-index",
+      "elder",
+      "bulls-bears",
+      "pullback",
+      "zero-cross"
+    ]
+  },
+  {
+    "id": "pub.guardian.elder-impulse",
+    "name": "Elder Impulse System",
+    "creator": "guardian",
+    "summary": "Colours each price bar green, red or blue by whether trend and momentum are rising together, falling together or split",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "elder",
+      "impulse",
+      "macd",
+      "ema",
+      "bar-color",
+      "trend-filter"
+    ]
+  },
+  {
+    "id": "pub.guardian.ema",
+    "name": "EMA",
+    "creator": "guardian",
+    "summary": "An exponential moving average of the source you choose, the same line as the chart's built-in EMA, with close-cross alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Exponential Moving Average",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "ema",
+      "moving-average",
+      "exponential",
+      "trend-following",
+      "overlay"
+    ]
+  },
+  {
+    "id": "pub.guardian.envelope",
+    "name": "Envelope",
+    "creator": "guardian",
+    "summary": "A moving average with bands a fixed percent above and below it, showing when price is stretched from its mean",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "envelope",
+      "bands",
+      "moving-average",
+      "mean-reversion",
+      "overextension",
+      "percent-bands"
+    ]
+  },
+  {
+    "id": "pub.guardian.fifty-two-week-range",
+    "name": "52-Week Range",
+    "creator": "guardian",
+    "summary": "How far a stock trades below its 52-week high and above its 52-week low, with guides for the zones swing traders watch",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "52-Week High and Low Range",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "52-week-high",
+      "52-week-low",
+      "breakout",
+      "swing",
+      "new-highs"
+    ]
+  },
+  {
+    "id": "pub.guardian.heikin-ashi",
+    "name": "Heikin Ashi",
+    "creator": "guardian",
+    "summary": "Heikin Ashi candles in their own pane, averaged to smooth out noise so runs of trend and turns stand out",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "trend",
+      "patterns"
+    ],
+    "tags": [
+      "heikin-ashi",
+      "candles",
+      "trend-following",
+      "smoothing",
+      "reversal"
+    ]
   },
   {
     "id": "pub.guardian.historical-volatility",
@@ -62,7 +510,809 @@
     ],
     "apiVersion": 2,
     "gScriptVersion": 2,
-    "placement": "own-subpane"
+    "placement": "own-subpane",
+    "categories": [
+      "volatility"
+    ],
+    "tags": [
+      "hv",
+      "historical-volatility",
+      "standard-deviation",
+      "hv-rank",
+      "volatility-contraction",
+      "options"
+    ]
+  },
+  {
+    "id": "pub.guardian.ichimoku-cloud",
+    "name": "Ichimoku Cloud",
+    "creator": "guardian",
+    "summary": "The five Ichimoku lines with the cloud projected ahead of price, shaded green or red by which leading span is on top",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Ichimoku Kinko Hyo Cloud",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "ichimoku",
+      "cloud",
+      "kumo",
+      "tenkan-kijun",
+      "support-resistance",
+      "trend-following"
+    ]
+  },
+  {
+    "id": "pub.guardian.kaufman-ama",
+    "name": "KAMA",
+    "creator": "guardian",
+    "summary": "A moving average that speeds up when price trends cleanly and nearly stops when it chops sideways",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Kaufman's Adaptive Moving Average",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "kama",
+      "adaptive-moving-average",
+      "moving-average",
+      "efficiency-ratio",
+      "trend-following",
+      "kaufman"
+    ]
+  },
+  {
+    "id": "pub.guardian.keltner-channels",
+    "name": "Keltner Channels",
+    "creator": "guardian",
+    "summary": "An average of price with bands set a multiple of the average true range away, for trend and breakout reading",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "volatility",
+      "trend"
+    ],
+    "tags": [
+      "keltner",
+      "channels",
+      "atr",
+      "bands",
+      "breakout",
+      "volatility",
+      "ema"
+    ]
+  },
+  {
+    "id": "pub.guardian.klinger-oscillator",
+    "name": "Klinger Oscillator",
+    "creator": "guardian",
+    "summary": "Signed volume averaged fast against slow, with a signal line, a histogram of the gap and cross alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Klinger Volume Oscillator (KVO)",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "kvo",
+      "klinger",
+      "signed-volume",
+      "signal-line",
+      "histogram",
+      "divergence"
+    ]
+  },
+  {
+    "id": "pub.guardian.linear-regression-channel",
+    "name": "Linear Regression Channel",
+    "creator": "guardian",
+    "summary": "The straight line that best fits recent prices, with a channel two deviations either side and Pearson's R for how straight it is",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "linear-regression",
+      "channel",
+      "standard-deviation",
+      "pearson-r",
+      "trend-line",
+      "mean-reversion"
+    ]
+  },
+  {
+    "id": "pub.guardian.ma-cross",
+    "name": "MA Cross",
+    "creator": "guardian",
+    "summary": "A fast and a slow moving average with the space between them shaded, and golden-cross and death-cross labels",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "crossover",
+      "golden-cross",
+      "death-cross",
+      "sma",
+      "ema",
+      "signals"
+    ]
+  },
+  {
+    "id": "pub.guardian.ma-extension",
+    "name": "MA Extension",
+    "creator": "guardian",
+    "summary": "How far price has stretched from its moving average, in percent or in ATRs, with extended and stretched columns picked out",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Moving Average Extension",
+    "categories": [
+      "momentum",
+      "trend"
+    ],
+    "tags": [
+      "ema",
+      "extension",
+      "mean-reversion",
+      "overextended",
+      "atr",
+      "swing"
+    ]
+  },
+  {
+    "id": "pub.guardian.ma-ribbon",
+    "name": "MA Ribbon",
+    "creator": "guardian",
+    "summary": "Four moving averages of the close with the ribbon shaded while they are stacked in trend order, up or down",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "ribbon",
+      "trend-alignment",
+      "sma",
+      "ema",
+      "200-dma",
+      "trend-following"
+    ]
+  },
+  {
+    "id": "pub.guardian.market-structure",
+    "name": "Market Structure",
+    "creator": "guardian",
+    "summary": "Swing highs and lows labelled as higher or lower highs and lows, with break-of-structure lines and alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend",
+      "pivot"
+    ],
+    "tags": [
+      "market-structure",
+      "swing-points",
+      "break-of-structure",
+      "bos",
+      "higher-highs",
+      "price-action",
+      "pivots",
+      "trend-structure"
+    ]
+  },
+  {
+    "id": "pub.guardian.money-flow-index",
+    "name": "Money Flow Index",
+    "creator": "guardian",
+    "summary": "A 0 to 100 oscillator of money flowing in on up days against money flowing out on down days, with 80 and 20 zones",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Money Flow Index (MFI)",
+    "categories": [
+      "volume",
+      "momentum"
+    ],
+    "tags": [
+      "mfi",
+      "money-flow",
+      "overbought",
+      "oversold",
+      "oscillator",
+      "divergence"
+    ]
+  },
+  {
+    "id": "pub.guardian.moving-average",
+    "name": "Moving Average",
+    "creator": "guardian",
+    "summary": "A single moving average of price in the type you choose, coloured by its slope, with close-cross alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "ema",
+      "sma",
+      "hull",
+      "alma",
+      "dema",
+      "tema",
+      "trend-following"
+    ]
+  },
+  {
+    "id": "pub.guardian.mtf-moving-average",
+    "name": "Higher Timeframe MA",
+    "creator": "guardian",
+    "summary": "A weekly or monthly moving average drawn on a daily or intraday chart, stepping only when the higher period has closed",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Higher Timeframe Moving Average",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "moving-average",
+      "multi-timeframe",
+      "weekly",
+      "ema",
+      "sma",
+      "stage-analysis",
+      "swing"
+    ]
+  },
+  {
+    "id": "pub.guardian.obv",
+    "name": "On Balance Volume",
+    "creator": "guardian",
+    "summary": "A running total of volume that rises on up closes and falls on down closes, with a signal line and cross alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "On Balance Volume (OBV)",
+    "categories": [
+      "volume",
+      "trend"
+    ],
+    "tags": [
+      "obv",
+      "on-balance-volume",
+      "accumulation",
+      "divergence",
+      "signal-line",
+      "confirmation"
+    ]
+  },
+  {
+    "id": "pub.guardian.parabolic-sar",
+    "name": "Parabolic SAR",
+    "creator": "guardian",
+    "summary": "Wilder's stop-and-reverse drawn as dots that trail under price in an up trend and over it in a down trend",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "parabolic-sar",
+      "psar",
+      "trailing-stop",
+      "stop-and-reverse",
+      "wilder",
+      "trend-following",
+      "flip"
+    ]
+  },
+  {
+    "id": "pub.guardian.pivot-points",
+    "name": "Pivot Points Standard",
+    "creator": "guardian",
+    "summary": "Pivot, resistance and support levels from the previous day, week or month, drawn for each period in six classic styles",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Pivot Points Standard",
+    "categories": [
+      "pivot",
+      "trend"
+    ],
+    "tags": [
+      "pivot-points",
+      "support-resistance",
+      "camarilla",
+      "fibonacci",
+      "woodie",
+      "intraday",
+      "weekly-pivots"
+    ]
+  },
+  {
+    "id": "pub.guardian.previous-high-low",
+    "name": "Previous High and Low",
+    "creator": "guardian",
+    "summary": "Yesterday's high, low and close, and last week's and last month's range, as levels on the price chart",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Previous Day, Week and Month High and Low",
+    "categories": [
+      "pivot",
+      "trend"
+    ],
+    "tags": [
+      "pdh",
+      "pdl",
+      "previous-day",
+      "weekly-levels",
+      "monthly-levels",
+      "support-resistance",
+      "breakout",
+      "intraday"
+    ]
+  },
+  {
+    "id": "pub.guardian.rate-of-change",
+    "name": "Rate of Change",
+    "creator": "guardian",
+    "summary": "How far price has moved, in percent, against where it stood a set number of bars ago, coloured by side of zero",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Rate of Change",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "roc",
+      "rate-of-change",
+      "momentum",
+      "oscillator",
+      "zero-line"
+    ]
+  },
+  {
+    "id": "pub.guardian.relative-strength",
+    "name": "Relative Strength",
+    "creator": "guardian",
+    "summary": "A stock's price against its index, as a line that rises while the stock outperforms, with new-high markers",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "momentum",
+      "trend"
+    ],
+    "tags": [
+      "rs-line",
+      "benchmark",
+      "index",
+      "outperformance",
+      "leadership",
+      "relative-performance"
+    ]
+  },
+  {
+    "id": "pub.guardian.relative-volume",
+    "name": "Relative Volume",
+    "creator": "guardian",
+    "summary": "Each bar's volume as a multiple of its recent average, with surges picked out in bright up or down colours",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Relative Volume (RVOL)",
+    "categories": [
+      "volume"
+    ],
+    "tags": [
+      "rvol",
+      "relative-volume",
+      "volume-surge",
+      "breakout",
+      "accumulation",
+      "distribution"
+    ]
+  },
+  {
+    "id": "pub.guardian.rsi-divergence",
+    "name": "RSI Divergence",
+    "creator": "guardian",
+    "summary": "RSI in its own pane that draws a line between two RSI pivots whenever price and RSI disagree, with alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "momentum",
+      "patterns"
+    ],
+    "tags": [
+      "rsi",
+      "divergence",
+      "pivots",
+      "momentum",
+      "hidden-divergence",
+      "alerts"
+    ]
+  },
+  {
+    "id": "pub.guardian.squeeze-momentum",
+    "name": "Squeeze Momentum",
+    "creator": "guardian",
+    "summary": "Spots volatility squeezes, Bollinger Bands inside Keltner Channels, and shows which way momentum is building",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "volatility",
+      "momentum"
+    ],
+    "tags": [
+      "squeeze",
+      "bollinger-bands",
+      "keltner-channels",
+      "momentum",
+      "breakout",
+      "volatility-contraction"
+    ]
+  },
+  {
+    "id": "pub.guardian.stochastic-rsi",
+    "name": "Stochastic RSI",
+    "creator": "guardian",
+    "summary": "Where RSI sits within its own recent range, as smoothed K and D lines between 80 and 20 bands",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "stoch-rsi",
+      "stochastic",
+      "rsi",
+      "overbought",
+      "oversold",
+      "crossover"
+    ]
+  },
+  {
+    "id": "pub.guardian.supertrend",
+    "name": "Supertrend",
+    "creator": "guardian",
+    "summary": "An ATR-based trailing line that sits below price in an up trend and above it in a down trend, with flip signals",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "categories": [
+      "trend",
+      "volatility"
+    ],
+    "tags": [
+      "atr",
+      "trailing-stop",
+      "trend-following",
+      "signals",
+      "stop-loss",
+      "flip"
+    ]
+  },
+  {
+    "id": "pub.guardian.swing-dashboard",
+    "name": "Swing Dashboard",
+    "creator": "guardian",
+    "summary": "One compact table of the numbers a swing trader checks first: range, volatility, volume, liquidity, trend and strength",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Swing Trading Dashboard",
+    "categories": [
+      "utility",
+      "volatility",
+      "volume"
+    ],
+    "tags": [
+      "dashboard",
+      "adr",
+      "rvol",
+      "turnover",
+      "relative-strength",
+      "screening",
+      "swing"
+    ]
+  },
+  {
+    "id": "pub.guardian.trend-template",
+    "name": "Trend Template",
+    "creator": "guardian",
+    "summary": "Mark Minervini's eight-point trend template as a live checklist, with the moving averages and shading where every point passes",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Trend Template Checklist",
+    "categories": [
+      "trend",
+      "momentum"
+    ],
+    "tags": [
+      "minervini",
+      "trend-template",
+      "stage-2",
+      "screening",
+      "moving-averages",
+      "relative-strength",
+      "swing"
+    ]
+  },
+  {
+    "id": "pub.guardian.trix",
+    "name": "TRIX",
+    "creator": "guardian",
+    "summary": "The rate of change of a triple-smoothed log price, filtering out short swings, with a signal line and zero crosses",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Triple Exponential Average",
+    "categories": [
+      "momentum",
+      "trend"
+    ],
+    "tags": [
+      "trix",
+      "triple-ema",
+      "rate-of-change",
+      "momentum",
+      "signal-line",
+      "zero-line"
+    ]
+  },
+  {
+    "id": "pub.guardian.true-strength-index",
+    "name": "True Strength Index",
+    "creator": "guardian",
+    "summary": "Double-smoothed price momentum on a −100 to +100 scale, with a signal line and zero-line crosses",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "tsi",
+      "true-strength",
+      "momentum",
+      "signal-line",
+      "double-smoothed",
+      "zero-line"
+    ]
+  },
+  {
+    "id": "pub.guardian.up-down-volume",
+    "name": "Up/Down Volume Ratio",
+    "creator": "guardian",
+    "summary": "Volume on up days divided by volume on down days over the last 50 bars, with accumulation and distribution zones",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Up/Down Volume Ratio",
+    "categories": [
+      "volume",
+      "trend"
+    ],
+    "tags": [
+      "up-down-volume",
+      "ud-ratio",
+      "accumulation",
+      "distribution",
+      "canslim",
+      "institutional"
+    ]
+  },
+  {
+    "id": "pub.guardian.vortex",
+    "name": "Vortex Indicator",
+    "creator": "guardian",
+    "summary": "Two lines that compare upward and downward price movement to show which side controls the trend, with cross alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "categories": [
+      "trend"
+    ],
+    "tags": [
+      "vortex",
+      "trend-direction",
+      "crossover",
+      "true-range",
+      "trend-strength"
+    ]
+  },
+  {
+    "id": "pub.guardian.vwap",
+    "name": "VWAP",
+    "creator": "guardian",
+    "summary": "The session's volume-weighted average price, restarting each IST trading day, with close-cross alerts",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "price",
+    "fullName": "Volume-Weighted Average Price",
+    "categories": [
+      "volume"
+    ],
+    "tags": [
+      "vwap",
+      "volume-weighted",
+      "average-price",
+      "intraday",
+      "session",
+      "benchmark"
+    ]
+  },
+  {
+    "id": "pub.guardian.williams-r",
+    "name": "Williams %R",
+    "creator": "guardian",
+    "summary": "Where the close sits inside the recent high-low range, from 0 at the top to −100 at the bottom, with zone exits marked",
+    "latestVersion": "1.0.0",
+    "versions": [
+      "1.0.0"
+    ],
+    "apiVersion": 2,
+    "gScriptVersion": 2,
+    "placement": "own-subpane",
+    "fullName": "Williams Percent Range",
+    "categories": [
+      "momentum"
+    ],
+    "tags": [
+      "williams-r",
+      "percent-range",
+      "overbought",
+      "oversold",
+      "oscillator",
+      "mean-reversion"
+    ]
   },
   {
     "id": "pub.satioo.sma-envelope",
