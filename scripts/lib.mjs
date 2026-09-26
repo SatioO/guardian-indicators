@@ -80,9 +80,12 @@ export function checkPrChanges(changes, repo) {
  * One catalog row: what the app's Library lists before anything is installed.
  * `listing` is the indicator's listing.json (source-built indicators) — its
  * categories, tags and full name let the Library file and find the indicator
- * like a built-in. Display data only: installs verify the signed package.
+ * like a built-in. `listingPath` is where that listing.json lives in this repo:
+ * when it has a long description the row points at it, and the app fetches it
+ * only when a trader opens the indicator's details — the catalog stays small.
+ * Display data only: installs verify the signed package.
  */
-export function catalogEntry(manifest, versions, listing) {
+export function catalogEntry(manifest, versions, listing, listingPath) {
   const sorted = [...versions].sort(compareSemver);
   const authored = listing?.authored ?? {};
   return {
@@ -102,5 +105,6 @@ export function catalogEntry(manifest, versions, listing) {
     ...(typeof authored.fullName === 'string' && authored.fullName ? { fullName: authored.fullName } : {}),
     ...(Array.isArray(authored.categories) && authored.categories.length ? { categories: authored.categories } : {}),
     ...(Array.isArray(authored.tags) && authored.tags.length ? { tags: authored.tags } : {}),
+    ...(listingPath && typeof authored.description === 'string' && authored.description.trim() ? { listing: listingPath } : {}),
   };
 }

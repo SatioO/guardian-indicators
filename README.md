@@ -71,7 +71,10 @@ npm run check                                          # builds all, prints what
 - `manifest.json`: `name`, `placement` (`price` | `own-subpane`), `apiVersion: 2`,
   `gScriptVersion: 2`, `version`. Its `type` is how the app's developer mode loads the folder
   (`local.<name>`); the published id is always `pub.guardian.<folder name>`.
-- `listing.json`: `authored.summary` becomes the Library's one-line description.
+- `listing.json`: `authored.summary` becomes the Library's one-line description, and
+  `authored.description` its full description. The catalog points at the listing, and the app
+  fetches it only when a trader opens the indicator's details. Editing a description needs no
+  new version: it shows once the merge's catalog rebuild lands.
 - Tests import the runtime and fixtures from the toolchain:
 
   ```ts
